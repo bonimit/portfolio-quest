@@ -1,0 +1,154 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "status": {
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "enum": [
+              "art-director",
+              "ux-reviewer",
+              "conversation-designer",
+              "code-qa-reviewer"
+            ]
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail"
+            ]
+          },
+          "complete": {
+            "type": "boolean"
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "severity": {
+                  "enum": [
+                    "critical",
+                    "high",
+                    "medium",
+                    "low"
+                  ]
+                },
+                "blocking": {
+                  "type": "boolean"
+                },
+                "criterion": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "suggestedFix": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "verification": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "severity",
+                "blocking",
+                "criterion",
+                "evidence",
+                "suggestedFix",
+                "verification"
+              ]
+            },
+            "minItems": 0
+          },
+          "notReviewed": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          }
+        },
+        "required": [
+          "name",
+          "status",
+          "complete",
+          "scope",
+          "findings",
+          "notReviewed"
+        ]
+      },
+      "minItems": 1
+    },
+    "criteriaCoverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "criterion": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "unverified"
+            ]
+          },
+          "evidence": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "criterion",
+          "status",
+          "evidence"
+        ]
+      },
+      "minItems": 1
+    },
+    "openDecisions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "status",
+    "summary",
+    "reviewers",
+    "criteriaCoverage",
+    "openDecisions"
+  ]
+}

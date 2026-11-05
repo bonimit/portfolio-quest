@@ -1,0 +1,37 @@
+{
+  "name": "portfolio-quest",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "next typegen && tsc --noEmit",
+    "orchestrate": "node automation/orchestrator.ts",
+    "orchestrate:dry": "node automation/orchestrator.ts --dry-run",
+    "test:automation": "node --test automation/orchestrator.test.mjs automation/integration.test.mjs",
+    "integration:plan": "node automation/integration.ts --plan",
+    "integration:preflight": "node automation/integration.ts --preflight",
+    "integration:run": "node automation/integration.ts --execute"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "dependencies": {
+    "next": "16.4.5",
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.3.4",
+    "@types/node": "26.6.6",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.5",
+    "postcss": "8.5.32",
+    "tailwindcss": "4.3.4",
+    "typescript": "6.0.3"
+  }
+}

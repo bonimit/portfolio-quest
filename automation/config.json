@@ -1,0 +1,11 @@
+{
+  "liveEnabled": false,
+  "maxReviewRounds": 3,
+  "processTimeoutMs": 900000,
+  "maxOutputBytes": 10485760,
+  "inspectedVersions": {
+    "codex": "codex-cli 0.145.0",
+    "claude": "2.1.304 (Claude Code)"
+  },
+  "checks": ["lint", "typecheck", "build", "test:automation"]
+}

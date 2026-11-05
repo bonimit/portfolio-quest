@@ -1,0 +1,29 @@
+# Dependencies and package-manager logs
+node_modules/
+.pnp.*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Next.js and TypeScript generated files
+.next/
+out/
+build/
+next-env.d.ts
+*.tsbuildinfo
+coverage/
+
+# Environment files and local credentials
+.env*
+*.pem
+*.key
+.aws/
+.vercel/
+
+# Local operating-system files
+.DS_Store
+Thumbs.db
+
+# Local coordinator output (approve reports explicitly before tracking)
+automation/reports/

@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "maxReviewRounds": 3,
+  "childTimeoutMs": 600000,
+  "totalTimeoutMs": 2700000,
+  "maxOutputBytes": 10485760
+}

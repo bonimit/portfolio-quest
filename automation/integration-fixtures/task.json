@@ -1,0 +1,15 @@
+{
+  "id": "integration-notice",
+  "category": "foundation",
+  "description": "CONTROLLED TEST ONLY. Create components/integration/IntegrationNotice.tsx exporting IntegrationNotice({message}: {message: string}), rendering a plain p element with role=status and the message. Create tests/integration/notice.test.mjs using node:test and node:assert/strict. Import renderNotice from ../../automation/integration-fixtures/render.mjs and await renderNotice(process.cwd(), 'Hello <world>'); assert it contains role=\"status\" and Hello &lt;world&gt;. Do not mount the component on any page, add styles, install dependencies, or modify any other files. The harness will deliberately inject an aria-hidden defect after your first implementation to exercise a real review-to-repair handoff; do not anticipate or hide it. On repair rounds change only the implementation to fix Claude's blocking findings.",
+  "acceptanceCriteria": [
+    "The reusable IntegrationNotice exports a message prop and renders it escaped in a p element with role=status.",
+    "The notice must not hide its message from assistive technology; aria-hidden=true is forbidden.",
+    "A node:test test verifies message rendering and the status role; existing application routes and dependencies remain unchanged."
+  ],
+  "allowedPaths": [
+    "components/integration/IntegrationNotice.tsx",
+    "tests/integration/notice.test.mjs"
+  ],
+  "testScripts": []
+}

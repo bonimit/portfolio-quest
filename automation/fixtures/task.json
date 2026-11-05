@@ -1,0 +1,8 @@
+{
+  "id": "dry-foundation",
+  "category": "foundation",
+  "description": "Simulation only: verify the foundation review workflow. Do not change application code.",
+  "acceptanceCriteria": ["The simulated scoped task satisfies its requirements."],
+  "allowedPaths": ["app/", "components/"],
+  "testScripts": ["test:automation"]
+}
