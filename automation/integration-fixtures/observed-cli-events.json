@@ -1,0 +1,21 @@
+{
+  "skillsBudgetNotice": {
+    "type": "item.completed",
+    "item": {
+      "id": "item_0",
+      "type": "error",
+      "message": "Skill descriptions were shortened to fit the 2% skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest."
+    }
+  },
+  "gitCacheDenial": {
+    "type": "item.completed",
+    "item": {
+      "id": "item_4",
+      "type": "command_execution",
+      "command": "git status --short",
+      "aggregated_output": "git: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ngit: error: couldn't create cache file '/tmp/xcrun_db-QZG0tlJn' (errno=Operation not permitted)\n",
+      "exit_code": 0,
+      "status": "completed"
+    }
+  }
+}

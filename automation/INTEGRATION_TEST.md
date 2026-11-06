@@ -1,8 +1,10 @@
 # Controlled Codex → Claude → Codex integration test
 
-**Prepared, not executed. Owner approval is required before any real model run.**
+**The first live attempt stopped before Claude review. The repaired harness has
+not been rerun live. Owner approval is required before another model run.**
 This is a separate, fixed test harness in `integration.ts`; it does not enable the
-general orchestrator. `integration-config.json` ships with `enabled: false`.
+general orchestrator. `integration-config.json` has a separate `enabled` gate;
+the owner's current value is not changed by a harness repair.
 
 ## From VS Code: safe preparation now
 
@@ -47,6 +49,9 @@ They do not prove that either real agent participated.
 - Existing local dependencies installed from the reviewed lockfile (`npm ci`).
   The harness performs no automatic dependency installation.
 - Both fixture target paths must be absent from the baseline.
+- Xcode/Command Line Tools must provide a native Git executable discoverable with
+  `/usr/bin/xcrun --no-cache --find git`. The harness does not fall back to the
+  `/usr/bin/git` launcher when the native executable is unavailable.
 
 Once the owner explicitly approves, set **only** `enabled` to `true` in
 `automation/integration-config.json` and include that reviewed setting in the
@@ -169,6 +174,112 @@ active group. A shared report lock prevents concurrent coordinators in this
 checkout. After a forced kill, inspect processes before manually removing a stale
 lock. The harness never commits, pushes, merges, deploys, creates secrets or
 activates paid services.
+
+## First live attempt: findings and repair
+
+Evidence is preserved in `reports/integration-1793920540576-b247ade6/` and its
+original `automation/integration-2461b7e3` worktree. Do not delete or overwrite
+either to prepare a rerun. Codex created both fixture files, its component test
+passed, its process exited 0, and a `turn.completed` event was present. There
+were no Claude invocations, specialist calls, or completed review rounds.
+
+The old shared validator treated every Codex `item.type: "error"` as fatal.
+Codex CLI 0.145.0 emitted this informational notice in exactly that shape:
+
+> Skill descriptions were shortened to fit the 2% skills context budget.
+
+There is no severity or diagnostic-code field on that observed item. The controlled
+harness now permits only the **entire exact observed message and item shape**,
+recording it as an informational diagnostic. A successful process exit and
+completed turn are still required. An unknown error item, a changed message,
+explicit failed status, nonzero command/process exit, missing completion,
+authentication/usage error or permission denial stops the run. The general
+orchestrator's separate validator is unchanged by this scoped repair.
+
+The Git failure was real even though Apple Git returned exit 0. The launcher
+reported that `confstr()` could not resolve `DARWIN_USER_TEMP_DIR` and fell back
+to `/tmp`, then failed to write `/tmp/xcrun_db-QZG0tlJn` and subsequent
+`/tmp/xcrun_db-*` files. The sandbox intentionally excludes global `/tmp` and the
+host's temporary directory. `TMPDIR` alone does not fix that launcher's confstr
+fallback. Related Xcode developer-cache diagnostics and Codex's model-cache
+`base_instructions` parse diagnostics remain in the original logs. This repair
+does not delete caches, alter authentication or suppress those stderr logs.
+
+For a fresh run, the controller discovers native Git **before** sandboxing with
+`xcrun --no-cache --find git`, records its path/version, and invokes it directly.
+On the diagnosed machine it is
+`/Applications/Xcode.app/Contents/Developer/usr/bin/git`. Its directory is first
+on the command PATH. Codex is instructed to use the recorded absolute executable.
+The command environment and Codex's explicit `shell_environment_policy.set`
+overrides set `TMPDIR`, `TMP`, `TEMP` to
+`<worktree>/.integration-tmp/tmp` and `XDG_CACHE_HOME` to
+`<worktree>/.integration-tmp/cache`. These directories are physically resolved
+and created within the worktree. `allow_login_shell=false` prevents login-shell
+startup from resetting these paths; tool calls must use `login=false`.
+
+`GIT_OPTIONAL_LOCKS=0` avoids optional index refresh writes for read-only Git
+commands. Normal Git trust checks and policy rules remain enabled; Git metadata
+stays protected. No additional writable roots, global-temp access, unrestricted
+sandbox mode, bypass flag, sudo or permission changes are introduced. A native
+Git `status` probe now runs inside the validation sandbox before any agent call.
+
+Stderr is saved verbatim rather than classified with broad keyword matching.
+Structured errors and exit codes decide failures. Because the observed Git
+launcher can report a permission failure with exit 0, a narrowly anchored parser
+also recognizes its exact `git: error: couldn't create cache file '…'
+(errno=Operation not permitted)` diagnostic, records/stops on it, and handles
+the `Permission denied` errno variant. This is not a blanket rule about words
+such as “permission” appearing in logs or documentation. Model command items
+with nonzero exit codes now stop immediately too.
+
+### Verify the repair without agents
+
+```sh
+npm run test:automation
+node --test automation/integration-git.test.mjs
+npm run lint
+npm run typecheck
+npm run build
+```
+
+The second command must run in a normal macOS terminal: a parent agent sandbox
+can reject nested `sandbox-exec` setup with exit 71. Do not remove the inner
+sandbox or loosen permissions to work around that restriction. It initializes
+only a disposable, uncommitted scratch repository; it never starts models or
+touches the failed worktree. It checks non-login PATH resolution, local temp/cache
+variables, repeated native Git `status`/`diff` with empty stderr, unchanged Git
+metadata, and denied outside/metadata writes and localhost network access.
+
+Regression event fixtures in `integration-fixtures/observed-cli-events.json`
+contain the warning and cache-denial shapes from the real first-run logs. Unit
+tests cover those cases, retained stderr, process/command exit failures and the
+full mocked feedback cycle. None of these are real Claude review evidence.
+
+### Safe rerun after review and explicit approval
+
+1. Review the harness repair and include it in a new local commit through your
+   normal review process. The harness never commits automatically. Keep the
+   repaired files out of the old failed worktree and do not cherry-pick its
+   generated component into the main baseline. Both fixture paths must remain
+   absent in the main checkout. Ensure `git status --short` is empty.
+2. Keep the general orchestrator's `liveEnabled` false. Confirm the controlled
+   integration's `enabled` setting reflects the owner's approval; the repair
+   does not change that value or authorize another live run by itself.
+3. In VS Code's normal terminal, from `/Users/workspace/portfolio-quest`, run
+   `npm run integration:plan` and `npm run integration:preflight`. Stop if
+   preflight fails; never paste credentials or bypass permissions.
+4. **Only after approval**, run exactly:
+
+   ```sh
+   npm run integration:run
+   ```
+
+This creates a new uniquely named worktree/branch from the repaired clean HEAD.
+It does not resume, overwrite or remove the failed run. The three-review-round
+limit, read-only Claude restrictions, actual delegation evidence requirements,
+final oracle, process limits and prohibitions on publishing remain unchanged.
+The real Claude handoff still has not been validated. Account usage/charges may
+apply to a live rerun. Press Ctrl+C to stop, and retain the new report on failure.
 
 ## Local harness verification
 

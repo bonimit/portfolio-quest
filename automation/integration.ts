@@ -2,10 +2,10 @@ import { spawn } from "node:child_process";
 import { realpathSync } from "node:fs";
 import { readFile, writeFile, mkdir, readdir, lstat, symlink, open, unlink } from "node:fs/promises";
 import { createHash, randomUUID } from "node:crypto";
-import { join, resolve, dirname } from "node:path";
+import { join, resolve, dirname, isAbsolute, delimiter } from "node:path";
 import { tmpdir, homedir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { loadAgents, codexCommand, claudeCommand, validateCodex, parseClaude, validateReview, validateSchema, selectReviewers } from "./orchestrator.ts";
+import { loadAgents, codexCommand, claudeCommand, parseClaude, validateReview, validateSchema, selectReviewers } from "./orchestrator.ts";
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const ALL = selectReviewers("ai-companion", []);
@@ -35,12 +35,68 @@ export function validateLimits(config: Config) {
   }
 }
 
+export const SKILLS_BUDGET_NOTICE = "Skill descriptions were shortened to fit the 2% skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.";
+
+// Codex 0.145.0 emits this informational notice as an error-typed item without
+// severity/code fields. Match the entire observed event shape/message only.
+export function informationalNotice(event: Record<string, unknown>): boolean {
+  const item = event.item as { type?: string; message?: string; status?: string; error?: unknown; exit_code?: number } | undefined;
+  return event.type === "item.completed" && !event.error && item?.type === "error" &&
+    item.message === SKILLS_BUDGET_NOTICE && item.status === undefined && item.error === undefined && item.exit_code === undefined;
+}
+
+// Apple Git can exit 0 despite an xcrun cache denial. Parse its exact diagnostic
+// grammar, never generic words such as "permission" appearing in prose/stderr.
+export function gitCacheDenials(text: string): string[] {
+  return [...text.matchAll(/^git: error: couldn't create cache file '([^'\r\n]+)' \(errno=(?:Operation not permitted|Permission denied)\)\r?$/gm)].map(match => match[1]);
+}
+
 export function fatalEvent(event: Record<string, unknown>): boolean {
   if (["error", "turn.failed"].includes(String(event.type)) || event.error) return true;
+  const item = event.item as { type?: string; status?: string; exit_code?: number | null; aggregated_output?: string } | undefined;
+  if (item?.type === "error") return !informationalNotice(event);
+  if (item?.status === "failed" || item?.status === "cancelled") return true;
+  if (item?.type === "command_execution" && event.type === "item.completed") {
+    if (item.status !== "completed" || item.exit_code !== 0) return true;
+    if (gitCacheDenials(item.aggregated_output ?? "").length) return true;
+  }
   if (event.type === "rate_limit_event" && (event.rate_limit_info as { status?: string })?.status !== "allowed") return true;
   if (event.type === "result" && (event.is_error === true || event.subtype !== "success" || (Array.isArray(event.permission_denials) && event.permission_denials.length > 0))) return true;
   const blocks = (event.message as { content?: { type?: string; is_error?: boolean }[] })?.content;
   return Boolean(blocks?.some(block => block.type === "tool_result" && block.is_error));
+}
+
+export function validateIntegrationCodex(stdout: string, exitCode: number | null): Record<string, unknown>[] {
+  requireThat(exitCode === 0, "Codex process exited unsuccessfully");
+  const events = stdout.trim().split("\n").map(line => JSON.parse(line) as Record<string, unknown>);
+  requireThat(events.some(event => event.type === "turn.completed"), "Codex turn did not complete");
+  requireThat(!events.some(fatalEvent), "Codex reported a structured failure or Git cache denial");
+  return events.filter(informationalNotice);
+}
+
+export async function worktreeCommandEnvironment(worktree: string, nativeGit: string): Promise<NodeJS.ProcessEnv> {
+  const local = realpathSync(join(worktree, ".integration-tmp"));
+  const temp = join(local, "tmp"), cache = join(local, "cache");
+  await mkdir(temp, { recursive: true }); await mkdir(cache, { recursive: true });
+  return {
+    PATH: [dirname(nativeGit), dirname(process.execPath), process.env.PATH ?? "/usr/bin:/bin"].join(delimiter),
+    HOME: homedir(), TMPDIR: temp, TMP: temp, TEMP: temp, XDG_CACHE_HOME: cache,
+    GIT_OPTIONAL_LOCKS: "0", NEXT_TELEMETRY_DISABLED: "1", CI: "1", NODE_ENV: "production",
+  };
+}
+
+export function integrationCodexCommand(worktree: string, input: string, environment: NodeJS.ProcessEnv) {
+  const spec = codexCommand(worktree, input);
+  // Retain all existing policy rules and the original workspace-write boundary.
+  spec.args = spec.args.filter(arg => arg !== "--ignore-rules");
+  const overrides = ['allow_login_shell=false', 'shell_environment_policy.inherit="core"', 'shell_environment_policy.ignore_default_excludes=false'];
+  for (const key of ["PATH", "TMPDIR", "TMP", "TEMP", "XDG_CACHE_HOME", "GIT_OPTIONAL_LOCKS"]) {
+    requireThat(typeof environment[key] === "string", `Missing command environment: ${key}`);
+    overrides.push(`shell_environment_policy.set.${key}=${JSON.stringify(environment[key])}`);
+  }
+  // The final dash still directs the CLI to read the supplied prompt from stdin.
+  spec.args.splice(spec.args.length - 1, 0, ...overrides.flatMap(value => ["-c", value]));
+  return spec;
 }
 
 // Stream guards stop on explicit CLI errors before another handoff can occur.
@@ -64,7 +120,6 @@ export const executeBounded: IntegrationRunner = spec => new Promise(resolveResu
     const text = data.toString();
     if (channel === "stderr") {
       stderr += text;
-      if (spec.monitor && /authentication failed|not logged in|usage limit|rate limit exceeded|permission denied|operation not permitted/i.test(stderr)) stop("authentication, usage or permission failure");
     } else {
       stdout += text;
       if (!spec.monitor) return;
@@ -187,6 +242,11 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
     }
     await record({ label, phase: "end", exitCode: output.exitCode, signal: output.signal, reason: output.reason });
     requireThat(output.exitCode === 0 && !output.reason, `${label} stopped: exit=${output.exitCode}, reason=${output.reason ?? "nonzero exit"}`);
+    const deniedCachePaths = gitCacheDenials(output.stderr);
+    if (deniedCachePaths.length) {
+      await record({ label, diagnostic: "git-cache-denial", paths: deniedCachePaths });
+      throw new Error(`${label}: Git cache permission failure despite exit 0`);
+    }
     return output;
   };
   try {
@@ -206,40 +266,48 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
     if (mode === "--preflight") {
       report.status = "preflight-passed-no-models-run"; return;
     }
-    await step("head", "git", ["rev-parse", "--verify", "HEAD"]);
-    const status = await step("clean", "git", ["status", "--porcelain", "--untracked-files=all"]);
+    const locatedGit = await step("resolve-native-git", "/usr/bin/xcrun", ["--no-cache", "--find", "git"]);
+    const nativeGit = locatedGit.stdout.trim();
+    requireThat(isAbsolute(nativeGit) && nativeGit !== "/usr/bin/git" && (await lstat(nativeGit)).isFile(), "Native toolchain Git unavailable; do not fall back to the Apple launcher");
+    report.gitExecutable = nativeGit;
+    await step("native-git-version", nativeGit, ["--version"]);
+    await step("head", nativeGit, ["rev-parse", "--verify", "HEAD"]);
+    const status = await step("clean", nativeGit, ["--no-optional-locks", "status", "--porcelain", "--untracked-files=all"]);
     requireThat(!status.stdout.trim(), "A reviewed clean committed baseline is required; no automatic commit or stash");
     requireThat(!(await lstat(join(root, "node_modules"))).isSymbolicLink(), "Use a local installed node_modules directory");
     requireThat((await lstat("/usr/bin/sandbox-exec")).isFile(), "macOS validation sandbox unavailable");
     worktree = join(tmpdir(), `portfolio-integration-${randomUUID()}`);
     const branch = `automation/integration-${randomUUID().slice(0, 8)}`;
-    await step("worktree", "git", ["-c", "core.hooksPath=/dev/null", "worktree", "add", "-b", branch, worktree, "HEAD"]);
+    await step("worktree", nativeGit, ["-c", "core.hooksPath=/dev/null", "worktree", "add", "-b", branch, worktree, "HEAD"]);
     report.worktree = worktree; report.branch = branch;
     await symlink(join(root, "node_modules"), join(worktree, "node_modules"), "dir");
     await mkdir(join(worktree, ".integration-tmp"));
     const protectedProbe = join(worktree, ".integration-tmp/protected");
     await mkdir(protectedProbe);
-    const common = await step("git-common", "git", ["rev-parse", "--path-format=absolute", "--git-common-dir"], { cwd: worktree });
-    const gitdir = await step("git-dir", "git", ["rev-parse", "--absolute-git-dir"], { cwd: worktree });
+    const common = await step("git-common", nativeGit, ["rev-parse", "--path-format=absolute", "--git-common-dir"], { cwd: worktree });
+    const gitdir = await step("git-dir", nativeGit, ["rev-parse", "--absolute-git-dir"], { cwd: worktree });
     const profilePath = join(directory, "validation.sb");
     await writeFile(profilePath, sandboxProfile(worktree, [join(worktree, ".git"), common.stdout.trim(), gitdir.stdout.trim(), protectedProbe]));
     const base = await sourceSnapshot(worktree);
     requireThat(!base[COMPONENT] && !base[TEST], "Fixture paths already exist in the baseline");
-    const env: NodeJS.ProcessEnv = { PATH: process.env.PATH, HOME: homedir(), TMPDIR: join(worktree, ".integration-tmp"), NEXT_TELEMETRY_DISABLED: "1", CI: "1", NODE_ENV: "production" };
+    const env = await worktreeCommandEnvironment(worktree, nativeGit);
+    report.commandEnvironment = { git: nativeGit, temp: env.TMPDIR, cache: env.XDG_CACHE_HOME, gitOptionalLocks: env.GIT_OPTIONAL_LOCKS, loginShell: false };
     const check = async (label: string, args: string[]) => step(label, "/usr/bin/sandbox-exec", ["-f", profilePath, process.execPath, ...args], { cwd: worktree, env });
     await check("sandbox-probe", ["-e", SANDBOX_PROBE, join(worktree, ".integration-tmp/allowed.txt"), join(directory, "forbidden-probe.txt"), join(protectedProbe, "forbidden.txt")]);
+    await step("sandbox-git-status", "/usr/bin/sandbox-exec", ["-f", profilePath, nativeGit, "--no-optional-locks", "status", "--porcelain"], { cwd: worktree, env });
     const reviewSchema = await readJSON(join(root, "automation/schemas/review.schema.json")) as Schema;
     const implementationPrompt = await readFile(join(root, "automation/prompts/implement.md"), "utf8");
     const reviewPrompt = await readFile(join(root, "automation/prompts/review.md"), "utf8");
     let blockers: Review["reviewers"][number]["findings"] = [];
     let seedVerified = false;
     for (let round = 1; round <= config.maxReviewRounds; round++) {
-      const input = `${implementationPrompt}\nCONTROLLED FIXTURE (not a backlog feature):\n${JSON.stringify(task)}\nBLOCKING FINDINGS FROM CLAUDE:\n${JSON.stringify(blockers)}\n`;
+      const input = `${implementationPrompt}\nUse shell tools with login=false (login shells are disabled). For Git commands use the installed native executable ${JSON.stringify(nativeGit)}, not /usr/bin/git or xcrun. Temporary and cache directories are already configured inside this worktree. Do not change them or request access outside it. The coordinator runs validation.\nCONTROLLED FIXTURE (not a backlog feature):\n${JSON.stringify(task)}\nBLOCKING FINDINGS FROM CLAUDE:\n${JSON.stringify(blockers)}\n`;
       await record({ handoff: round === 1 ? "human-task-to-codex" : "claude-blockers-to-codex", round, blockers });
-      const spec = codexCommand(worktree, input); spec.args = spec.args.filter(a => a !== "--ignore-rules");
+      const spec = integrationCodexCommand(worktree, input, env);
       report.modelsInvoked = real;
-      const implementation = await step(`r${round}-codex`, spec.command, spec.args, { cwd: worktree, input, monitor: true });
-      validateCodex(implementation.stdout);
+      const implementation = await step(`r${round}-codex`, spec.command, spec.args, { cwd: worktree, input, env: { ...process.env, ...env }, monitor: true });
+      const notices = validateIntegrationCodex(implementation.stdout, implementation.exitCode);
+      for (const notice of notices) await record({ label: `r${round}-codex`, diagnostic: "informational-skills-budget-notice", event: notice });
       assertScope(base, await sourceSnapshot(worktree));
       await writeFile(join(directory, `r${round}-implemented.tsx`), await readFile(join(worktree, COMPONENT), "utf8"));
       if (round === 1) {

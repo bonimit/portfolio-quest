@@ -3,13 +3,14 @@ import assert from "node:assert/strict";
 import { mkdtemp, mkdir, writeFile, readFile, cp, readdir, symlink, realpath } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { integrationMain, validateLimits, executeBounded, fatalEvent, injectDefect, delegationEvidence, sourceSnapshot, assertScope, sandboxProfile } from "./integration.ts";
+import { integrationMain, validateLimits, executeBounded, fatalEvent, injectDefect, delegationEvidence, sourceSnapshot, assertScope, sandboxProfile, validateIntegrationCodex, gitCacheDenials, worktreeCommandEnvironment, integrationCodexCommand } from "./integration.ts";
 import { renderNotice, validateNotice } from "./integration-fixtures/render.mjs";
 
 const root = new URL("../", import.meta.url);
 const componentPath = "components/integration/IntegrationNotice.tsx";
 const source = 'export function IntegrationNotice({ message }: { message: string }) { return <p role="status">{message}</p>; }';
 const limits = { enabled: false, maxReviewRounds: 3, childTimeoutMs: 600000, totalTimeoutMs: 2700000, maxOutputBytes: 10485760 };
+const observed = JSON.parse(await readFile(new URL("./integration-fixtures/observed-cli-events.json", import.meta.url)));
 
 test("integration caps, disabled live gate and plan do not invoke a CLI", async () => {
   validateLimits(limits);
@@ -65,6 +66,45 @@ test("stream monitoring recognizes permission/auth/usage errors", () => {
 });
 
 const jsonl = events => events.map(e => JSON.stringify(e)).join("\n") + "\n";
+test("observed informational error-typed notice requires both exit 0 and a completed turn", () => {
+  assert.equal(fatalEvent(observed.skillsBudgetNotice), false);
+  assert.equal(validateIntegrationCodex(jsonl([observed.skillsBudgetNotice, { type: "turn.completed" }]), 0).length, 1);
+  assert.throws(() => validateIntegrationCodex(jsonl([observed.skillsBudgetNotice]), 0), /did not complete/);
+  assert.throws(() => validateIntegrationCodex(jsonl([observed.skillsBudgetNotice, { type: "turn.completed" }]), 1), /process exited/);
+  const unknown = structuredClone(observed.skillsBudgetNotice); unknown.item.message = "Authentication failed";
+  assert.equal(fatalEvent(unknown), true);
+  const failedStatus = structuredClone(observed.skillsBudgetNotice); failedStatus.item.status = "failed";
+  assert.equal(fatalEvent(failedStatus), true);
+  const changedNotice = structuredClone(observed.skillsBudgetNotice); changedNotice.item.message += " different warning";
+  assert.equal(fatalEvent(changedNotice), true);
+});
+
+test("observed Git cache permission failure stops even when Apple Git reports exit 0", () => {
+  assert.deepEqual(gitCacheDenials(observed.gitCacheDenial.item.aggregated_output), ["/tmp/xcrun_db-QZG0tlJn"]);
+  assert.equal(fatalEvent(observed.gitCacheDenial), true);
+  assert.throws(() => validateIntegrationCodex(jsonl([observed.gitCacheDenial, { type: "turn.completed" }]), 0), /failure/);
+  assert.deepEqual(gitCacheDenials('Documentation says "Operation not permitted" may appear.'), []);
+  assert.equal(fatalEvent({ type: "item.completed", item: { type: "command_execution", status: "completed", exit_code: 7 } }), true);
+  assert.equal(fatalEvent({ type: "item.completed", item: { type: "command_execution", status: "completed", exit_code: 0 } }), false);
+});
+
+test("Codex commands retain the sandbox and inject worktree-local temp/cache and native Git PATH", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "integration-command-env-"));
+  await mkdir(join(directory, ".integration-tmp"));
+  const environment = await worktreeCommandEnvironment(directory, "/native/toolchain/git");
+  const local = await realpath(directory);
+  for (const key of ["TMPDIR", "TMP", "TEMP", "XDG_CACHE_HOME"]) assert.ok(environment[key].startsWith(`${local}/.integration-tmp/`));
+  assert.equal(environment.GIT_OPTIONAL_LOCKS, "0");
+  assert.ok(environment.PATH.startsWith("/native/toolchain:"));
+  const spec = integrationCodexCommand(directory, "test prompt", environment);
+  assert.ok(spec.args.includes("allow_login_shell=false"));
+  assert.ok(spec.args.includes(`shell_environment_policy.set.TMPDIR=${JSON.stringify(environment.TMPDIR)}`));
+  assert.ok(spec.args.includes("workspace-write"));
+  assert.ok(spec.args.includes("sandbox_workspace_write.network_access=false"));
+  assert.ok(spec.args.includes("sandbox_workspace_write.exclude_slash_tmp=true"));
+  assert.ok(!spec.args.includes("--add-dir"));
+  assert.ok(!spec.args.includes("--ignore-rules"));
+});
 function stream(review) {
   return jsonl([
     ...["ux-reviewer", "code-qa-reviewer"].flatMap((name, i) => [
@@ -95,6 +135,18 @@ test("bounded runner stops on streamed errors and captures actual exit codes", a
   assert.equal(fatal.reason, "fatal CLI event");
 });
 
+test("stream runner preserves stderr diagnostics without keyword-based aborts", async () => {
+  const diagnostic = "diagnostic example: authentication failed; permission denied; Operation not permitted";
+  const spec = { command: process.execPath, cwd: process.cwd(), timeoutMs: 1000, maxOutputBytes: 10000, monitor: true };
+  const source = `console.error(${JSON.stringify(diagnostic)});console.log(${JSON.stringify(jsonl([observed.skillsBudgetNotice, { type: "turn.completed" }]).trim())});`;
+  const result = await executeBounded({ ...spec, args: ["-e", source] });
+  assert.equal(result.exitCode, 0); assert.equal(result.reason, null);
+  assert.ok(result.stderr.includes(diagnostic));
+  validateIntegrationCodex(result.stdout, result.exitCode);
+  const denied = await executeBounded({ ...spec, args: ["-e", `console.log(${JSON.stringify(jsonl([observed.gitCacheDenial]).trim())});setInterval(()=>{},1000)`] });
+  assert.equal(denied.reason, "fatal CLI event");
+});
+
 test("validation sandbox denies network and shared Git writes", () => {
   const profile = sandboxProfile("/task", ["/repo/.git"], "/home/test");
   assert.ok(profile.includes("(deny network*)"));
@@ -113,6 +165,8 @@ test("complete mocked handoff records first review defect, Codex repair and fina
   await cp(new URL("automation", root), join(directory, "automation"), { recursive: true, filter: path => !path.includes("/reports") });
   await cp(new URL(".claude", root), join(directory, ".claude"), { recursive: true });
   await mkdir(join(directory, "node_modules"));
+  const nativeGit = join(directory, "native-toolchain/git");
+  await mkdir(join(directory, "native-toolchain")); await writeFile(nativeGit, "Mock Git (never executed)\n");
   await writeFile(join(directory, "automation/integration-config.json"), JSON.stringify({ ...limits, enabled: true }));
   let taskRoot, implementations = 0, reviews = 0, active = false;
   const task = JSON.parse(await readFile(join(directory, "automation/integration-fixtures/task.json")));
@@ -123,12 +177,13 @@ test("complete mocked handoff records first review defect, Codex repair and fina
     else if (spec.command === "claude" && spec.args.includes("--version")) stdout = "2.1.304 (Claude Code)";
     else if (spec.args[0] === "login") stdout = "Logged in using ChatGPT";
     else if (spec.args[0] === "auth") stdout = JSON.stringify({ loggedIn: true, secretTestField: "MUST_NOT_BE_RECORDED" });
-    else if (spec.command === "git" && spec.args.includes("add")) {
+    else if (spec.command === "/usr/bin/xcrun") stdout = nativeGit;
+    else if (spec.command === nativeGit && spec.args.includes("add")) {
       taskRoot = spec.args.at(-2);
       await mkdir(taskRoot);
       await cp(join(directory, "automation"), join(taskRoot, "automation"), { recursive: true, filter: path => !path.includes("/reports") });
-    } else if (spec.command === "git" && spec.args.includes("--git-common-dir")) stdout = "/mock/git";
-    else if (spec.command === "git" && spec.args.includes("--absolute-git-dir")) stdout = "/mock/git/worktrees/task";
+    } else if (spec.command === nativeGit && spec.args.includes("--git-common-dir")) stdout = "/mock/git";
+    else if (spec.command === nativeGit && spec.args.includes("--absolute-git-dir")) stdout = "/mock/git/worktrees/task";
     else if (spec.command === "codex") {
       implementations++;
       if (implementations > 1) assert.ok(spec.input.includes("aria-hidden"));
@@ -136,7 +191,7 @@ test("complete mocked handoff records first review defect, Codex repair and fina
       await mkdir(join(taskRoot, "tests/integration"), { recursive: true });
       await writeFile(join(taskRoot, componentPath), source);
       await writeFile(join(taskRoot, "tests/integration/notice.test.mjs"), "// mock only\n");
-      stdout = jsonl([{ type: "turn.completed" }]);
+      stdout = jsonl([observed.skillsBudgetNotice, { type: "turn.completed" }]);
     } else if (spec.command === "claude") {
       reviews++;
       const finding = { severity: "high", blocking: true, criterion: task.acceptanceCriteria[1], evidence: "components/integration/IntegrationNotice.tsx:1 aria-hidden=true", suggestedFix: "Remove aria-hidden", verification: "Run final oracle" };
