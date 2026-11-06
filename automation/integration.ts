@@ -200,6 +200,15 @@ export function assertScope(before: Record<string, string>, after: Record<string
   }
 }
 
+// These exact ignored files are produced by the fixed Next.js/TypeScript
+// checks. They remain protected during both agent implementation and review.
+const VALIDATION_OUTPUTS = new Set(["next-env.d.ts", "tsconfig.tsbuildinfo"]);
+export function assertValidationScope(before: Record<string, string>, after: Record<string, string>) {
+  for (const file of new Set([...Object.keys(before), ...Object.keys(after)])) {
+    if (before[file] !== after[file]) requireThat(VALIDATION_OUTPUTS.has(file), `Forbidden validation change: ${file}`);
+  }
+}
+
 export async function integrationMain(argv: string[], runner: IntegrationRunner = executeBounded, root = ROOT) {
   requireThat(Number(process.versions.node.split(".")[0]) >= 24, "Use Node.js 24+");
   requireThat(argv.length === 1 && ["--plan", "--preflight", "--execute"].includes(argv[0]), "Choose --plan, --preflight, or --execute");
@@ -290,6 +299,7 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
     await writeFile(profilePath, sandboxProfile(worktree, [join(worktree, ".git"), common.stdout.trim(), gitdir.stdout.trim(), protectedProbe]));
     const base = await sourceSnapshot(worktree);
     requireThat(!base[COMPONENT] && !base[TEST], "Fixture paths already exist in the baseline");
+    let agentBaseline = base;
     const env = await worktreeCommandEnvironment(worktree, nativeGit);
     report.commandEnvironment = { git: nativeGit, temp: env.TMPDIR, cache: env.XDG_CACHE_HOME, gitOptionalLocks: env.GIT_OPTIONAL_LOCKS, loginShell: false };
     const check = async (label: string, args: string[]) => step(label, "/usr/bin/sandbox-exec", ["-f", profilePath, process.execPath, ...args], { cwd: worktree, env });
@@ -308,7 +318,7 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
       const implementation = await step(`r${round}-codex`, spec.command, spec.args, { cwd: worktree, input, env: { ...process.env, ...env }, monitor: true });
       const notices = validateIntegrationCodex(implementation.stdout, implementation.exitCode);
       for (const notice of notices) await record({ label: `r${round}-codex`, diagnostic: "informational-skills-budget-notice", event: notice });
-      assertScope(base, await sourceSnapshot(worktree));
+      assertScope(agentBaseline, await sourceSnapshot(worktree));
       await writeFile(join(directory, `r${round}-implemented.tsx`), await readFile(join(worktree, COMPONENT), "utf8"));
       if (round === 1) {
         const before = await readFile(join(worktree, COMPONENT), "utf8"), after = injectDefect(before);
@@ -317,14 +327,21 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
       }
       // Execute fixed binaries from the approved controller dependency tree.
       // Never run task-edited npm scripts or lifecycle hooks.
+      const beforeChecks = await sourceSnapshot(worktree);
       await check(`r${round}-lint`, [join(root, "node_modules/eslint/bin/eslint.js"), ".", "--max-warnings=0"]);
       await check(`r${round}-route-types`, [join(root, "node_modules/next/dist/bin/next"), "typegen"]);
       await check(`r${round}-typecheck`, [join(root, "node_modules/typescript/bin/tsc"), "--noEmit"]);
       await check(`r${round}-build`, [join(root, "node_modules/next/dist/bin/next"), "build", "--webpack"]);
       await check(`r${round}-component-test`, ["--test", TEST]);
       await check(`r${round}-base-oracle`, [join(root, "automation/integration-fixtures/render.mjs"), worktree, "base"]);
-      assertScope(base, await sourceSnapshot(worktree));
-      const beforeReview = await sourceSnapshot(worktree);
+      const afterChecks = await sourceSnapshot(worktree);
+      assertValidationScope(beforeChecks, afterChecks);
+      const generated = [...VALIDATION_OUTPUTS].filter(file => beforeChecks[file] !== afterChecks[file]);
+      if (generated.length) await record({ round, diagnostic: "validation-generated-files", files: generated });
+      // Carry trusted output hashes into the next round so Codex cannot create
+      // or edit these files under a blanket generated-file exception.
+      agentBaseline = afterChecks;
+      const beforeReview = afterChecks;
       const source = await readFile(join(worktree, COMPONENT), "utf8"), test = await readFile(join(worktree, TEST), "utf8");
       const checkEvidence = events.filter(e => String(e.label).startsWith(`r${round}-`) && e.phase === "end");
       const inputReview = `${reviewPrompt}\nCONTROLLED INTEGRATION DATA:\n${JSON.stringify({ task, selected: SELECTED, round, files: [COMPONENT, TEST], source, test, checks: checkEvidence, note: "The harness deliberately seeded aria-hidden=true after the first implementation. This is a real requirement defect to review with evidence, not a simulated verdict. Run no commands. On later rounds assess the repaired code; never assume it was fixed." })}\n`;
@@ -346,6 +363,7 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
       if (review.status === "pass") {
         requireThat(round >= 2 && seedVerified, "No verified feedback-to-Codex cycle occurred");
         await check(`r${round}-final-accessibility-oracle`, [join(root, "automation/integration-fixtures/render.mjs"), worktree, "final"]);
+        assertScope(beforeReview, await sourceSnapshot(worktree), true);
         report.status = real ? "collaboration-verified-awaiting-human-approval" : "mock-workflow-verified-not-a-live-result"; return;
       }
     }

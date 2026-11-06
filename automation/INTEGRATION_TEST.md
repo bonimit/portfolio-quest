@@ -177,6 +177,18 @@ activates paid services.
 
 ## First live attempt: findings and repair
 
+The later attempt `reports/integration-1793940038646-5bcee603/` passed Codex,
+lint, route generation, typecheck, build, component tests and the base oracle,
+but stopped at `Forbidden change: next-env.d.ts` before Claude. Next.js generated
+that ignored ambient-types file, and incremental TypeScript also generated
+`tsconfig.tsbuildinfo`. The scope check had incorrectly attributed check output
+to the agent. Those two exact root-level files may now change **only during the
+fixed validation phase**. Their resulting hashes become the next round's baseline.
+Codex and Claude still cannot create, edit or remove them; other ignored files
+(including `.env.local`) remain protected. Checks may not change component/test
+source. Generated-file diagnostics are recorded per round. The old attempts and
+their worktrees are preserved; the live loop has not been restarted by the repair.
+
 Evidence is preserved in `reports/integration-1793920540576-b247ade6/` and its
 original `automation/integration-2461b7e3` worktree. Do not delete or overwrite
 either to prepare a rerun. Codex created both fixture files, its component test
