@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { mkdtemp, mkdir, writeFile, readFile, cp, readdir, symlink, realpath } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { integrationMain, validateLimits, executeBounded, fatalEvent, injectDefect, delegationEvidence, sourceSnapshot, assertScope, assertValidationScope, sandboxProfile, validateIntegrationCodex, gitCacheDenials, worktreeCommandEnvironment, integrationCodexCommand } from "./integration.ts";
+import { integrationMain, validateLimits, executeBounded, fatalEvent, injectDefect, delegationEvidence, sourceSnapshot, assertScope, assertValidationScope, sandboxProfile, validateIntegrationCodex, gitCacheDenials, worktreeCommandEnvironment, integrationCodexCommand, createReviewEvidence, auditSavedReport } from "./integration.ts";
 import { renderNotice, validateNotice } from "./integration-fixtures/render.mjs";
 
 const root = new URL("../", import.meta.url);
@@ -67,6 +67,23 @@ test("Next and TypeScript outputs are allowed only during validation and protect
   for (const file of [componentPath, "tsconfig.json", ".env.local", "other.tsbuildinfo", "nested/next-env.d.ts"]) {
     assert.throws(() => assertValidationScope({}, { [file]: "unexpected" }), /Forbidden validation/);
   }
+});
+
+test("review evidence proves routes/dependencies unchanged and requires full successful check output", () => {
+  const before = { "package.json": "a".repeat(64), "package-lock.json": "b".repeat(64), "app/page.tsx": "c".repeat(64) };
+  const checks = ["lint", "route-types", "typecheck", "build", "component-test", "base-oracle"].map(name => ({ name, exitCode: 0, stdout: `${name} output`, stderr: "" }));
+  const diff = { exitCode: 0, stdout: "", stderr: "" };
+  const evidence = createReviewEvidence(before, { ...before, [componentPath]: "new fixture", "next-env.d.ts": "generated" }, "f".repeat(40), checks, diff);
+  assert.equal(evidence.scope.protectedFilesUnchanged, true);
+  assert.equal(evidence.scope.protectedFiles.length, 3);
+  assert.equal(evidence.checks[0].stdout, "lint output");
+  assert.equal(evidence.checks[0].stdoutSha256.length, 64);
+  assert.ok(evidence.harnessOwnedArtifacts[".integration-tmp/"]);
+  assert.throws(() => createReviewEvidence(before, { ...before, "package-lock.json": "changed" }, "f".repeat(40), checks, diff), /Protected source/);
+  assert.throws(() => createReviewEvidence(before, before, "f".repeat(40), checks.slice(1), diff), /Incomplete check/);
+  assert.throws(() => createReviewEvidence(before, before, "f".repeat(40), [{ ...checks[0], exitCode: 1 }, ...checks.slice(1)], diff), /failed check/);
+  assert.throws(() => createReviewEvidence(before, before, "f".repeat(40), checks, { ...diff, stdout: "changed route" }), /Git diff/);
+  assert.throws(() => createReviewEvidence({ "package.json": "a", "package-lock.json": "b" }, before, "f".repeat(40), checks, diff), /route evidence/);
 });
 
 test("stream monitoring recognizes permission/auth/usage errors", () => {
@@ -138,6 +155,30 @@ test("delegation evidence requires real-shaped invocation and completion pairs",
   assert.throws(() => delegationEvidence(jsonl([{ type: "result", structured_output: {} }])), /Missing/);
 });
 
+test("offline audit preserves rejected review evidence without granting approval or starting a process", async () => {
+  const directory = await mkdtemp(join(tmpdir(), "integration-audit-"));
+  await mkdir(join(directory, "automation/schemas"), { recursive: true });
+  await cp(new URL("./schemas/review.schema.json", import.meta.url), join(directory, "automation/schemas/review.schema.json"));
+  const id = "integration-1-1234abcd", reportDir = join(directory, "automation/reports", id);
+  await mkdir(reportDir, { recursive: true });
+  const task = JSON.parse(await readFile(new URL("./integration-fixtures/task.json", import.meta.url)));
+  const saved = JSON.stringify({ task, status: "stopped-not-approved", error: "Unverified acceptance criterion requires human review" });
+  await writeFile(join(reportDir, "final.json"), saved);
+  const finding = { severity: "high", blocking: true, criterion: task.acceptanceCriteria[1], evidence: "IntegrationNotice.tsx:1 aria-hidden=true", suggestedFix: "Remove aria-hidden", verification: "Final oracle" };
+  const rejected = { status: "fail", summary: "Defect found, missing scope evidence", reviewers: ["ux-reviewer", "code-qa-reviewer"].map(name => ({ name, status: "fail", complete: true, scope: "Fixture", findings: [finding], notReviewed: [] })), criteriaCoverage: task.acceptanceCriteria.map((criterion, i) => ({ criterion, status: ["pass", "fail", "unverified"][i], evidence: "Observed fixture evidence" })), openDecisions: [] };
+  await writeFile(join(reportDir, "r1-claude.stdout.log"), stream(rejected));
+  const audit = await auditSavedReport(directory, id);
+  assert.equal(audit.approvalGranted, false);
+  assert.equal(audit.processesStarted, 0);
+  assert.equal(audit.specialistCallsVerified, 2);
+  assert.ok(audit.reviews[0].validationError.includes("Unverified"));
+  assert.equal(audit.reviews[0].unverifiedCriteria.length, 1);
+  const noProcesses = async () => { throw Error("Audit cannot run a process"); };
+  await integrationMain(["--audit-report", id], noProcesses, directory);
+  assert.equal(await readFile(join(reportDir, "final.json"), "utf8"), saved);
+  await assert.rejects(auditSavedReport(directory, "../outside"), /report directory name/);
+});
+
 test("bounded runner stops on streamed errors and captures actual exit codes", async () => {
   const base = { command: process.execPath, cwd: process.cwd(), timeoutMs: 1000, maxOutputBytes: 10000 };
   const success = await executeBounded({ ...base, args: ["-e", "console.log('done')"] });
@@ -197,7 +238,12 @@ test("complete mocked handoff records first review defect, Codex repair and fina
       taskRoot = spec.args.at(-2);
       await mkdir(taskRoot);
       await cp(join(directory, "automation"), join(taskRoot, "automation"), { recursive: true, filter: path => !path.includes("/reports") });
-    } else if (spec.command === nativeGit && spec.args.includes("--git-common-dir")) stdout = "/mock/git";
+      await mkdir(join(taskRoot, "app"));
+      await writeFile(join(taskRoot, "app/page.tsx"), "// mock baseline route\n");
+      await writeFile(join(taskRoot, "package.json"), "{}");
+      await writeFile(join(taskRoot, "package-lock.json"), "{}");
+    } else if (spec.command === nativeGit && spec.args.includes("--verify")) stdout = "f".repeat(40);
+    else if (spec.command === nativeGit && spec.args.includes("--git-common-dir")) stdout = "/mock/git";
     else if (spec.command === nativeGit && spec.args.includes("--absolute-git-dir")) stdout = "/mock/git/worktrees/task";
     else if (spec.command === "codex") {
       implementations++;
@@ -213,6 +259,12 @@ test("complete mocked handoff records first review defect, Codex repair and fina
       await writeFile(join(taskRoot, "tsconfig.tsbuildinfo"), JSON.stringify({ validationRound: implementations }));
     } else if (spec.command === "claude") {
       reviews++;
+      const packet = JSON.parse(spec.input.split("\nCONTROLLED INTEGRATION DATA:\n")[1]);
+      assert.equal(packet.verification.scope.protectedFilesUnchanged, true);
+      assert.ok(packet.verification.scope.protectedFiles.some(f => f.path === "package-lock.json"));
+      assert.ok(packet.verification.scope.protectedFiles.some(f => f.path === "app/page.tsx"));
+      assert.equal(packet.verification.checks.length, 6);
+      assert.equal(packet.verification.scope.protectedTrackedDiff.stdout, "");
       const finding = { severity: "high", blocking: true, criterion: task.acceptanceCriteria[1], evidence: "components/integration/IntegrationNotice.tsx:1 aria-hidden=true", suggestedFix: "Remove aria-hidden", verification: "Run final oracle" };
       const fail = reviews === 1;
       stdout = stream({ status: fail ? "fail" : "pass", summary: "MOCK review", reviewers: ["ux-reviewer", "code-qa-reviewer"].map(name => ({ name, status: fail && name === "code-qa-reviewer" ? "fail" : "pass", complete: true, scope: "Fixture", findings: fail && name === "code-qa-reviewer" ? [finding] : [], notReviewed: [] })), criteriaCoverage: task.acceptanceCriteria.map((criterion, i) => ({ criterion, status: fail && i === 1 ? "fail" : "pass", evidence: "Fixture code" })), openDecisions: [] });

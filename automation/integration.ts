@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { realpathSync } from "node:fs";
 import { readFile, writeFile, mkdir, readdir, lstat, symlink, open, unlink } from "node:fs/promises";
 import { createHash, randomUUID } from "node:crypto";
-import { join, resolve, dirname, isAbsolute, delimiter } from "node:path";
+import { join, resolve, dirname, isAbsolute, delimiter, sep } from "node:path";
 import { tmpdir, homedir } from "node:os";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { loadAgents, codexCommand, claudeCommand, parseClaude, validateReview, validateSchema, selectReviewers } from "./orchestrator.ts";
@@ -203,14 +203,65 @@ export function assertScope(before: Record<string, string>, after: Record<string
 // These exact ignored files are produced by the fixed Next.js/TypeScript
 // checks. They remain protected during both agent implementation and review.
 const VALIDATION_OUTPUTS = new Set(["next-env.d.ts", "tsconfig.tsbuildinfo"]);
+const CHECK_NAMES = ["lint", "route-types", "typecheck", "build", "component-test", "base-oracle"];
 export function assertValidationScope(before: Record<string, string>, after: Record<string, string>) {
   for (const file of new Set([...Object.keys(before), ...Object.keys(after)])) {
     if (before[file] !== after[file]) requireThat(VALIDATION_OUTPUTS.has(file), `Forbidden validation change: ${file}`);
   }
 }
 
+type CheckEvidence = { name: string; exitCode: number | null; stdout: string; stderr: string };
+export function createReviewEvidence(before: Record<string, string>, after: Record<string, string>, baselineCommit: string, checks: CheckEvidence[], diff: { exitCode: number | null; stdout: string; stderr: string }) {
+  requireThat(/^[a-f0-9]{40,64}$/.test(baselineCommit), "Missing baseline commit evidence");
+  for (const file of ["package.json", "package-lock.json"]) requireThat(before[file], `Missing baseline evidence: ${file}`);
+  requireThat(Object.keys(before).some(file => file.startsWith("app/")), "Missing baseline route evidence");
+  const protectedFiles = [...new Set([...Object.keys(before), ...Object.keys(after)])].sort().filter(file => !ALLOWED.has(file) && !VALIDATION_OUTPUTS.has(file)).map(file => {
+    requireThat(before[file] && before[file] === after[file], `Protected source changed: ${file}`);
+    return { path: file, beforeSha256: before[file], afterSha256: after[file] };
+  });
+  requireThat(checks.length === CHECK_NAMES.length && new Set(checks.map(c => c.name)).size === CHECK_NAMES.length && CHECK_NAMES.every(name => checks.some(c => c.name === name)), "Incomplete check evidence packet");
+  for (const check of checks) requireThat(check.exitCode === 0 && typeof check.stdout === "string" && typeof check.stderr === "string", `Missing or failed check evidence: ${check.name}`);
+  requireThat(diff.exitCode === 0 && diff.stdout === "" && typeof diff.stderr === "string", "Missing or nonempty protected-file Git diff");
+  return {
+    provenance: "Controller captured before/after source SHA-256 hashes and executed the fixed validation commands. These are observed results, not reviewer claims.",
+    baselineCommit, scope: { protectedFilesUnchanged: true, protectedFiles, protectedTrackedDiff: diff, allowedAgentPaths: [...ALLOWED], validationOnlyOutputs: [...VALIDATION_OUTPUTS] },
+    checks: checks.map(check => ({ ...check, stdoutSha256: digest(check.stdout), stderrSha256: digest(check.stderr) })),
+    harnessOwnedArtifacts: { ".integration-tmp/": "Controller-created temp/cache and sandbox probe files", "node_modules": "Controller-created dependency symlink", ".next/": "Fixed Next.js checks' generated output" },
+    experiment: "The harness injects aria-hidden=true in round 1 so real reviewers can detect it. Base tests intentionally cover text/role; the final oracle verifies accessibility after repair. This is not an implementation omission or a request to alter tests.",
+  };
+}
+
+// Purely local audit: never starts a process, mutates an old report, resumes a
+// run, or grants approval. Useful when a review was received but rejected.
+export async function auditSavedReport(root: string, id: string) {
+  requireThat(/^integration-\d+-[a-f0-9]{8}$/.test(id), "Use a report directory name, such as integration-1793944973800-cc4b3c3e");
+  const reportsRoot = realpathSync(join(root, "automation/reports"));
+  const directory = realpathSync(join(reportsRoot, id));
+  requireThat(directory.startsWith(reportsRoot + sep), "Report must be inside automation/reports");
+  const saved = await readJSON(join(directory, "final.json"));
+  const schema = await readJSON(join(root, "automation/schemas/review.schema.json")) as Schema;
+  const reviews = [];
+  for (const name of (await readdir(directory)).filter(name => /^r[1-3]-claude\.stdout\.log$/.test(name)).sort()) {
+    try {
+      const raw = await readFile(join(directory, name), "utf8");
+      const value = parseClaude(raw, SELECTED);
+      const delegated = delegationEvidence(raw);
+      validateSchema(value, schema);
+      const review = value as Review;
+      let validationError: string | null = null;
+      try { validateReview(review, schema, SELECTED, saved.task.acceptanceCriteria); } catch (error) { validationError = error instanceof Error ? error.message : String(error); }
+      reviews.push({ log: name, status: review.status, delegated, validationError, unverifiedCriteria: review.criteriaCoverage.filter(c => c.status === "unverified"), blockingFindings: review.reviewers.flatMap(r => r.findings).filter(f => f.blocking) });
+    } catch (error) { reviews.push({ log: name, validationError: error instanceof Error ? error.message : String(error), delegated: [] }); }
+  }
+  return { mode: "offline-evidence-audit", approvalGranted: false, processesStarted: 0, report: id, originalStatus: saved.status, originalError: saved.error ?? null, specialistCallsVerified: reviews.reduce((sum, review) => sum + review.delegated.length, 0), reviews };
+}
+
 export async function integrationMain(argv: string[], runner: IntegrationRunner = executeBounded, root = ROOT) {
   requireThat(Number(process.versions.node.split(".")[0]) >= 24, "Use Node.js 24+");
+  if (argv[0] === "--audit-report") {
+    requireThat(argv.length === 2, "--audit-report needs one saved report directory name");
+    console.log(JSON.stringify(await auditSavedReport(root, argv[1]), null, 2)); return;
+  }
   requireThat(argv.length === 1 && ["--plan", "--preflight", "--execute"].includes(argv[0]), "Choose --plan, --preflight, or --execute");
   const mode = argv[0];
   const config = await readJSON(join(root, "automation/integration-config.json")) as Config; validateLimits(config);
@@ -280,7 +331,7 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
     requireThat(isAbsolute(nativeGit) && nativeGit !== "/usr/bin/git" && (await lstat(nativeGit)).isFile(), "Native toolchain Git unavailable; do not fall back to the Apple launcher");
     report.gitExecutable = nativeGit;
     await step("native-git-version", nativeGit, ["--version"]);
-    await step("head", nativeGit, ["rev-parse", "--verify", "HEAD"]);
+    const head = await step("head", nativeGit, ["rev-parse", "--verify", "HEAD"]);
     const status = await step("clean", nativeGit, ["--no-optional-locks", "status", "--porcelain", "--untracked-files=all"]);
     requireThat(!status.stdout.trim(), "A reviewed clean committed baseline is required; no automatic commit or stash");
     requireThat(!(await lstat(join(root, "node_modules"))).isSymbolicLink(), "Use a local installed node_modules directory");
@@ -343,14 +394,35 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
       agentBaseline = afterChecks;
       const beforeReview = afterChecks;
       const source = await readFile(join(worktree, COMPONENT), "utf8"), test = await readFile(join(worktree, TEST), "utf8");
-      const checkEvidence = events.filter(e => String(e.label).startsWith(`r${round}-`) && e.phase === "end");
-      const inputReview = `${reviewPrompt}\nCONTROLLED INTEGRATION DATA:\n${JSON.stringify({ task, selected: SELECTED, round, files: [COMPONENT, TEST], source, test, checks: checkEvidence, note: "The harness deliberately seeded aria-hidden=true after the first implementation. This is a real requirement defect to review with evidence, not a simulated verdict. Run no commands. On later rounds assess the repaired code; never assume it was fixed." })}\n`;
+      const checks: CheckEvidence[] = [];
+      for (const name of CHECK_NAMES) {
+        const label = `r${round}-${name}`;
+        const end = events.find(e => e.label === label && e.phase === "end");
+        requireThat(end && end.exitCode === 0 && !end.reason, `Missing successful check: ${label}`);
+        checks.push({ name, exitCode: end.exitCode as number, stdout: await readFile(join(directory, `${label}.stdout.log`), "utf8"), stderr: await readFile(join(directory, `${label}.stderr.log`), "utf8") });
+      }
+      const protectedPaths = Object.keys(base).filter(file => !ALLOWED.has(file) && !VALIDATION_OUTPUTS.has(file));
+      const protectedDiff = await step(`r${round}-protected-diff`, "/usr/bin/sandbox-exec", ["-f", profilePath, nativeGit, "--no-optional-locks", "diff", "--no-ext-diff", "--no-textconv", "--exit-code", "HEAD", "--", ...protectedPaths], { cwd: worktree, env });
+      assertScope(beforeReview, await sourceSnapshot(worktree), true);
+      const verification = createReviewEvidence(base, afterChecks, head.stdout.trim(), checks, protectedDiff);
+      const packet = { task, selected: SELECTED, round, files: [COMPONENT, TEST], source, test, verification };
+      const serializedPacket = JSON.stringify(packet, null, 2);
+      requireThat(Buffer.byteLength(serializedPacket) <= 262144, "Review evidence exceeds packet limit; inspect locally rather than send incomplete evidence");
+      await writeFile(join(directory, `r${round}-evidence.json`), serializedPacket);
+      const inputReview = `${reviewPrompt}\nPass the entire verification packet, including protected-file hashes, Git diff and actual check output, to each specialist. Use these controller observations to assess unchanged routes/dependencies. Do not treat harness-owned artifacts or the deliberately delayed final oracle as product defects. Assess actual acceptance criteria honestly; do not claim unseen runtime behavior or replace unverified with pass.\nCONTROLLED INTEGRATION DATA:\n${serializedPacket}\n`;
       await record({ handoff: "validated-code-to-claude-specialists", round, selected: SELECTED });
       const reviewerSpec = claudeCommand(worktree, inputReview, Object.fromEntries(SELECTED.map(name => [name, agents[name]])), reviewSchema);
       const response = await step(`r${round}-claude`, reviewerSpec.command, reviewerSpec.args, { cwd: worktree, input: inputReview, monitor: true });
       assertScope(beforeReview, await sourceSnapshot(worktree), true);
-      const review = validateReview(parseClaude(response.stdout, SELECTED), reviewSchema, SELECTED, task.acceptanceCriteria);
+      const received = parseClaude(response.stdout, SELECTED);
       const delegated = delegationEvidence(response.stdout);
+      await writeFile(join(directory, `r${round}-review-received.json`), JSON.stringify({ review: received, delegated }, null, 2));
+      let review: Review;
+      try { review = validateReview(received, reviewSchema, SELECTED, task.acceptanceCriteria); }
+      catch (error) {
+        await record({ handoff: "claude-review-rejected", round, delegated, reason: error instanceof Error ? error.message : String(error) });
+        throw error;
+      }
       await writeFile(join(directory, `r${round}-review.json`), JSON.stringify({ review, delegated }, null, 2));
       const evidence = { round, review, delegated, implementationSha256: digest(source), reviewInputSha256: digest(inputReview), reviewOutputSha256: digest(response.stdout) };
       rounds.push(evidence);
@@ -376,7 +448,7 @@ export async function integrationMain(argv: string[], runner: IntegrationRunner 
     const handoffs = events.filter(e => e.handoff).map(e => `- Round ${e.round}: ${e.handoff}`).join("\n");
     const exits = events.filter(e => e.phase === "end").map(e => `- ${e.label}: exit ${e.exitCode}${e.reason ? ` (${e.reason})` : ""}`).join("\n");
     const experimentNote = mode === "--preflight" ? "Preflight only: no defect was injected, no worktree was created and no collaboration was tested." : "The fixture includes a deliberate first-round defect injection; see the injection handoff for evidence that it occurred. A successful real run tests a controlled feedback path, not spontaneous defect discovery. Mock results are not live collaboration evidence.";
-    await writeFile(join(directory, "final.md"), `# Controlled integration test\n\nStatus: ${report.status}\n\nModels invoked: ${report.modelsInvoked}\n\n${report.error ?? ""}\n\nWorktree: ${worktree ?? "not created"}\n\nHandoffs:\n\n${handoffs || "No model handoffs occurred."}\n\nCommand exit codes:\n\n${exits}\n\nRounds reviewed: ${rounds.length}. See rN-review.json for specialist tool-use IDs, invocation/completion line numbers and result hashes. See rN-codex.input.txt for the exact blocking fix brief delivered to Codex.\n\n${experimentNote}\n\nNo commit, push, merge, deployment or paid-service activation is performed by the harness. Human review remains required.\n`);
+    await writeFile(join(directory, "final.md"), `# Controlled integration test\n\nStatus: ${report.status}\n\nModels invoked: ${report.modelsInvoked}\n\n${report.error ?? ""}\n\nWorktree: ${worktree ?? "not created"}\n\nHandoffs:\n\n${handoffs || "No model handoffs occurred."}\n\nCommand exit codes:\n\n${exits}\n\nAccepted review results: ${rounds.length}. Rejected reviews may still have completed specialists; inspect rN-review-received.json or use integration:audit. See rN-review.json for accepted specialist tool-use IDs, invocation/completion line numbers and result hashes. See rN-codex.input.txt for the exact blocking fix brief delivered to Codex.\n\n${experimentNote}\n\nNo commit, push, merge, deployment or paid-service activation is performed by the harness. Human review remains required.\n`);
     await lock.close(); await unlink(lockPath);
     console.log(`${report.status}\nReport: ${join(directory, "final.md")}`);
   }

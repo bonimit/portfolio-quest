@@ -13,6 +13,7 @@
     "test:automation": "node --test automation/orchestrator.test.mjs automation/integration.test.mjs",
     "integration:plan": "node automation/integration.ts --plan",
     "integration:preflight": "node automation/integration.ts --preflight",
+    "integration:audit": "node automation/integration.ts --audit-report",
     "integration:run": "node automation/integration.ts --execute"
   },
   "engines": {

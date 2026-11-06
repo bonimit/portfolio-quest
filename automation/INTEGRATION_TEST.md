@@ -10,6 +10,20 @@ the owner's current value is not changed by a harness repair.
 
 Open the repository, then **Terminal → New Terminal**. Use Node.js 24+.
 
+To understand an existing failure without another agent run, use the offline
+audit first:
+
+```sh
+npm run integration:audit -- integration-1793944973800-cc4b3c3e
+```
+
+This reads the saved report and Claude stream only. It starts no child process,
+performs no authentication, consumes no model usage, writes nothing, and never
+grants approval. `specialistCallsVerified: 2` means both expected specialist
+tool calls and matching completion results were found. `approvalGranted` is
+always false; a rejected/incomplete review remains rejected. Replace only the
+report-directory name when inspecting another saved attempt.
+
 ```sh
 npm run integration:plan
 npm run integration:preflight
@@ -109,11 +123,13 @@ Open the printed `automation/reports/integration-<id>/final.md`, then inspect:
 | --- | --- |
 | `final.json` | `runner: "real"`, `modelsInvoked: true`, status `collaboration-verified-awaiting-human-approval` |
 | `handoffs.jsonl` | Ordered starts/ends, round numbers, exit codes, and `claude-blockers-to-codex` handoff |
+| `rN-evidence.json` | Exact packet sent to Claude: baseline commit, unchanged-file hashes, empty protected-file Git diff, full check output/exit codes, and harness artifact ownership |
 | `r1-codex.stdout.log` | Real Codex JSONL completion, not fixture events |
 | `r1-implemented.tsx` | Codex output before the injected defect |
 | Injection handoff | Before/after hashes, affected file and criterion |
 | `r1-claude.stdout.log` | `Agent` tool-use events with selected `subagent_type` values, followed by matching successful tool results |
 | `r1-review.json` | Actual fail verdict, blocking evidence, tool-use IDs, invocation/completion line numbers and result hashes |
+| `rN-review-received.json` | Received structured review and delegation evidence, saved even if strict acceptance validation subsequently rejects it |
 | `r2-codex.input.txt` | Exact blocking findings from round one delivered back to Codex |
 | `r2-implemented.tsx` | Repaired component; compare with the seeded markup from the first Claude input |
 | `r2-review.json` | Fresh completed specialist invocations and validated pass verdict |
@@ -176,6 +192,33 @@ lock. The harness never commits, pushes, merges, deploys, creates secrets or
 activates paid services.
 
 ## First live attempt: findings and repair
+
+The attempt `reports/integration-1793944973800-cc4b3c3e/` completed a real Claude
+review. The stream contains completed foreground `ux-reviewer` and
+`code-qa-reviewer` calls. Both found the injected accessibility defect. The
+strict gate then correctly rejected the review because Claude marked the
+"routes and dependencies unchanged" criterion unverified: its input had only
+exit codes, not actual check output or baseline/diff proof. A stopped report's
+zero accepted review rounds did not mean that no specialist ran.
+
+The corrected approach is an **evidence packet before review**, rather than
+relaxing review validation or repeatedly rerunning agents with the same sparse
+input. The controller verifies and includes SHA-256 before/after records for
+protected source (including all app routes, package.json and package-lock.json),
+the baseline commit, a real empty read-only Git diff, and complete stdout/stderr
+and exit codes for each fixed check. It explicitly identifies controller-created
+temp/probe/dependency artifacts and explains the deliberate fault injection and
+delayed final oracle. Missing baseline route/dependency records, missing/failed
+checks, protected-source changes, a nonempty diff or an oversized packet stop
+before Claude. Every specialist receives the full packet. Reviewers still assess
+the evidence honestly; there is no instruction to force a pass.
+
+The received review and invocation evidence are now saved before semantic
+acceptance validation, so rejected reviews remain easy to audit. Unknown or
+unverified criteria still stop the run; this change cannot convert the existing
+rejected review into approval. The real defect-fix-feedback cycle is not yet
+proven. Use the free audit and local evidence tests before approving more model
+usage. No past worktree/report is rewritten or resumed automatically.
 
 The later attempt `reports/integration-1793940038646-5bcee603/` passed Codex,
 lint, route generation, typecheck, build, component tests and the base oracle,
