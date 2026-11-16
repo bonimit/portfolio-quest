@@ -1,0 +1,54 @@
+/* D6 · Art Book (approved mockup D6e): no decorative geometry, no colour behind text.
+   Heavy sans titles, thick rules, serif reading text, images as numbered plates. */
+.t6 .tpl-art { background: #fbfaf6; border: 3px solid var(--color-ink); }
+.t6 .tpl-art svg { stroke-width: 1.4; }
+.t6-g { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 1.25rem; }
+.t6-rule { border: 0; border-top: 6px solid var(--color-ink); margin: 0; }
+
+.t6-cover { padding: 2rem 0 2rem; }
+.t6-cover-text { grid-column: 1 / 8; position: relative; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; container-type: inline-size; }
+.t6-cover h1 { font: 700 clamp(2.4rem, 13.5cqi, 6.6rem)/.9 var(--landing-font-sans); letter-spacing: -.045em; text-transform: uppercase; margin: 1rem 0 1.4rem; overflow-wrap: break-word; }
+.t6-sub { font: 400 1.3rem/1.45 var(--landing-font-serif); max-width: 28rem; }
+.t6-spine { position: absolute; left: -2.2rem; top: 0; writing-mode: vertical-rl; transform: rotate(180deg); font: 600 .7rem/1 var(--landing-font-sans); letter-spacing: .25em; text-transform: uppercase; white-space: nowrap; }
+.t6-hero { grid-column: 8 / 13; }
+.t6 figcaption { display: flex; gap: .7rem; align-items: baseline; color: var(--color-ink); margin-top: .6rem; }
+.t6 figcaption b { font-weight: 700; letter-spacing: .14em; text-transform: uppercase; font-size: .68rem; white-space: nowrap; margin: 0; }
+
+.t6-colophon { padding: 1.4rem 0 3rem; margin: 0; }
+.t6-colophon div { grid-column: span 3; border-top: 2px solid var(--color-ink); padding-top: .6rem; }
+.t6-colophon dt { font: 700 .66rem/1 var(--landing-font-sans); letter-spacing: .18em; text-transform: uppercase; }
+.t6-colophon dd { margin: .4rem 0 0; font: 400 1.05rem/1.3 var(--landing-font-serif); }
+
+.t6-chapter { scroll-margin-top: 1rem; }
+.t6-opener { margin-top: 5rem; border-top: 4px solid var(--color-ink); }
+.t6-n { grid-column: 1 / 5; padding-top: 1.4rem; font: 400 clamp(4.5rem, 7vw, 6rem)/.85 var(--font-display); }
+.t6-opener-text { grid-column: 6 / 13; padding-top: 1.6rem; }
+.t6-opener h2 { font: 700 clamp(2rem, 3.6vw, 3rem)/1 var(--landing-font-sans); letter-spacing: -.035em; text-transform: uppercase; margin-top: .3rem; }
+.t6-lead { font: 400 1.35rem/1.45 var(--landing-font-serif); margin-top: 1rem !important; max-width: 34rem; }
+.t6-text { grid-column: 6 / 11; padding-top: 2.4rem; }
+.t6-text p { font: 400 1.15rem/1.72 var(--landing-font-serif); margin-bottom: 1.15rem; }
+.t6-plate { margin: 2.6rem 0 0 !important; }
+.t6-plate--r { grid-column: 4 / 13; }
+.t6-plate--l { grid-column: 1 / 9; }
+.t6-plate--full { grid-column: 1 / 13; }
+
+.t6-index { margin-top: 6rem; padding-top: 1.2rem; border-top: 6px solid var(--color-ink); }
+.t6-index h2 { grid-column: 1 / 4; font: 700 .8rem/1.3 var(--landing-font-sans); letter-spacing: .2em; text-transform: uppercase; }
+.t6-index ol { grid-column: 4 / 13; columns: 2; column-gap: 2rem; list-style: none; padding: 0; margin: 0; font: .9rem/1.3 var(--landing-font-sans); }
+.t6-index li { display: flex; justify-content: space-between; gap: 1rem; padding: .55rem 0; border-bottom: 1px solid var(--landing-line); break-inside: avoid; }
+.t6-index li span { color: var(--color-muted); white-space: nowrap; }
+
+.t6-next { margin-top: 3rem; display: grid; grid-template-columns: 1fr auto; align-items: center; padding: 1.6rem 0; border-top: 4px solid var(--color-ink); color: var(--color-ink); text-decoration: none; }
+.t6-next strong { display: block; font: 700 clamp(2rem, 4.5vw, 3.4rem)/1 var(--landing-font-sans); letter-spacing: -.04em; text-transform: uppercase; margin-top: .4rem; }
+.t6-arrow { font-size: 2.4rem; transition: transform var(--landing-control-duration) var(--landing-spring); }
+.t6-next:hover .t6-arrow { transform: translateX(6px); }
+
+@media (max-width: 56rem) {
+  .t6-g > * { grid-column: 1 / -1 !important; }
+  .t6-spine { display: none; }
+  .t6-hero { margin-top: 1.5rem; }
+  .t6-colophon div { grid-column: span 6 !important; margin-bottom: 1rem; }
+  .t6-n { padding-top: 1rem; }
+  .t6-opener-text { padding-top: .6rem; }
+  .t6-index ol { columns: 1; }
+}

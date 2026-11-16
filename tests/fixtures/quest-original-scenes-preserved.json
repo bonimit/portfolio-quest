@@ -1,0 +1,34 @@
+{
+  "sources": {
+    "lib/quest-preview/scenes/original/nyc.ts": "130ccf69af61eb651d7e3d8166856c3618a19e44bae0bac95ee94f83dcfb6410",
+    "lib/quest-preview/scenes/original/tokyo.ts": "f97659a5d7a42f7d94dd8f33b4f15d8bee02e72b0a58455fae239aafd9f0214c",
+    "lib/quest-preview/scenes/original/bangkok.ts": "d6ccf97be65b5c0812ebbaf113831292ea1f564fd90448b910c8b4d4d5820eea",
+    "lib/quest-preview/scenes/original/kit.ts": "53ea58c7ddba0a06414c61850174a101a44d8a87d2f1ce038234e9da69179766",
+    "lib/quest-preview/original-island.ts": "b9da9450724e3f92cd0eda70e9a22362d2a75bc842353eaac5133a5cdf78f854"
+  },
+  "assets": {
+    "public/quest-preview/tokyo-spring-night.webp": "126fbd08064507a4d5ec2b4155f6a9a5d70d40fa83d7fb2c8b2539fd5cedaa6a",
+    "public/quest-preview/bangkok-winter-day.webp": "492c04e6e44d6761c9676fd35285fe955145256fc0529884cf59e664ed126fa0",
+    "public/quest-preview/nyc-spring-night.webp": "57a1b02de154ffe13a071e6ea4abd0872b1e69f195cab3e0943cd9f2143a852d",
+    "public/quest-preview/tokyo-autumn-day.webp": "e14833f20bee718a423279dc860d05028710f9a95f0419cbb1717c683fe5e138",
+    "public/quest-preview/tokyo-winter-day.webp": "227ebdf5e1f1c111e6357cdd6bf4a7e05cebfc5bec4180876366cabb935b0186",
+    "public/quest-preview/nyc-autumn-day.webp": "d5980befd45e16d6e7b6d5b6cd784c049c2de3f79292e6741a4be2ad5c7a1e5d",
+    "public/quest-preview/nyc-winter-day.webp": "80a066d91ed866349080504c7e9591f55314f54c6910d5be6013d72ff4fd5ff6",
+    "public/quest-preview/nyc-autumn-night.webp": "d7697ced508ea55a40fdfaade6c496b3aa6eee68800cd22139c72dd6fe930b90",
+    "public/quest-preview/bangkok-winter-night.webp": "54431ee65fd55e06970a291b8ce1b0c72421805278dbd61c46aff55395fd7363",
+    "public/quest-preview/tokyo-summer-day.webp": "78e8ca662b779f4f5cc3acc6c197a56315a83e28719add54b115d6c15379fa61",
+    "public/quest-preview/nyc-winter-night.webp": "1ab43aa438a9d4851b7577ba99fce3783628bfc4f05f39d0fe8d09bb4149df2f",
+    "public/quest-preview/tokyo-autumn-night.webp": "6daacfbcd53633d5fe39f6a6ffca81c9f94380911dd2a0dd4f6a4de498d7d132",
+    "public/quest-preview/bangkok-raining-night.webp": "4832604764c1dd53f6f66651be5f7673f324a864479ce3c0b9aa83ecd1803d2c",
+    "public/quest-preview/nyc-summer-day.webp": "7120c4545fff81a68f98ddd128f01bd1aca3051b01468ae189c73a9a38974948",
+    "public/quest-preview/tokyo-winter-night.webp": "1521e2abed4677b2e36fd6409a7b33fa35da5969b4e41273183b0e2283e9def6",
+    "public/quest-preview/nyc-spring-day.webp": "f5034c125d8b6915e817655855abf20c57c67150ff6670ddd225845a8d0c562e",
+    "public/quest-preview/bangkok-summer-day.webp": "4951ba829d4e022086acb4fe576d085fb0f6c699e386c568b1b711d7735b6ca2",
+    "public/quest-preview/bangkok-raining-day.webp": "9c1dbc991d9dadc517382804d6d7f4b896a9593613c10bab823c2295079b0a27",
+    "public/quest-preview/tokyo-summer-night.webp": "e11eb144df462c1c853b1ee74e7f4cb08cc95792e29f29cf48c7aec5497628f8",
+    "public/quest-preview/tokyo-spring-day.webp": "433d243b0db5c40d65d9643820901ab186201fbd84109ba76484e59f6e97149f",
+    "public/quest-preview/bangkok-summer-night.webp": "4ce59325bc73a68e852ae757f7ccf4592775d5072ac5af24211bbc34aacfc6f9",
+    "public/quest-preview/nyc-summer-night.webp": "4e30bd91da0fd1a5915654ef8279a23214ff7f6609b712e84f6753bc6863e656"
+  },
+  "note": "2026-11-12 owner correction: recovered deep pre-city-direction island base replaces shallow slabs; scene builders unchanged, kit delegates base, fallback assets intentionally regenerated. Earlier exact assets remain in snapshots."
+}

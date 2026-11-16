@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "source": "Restored persimmon city scenes on the original ruins-style rocky island base",
+  "vertices": 64209,
+  "triangles": 21403,
+  "petTriangles": 0,
+  "dimensions": [
+    1440,
+    980
+  ],
+  "geometry": {
+    "nyc-spring": {
+      "vertices": 64209,
+      "triangles": 21403
+    },
+    "nyc-summer": {
+      "vertices": 51765,
+      "triangles": 17255
+    },
+    "nyc-autumn": {
+      "vertices": 54189,
+      "triangles": 18063
+    },
+    "nyc-winter": {
+      "vertices": 56961,
+      "triangles": 18987
+    },
+    "tokyo-spring": {
+      "vertices": 64245,
+      "triangles": 21415
+    },
+    "tokyo-summer": {
+      "vertices": 42309,
+      "triangles": 14103
+    },
+    "tokyo-autumn": {
+      "vertices": 52581,
+      "triangles": 17527
+    },
+    "tokyo-winter": {
+      "vertices": 44982,
+      "triangles": 14994
+    },
+    "bangkok-raining": {
+      "vertices": 50757,
+      "triangles": 16919
+    },
+    "bangkok-summer": {
+      "vertices": 57783,
+      "triangles": 19261
+    },
+    "bangkok-winter": {
+      "vertices": 57135,
+      "triangles": 19045
+    }
+  },
+  "files": {
+    "nyc-spring-day.webp": 65474,
+    "nyc-spring-night.webp": 52736,
+    "nyc-summer-day.webp": 65580,
+    "nyc-summer-night.webp": 52914,
+    "nyc-autumn-day.webp": 67280,
+    "nyc-autumn-night.webp": 52372,
+    "nyc-winter-day.webp": 68408,
+    "nyc-winter-night.webp": 59960,
+    "tokyo-spring-day.webp": 55174,
+    "tokyo-spring-night.webp": 43852,
+    "tokyo-summer-day.webp": 50116,
+    "tokyo-summer-night.webp": 41968,
+    "tokyo-autumn-day.webp": 55342,
+    "tokyo-autumn-night.webp": 42964,
+    "tokyo-winter-day.webp": 59114,
+    "tokyo-winter-night.webp": 56408,
+    "bangkok-raining-day.webp": 44594,
+    "bangkok-raining-night.webp": 35874,
+    "bangkok-summer-day.webp": 48968,
+    "bangkok-summer-night.webp": 36902,
+    "bangkok-winter-day.webp": 51976,
+    "bangkok-winter-night.webp": 39526
+  }
+}

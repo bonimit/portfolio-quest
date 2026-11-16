@@ -1,0 +1,5 @@
+.project-reading-mode{display:flex;gap:.7rem 1.5rem;align-items:center;flex-wrap:wrap;padding-block:1rem;border-bottom:1px solid var(--landing-line);font:400 .85rem/1.5 var(--landing-font-sans);}
+.project-reading-mode a{min-height:44px;display:inline-flex;align-items:center;text-underline-offset:.3em;}
+.project-reading-mode a[aria-current]{font-weight:600;text-decoration-thickness:2px;}
+.project-reading-mode a:last-child:not([aria-current]){margin-left:auto;}
+@media(max-width:32rem){.project-reading-mode a:last-child{margin-left:0;}}

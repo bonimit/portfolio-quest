@@ -1,0 +1,14 @@
+{
+  "walkingCoreSha256": "ae0cdceb566a160708100c31b340cb1a20d2693683283c0578d608d60c80a8ef",
+  "files": {
+    "lib/guide/walking.ts": "b1daf813243778a854a98e2e7f7480a418a1bdccecdb2db80f645af04c34a933",
+    "lib/guide/assistant-motion.ts": "9de886755320d301675e78df4168f89dcd5b8f82b3cac8d411abe5e9efeb5b6a",
+    "lib/guide/sprite-player.ts": "e828f5237297b083f8623021ba91cdcfeb07497097b5fd4913924ddc90f63861",
+    "lib/guide/assistant-atlas.ts": "a4f3fe82aea014e5695a0f2ab183e899ff7ee505861ccee8d6e312e908325138",
+    "scripts/prepare-guide-atlas.py": "59a4b23ab1ecc17fc2368ef70d1d48f08cb1a6d244e6da4b3ef507a5b6c90413",
+    "assets/guide/source-atlas.png": "ea86951126787ae4e9893a4285afb640e602f1669a898e205fd5a18e5485d4c6",
+    "assets/guide/frame-map.json": "49d17cfab333ce20e772dcfcf74f33ba4bf6afea154ab41e9feff31a314a3b59",
+    "public/guide/assistant-atlas.webp": "d290971c1bf925ad8254a2690f6af36c4de2155d7974a3f7914d51998b570b4d",
+    "public/guide/assistant-idle.webp": "590df1f79c6cb7b78c26171be70bbc0d793b0dabb8cc707876ca28be8ac65ef5"
+  }
+}

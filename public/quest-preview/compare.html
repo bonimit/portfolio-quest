@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Ruins and city island comparison · Portfolio Quest</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f5f1;color:#131313;font:16px/1.5 system-ui,sans-serif}main{max-width:1600px;margin:auto;padding:clamp(16px,3vw,48px)}header{display:flex;align-items:start;justify-content:space-between;gap:24px;flex-wrap:wrap}h1{font-size:clamp(28px,4vw,56px);letter-spacing:-.04em;line-height:1.08;margin:10px 0 16px}p{max-width:68ch;margin:0 0 20px}a{color:inherit;text-underline-offset:4px}button{font:inherit;border:1px solid #131313;border-radius:99px;padding:10px 20px;min-height:44px;background:transparent;color:inherit;cursor:pointer}button[aria-pressed=true]{background:#131313;color:#f6f5f1}button:focus-visible,a:focus-visible{outline:3px solid #b44609;outline-offset:5px}.toolbar{display:flex;gap:8px;padding:12px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:20px}figure{margin:0}figcaption{border-top:2px solid;padding-top:14px}h2{font-size:22px;margin:0 0 6px;letter-spacing:-.02em}.scene{aspect-ratio:1440/980;display:grid;place-items:center;background:linear-gradient(145deg,#c9d5ce,#e4dfc9);border-radius:20px;margin-bottom:18px;overflow:hidden}.scene img{width:100%;height:100%;object-fit:contain;display:block}body[data-light=night] .scene{background:linear-gradient(145deg,#263b4b,#48596a)}.note{font-size:14px;line-height:1.6;margin:28px 0;color:#454943}footer{border-top:1px solid #aca99e;padding-top:20px}@media(max-width:760px){.grid{grid-template-columns:1fr;gap:32px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body data-light="day"><main>
+<header><div><a href="/quest-preview">Back to the interactive preview</a><h1>Which island feels right?</h1><p>The earlier ruins scene beside the current Tokyo autumn scene with its deeper rocky base.</p></div><div class="toolbar" role="group" aria-label="Comparison lighting"><button type="button" aria-pressed="true" data-light="day">Day</button><button type="button" aria-pressed="false" data-light="night">Night</button></div></header>
+<div class="grid">
+<figure><div class="scene"><img id="ruins" src="/quest-preview/classic-day.webp" width="1440" height="980" alt="Earlier floating island with an orange-roof observatory, stone ruins, faceted trees and a tapered rocky underside."></div><figcaption><h2>1. Earlier ruins version</h2><p>Orange-roof tower, old stone gate and the original floating rock silhouette.</p></figcaption></figure>
+<figure><div class="scene"><img id="city" src="/quest-preview/restored/tokyo-autumn-day.webp" width="1440" height="980" alt="Current Tokyo autumn island with Mount Fuji, Japanese buildings, a torii gate, orange persimmons and a deep rocky underside."></div><figcaption><h2>2. Current city version</h2><p>Restored city buildings and seasonal elements, with a ruins-style rocky base underneath.</p></figcaption></figure>
+</div>
+<p class="note">Static scene renders; avatars, pets and chat are omitted. Equal-sized panels retain each version’s saved camera framing, so this is an appearance comparison rather than a pixel-aligned geometry comparison.</p>
+<footer><a href="/quest-preview">Open the current interactive city preview</a><span id="status" role="status" class="note"></span></footer>
+</main><script>
+for(const button of document.querySelectorAll('button[data-light]'))button.addEventListener('click',()=>{const light=button.dataset.light;document.body.dataset.light=light;for(const item of document.querySelectorAll('button[data-light]'))item.setAttribute('aria-pressed',String(item===button));document.getElementById('ruins').src='/quest-preview/classic-'+light+'.webp';document.getElementById('city').src='/quest-preview/restored/tokyo-autumn-'+light+'.webp';document.getElementById('status').textContent=' · '+(light==='day'?'Day':'Night')+' comparison selected.';});
+</script></body></html>

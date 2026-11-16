@@ -1,0 +1,19 @@
+{
+  "app/work/[slug]/case-study.css": "1970e7626e08eaf748829be7f44a11863a6e5f71d7b99c00486e5d8b90598649",
+  "components/work/templates/d2-process-notebook.css": "dc3ec121785c3dd94abf9d8607fac928c43b1c022cf0af8ad83ec3dc5c22b64d",
+  "components/work/templates/d4-quiet-reader.tsx": "0f59972b9c761d7081747ee02e51ac3bd487a1ad3e00d5b2daa3de9e14b7130c",
+  "components/work/templates/d1-editorial-column.css": "c8056c6fa5cbf1cb752e017d71ad6dfeef9ac2c456b28bf1d0c8eb6577e4b965",
+  "components/work/templates/d6-art-book.css": "df6d91eeb1b8af34e85ec739cc7b4f198ed6fc4203c7bf0eaecec7259938925f",
+  "components/work/templates/shared.tsx": "ed1ea9b8b7c4289738c7242dc7774ce6288782be231d04fedc9c5b4376c9019d",
+  "components/work/templates/d3-chapter-spreads.tsx": "5df8a2a7f84a6a4d23c26cd40091f92bdfd0f2702fabdf26c07892c0d658a0ac",
+  "components/work/templates/shared.css": "0f6d66c74c04c49e6a076e7991a424daeae8b547c61d82e9e491d920d2a8d972",
+  "components/work/templates/d6-art-book.tsx": "4c6747333b92252d77f213fe1dd91c4678bc267b00e5ecb03f6b0123c40de9a9",
+  "components/work/templates/d3-chapter-spreads.css": "ac0daa419513fb94f9680ead5de5023f7c7f0a0a53ef546fed43da55f40a6284",
+  "components/work/templates/d2-process-notebook.tsx": "ac0fa50c673d02edd316177b8b7ed3ba66912cb4d5cbd0e9efe68b920e832edd",
+  "components/work/templates/d0-current.tsx": "e684c79bd717b518e6b26a8920161e93f2c25e7116fb31b08fc490783e6adf1f",
+  "components/work/templates/d4-quiet-reader.css": "620e4fbf0f554ad903686b05dabf494c70b6a385403e4fddbc63b040652f69a8",
+  "components/work/templates/d1-editorial-column.tsx": "d71d0a3ed2ab7625bccadd8f145b3cfca3f9aa4c778d14bf0867672385b1df26",
+  "components/work/templates/d5-index-columns.tsx": "161723e6e44fe2507f35ece8fda2fecfcf784361c873ab3b3ac190c2fc6e56d3",
+  "components/work/templates/reading-progress.tsx": "1d50abe3216cecaeb96dcc74dd9fc1bb2a0cc27123014b75f811128014e5771a",
+  "components/work/templates/d5-index-columns.css": "3350909e37dc0372246cd2bf817bea314e43af98354248b413738c89d05d39d0"
+}

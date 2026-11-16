@@ -1,0 +1,458 @@
+{
+  "tile": 256,
+  "columns": 5,
+  "rows": 2,
+  "feet": 248,
+  "source": "Owner-supplied reference folder; capybara, cat, sloth, kitsune and Frenchie selected for local preview",
+  "pets": {
+    "capybara": {
+      "folder": "mascot-capybara",
+      "frames": [
+        {
+          "name": "00.png",
+          "left": 231,
+          "top": 274,
+          "width": 834,
+          "height": 819,
+          "bottom": 1092,
+          "sha256": "db9e58b9a6d31b4f9f8d225019ea747e1a7b8df3c8c6c350119fd872c0bfa78c"
+        },
+        {
+          "name": "01.png",
+          "left": 231,
+          "top": 270,
+          "width": 835,
+          "height": 822,
+          "bottom": 1091,
+          "sha256": "a36535f88bd6c650f103589978578382f533f1199ced94ab9e08c78d547c990f"
+        },
+        {
+          "name": "02.png",
+          "left": 235,
+          "top": 264,
+          "width": 828,
+          "height": 825,
+          "bottom": 1088,
+          "sha256": "f652752e32f3dd45504f577e906036f77d38a454a735066d6ef23e964e4bf4bc"
+        },
+        {
+          "name": "03.png",
+          "left": 189,
+          "top": 274,
+          "width": 882,
+          "height": 794,
+          "bottom": 1067,
+          "sha256": "098dbd24e20865d18b2c435affc6a28bf0122010403e71b00b9037b594457e24"
+        },
+        {
+          "name": "04.png",
+          "left": 259,
+          "top": 274,
+          "width": 807,
+          "height": 818,
+          "bottom": 1091,
+          "sha256": "d35e345867d5af85813bde9369bb83bfb8e4c956f37eda57ffec9bc38a3f0a6d"
+        },
+        {
+          "name": "05.png",
+          "left": 246,
+          "top": 274,
+          "width": 819,
+          "height": 818,
+          "bottom": 1091,
+          "sha256": "653f75a16cfd3700898429e2ce369f1685cc8740e58a58fd407807a0a48b9f2e"
+        },
+        {
+          "name": "06.png",
+          "left": 254,
+          "top": 274,
+          "width": 811,
+          "height": 818,
+          "bottom": 1091,
+          "sha256": "89adc1446356b27e1a09495d89a4d14b2b89b76253652d506b4971b2c1fec97a"
+        },
+        {
+          "name": "07.png",
+          "left": 273,
+          "top": 275,
+          "width": 795,
+          "height": 743,
+          "bottom": 1017,
+          "sha256": "865069b7f2241ca184397c8b80ed8d66fb20c2950e0694d6c8f91c446036f6d5"
+        },
+        {
+          "name": "08.png",
+          "left": 238,
+          "top": 273,
+          "width": 827,
+          "height": 776,
+          "bottom": 1048,
+          "sha256": "3b3e1fc171a09d7122e3bc47ac6b71a0a854aa3c767dd675b1dc875f9feec60e"
+        }
+      ],
+      "scale": 0.26303854875283444,
+      "bytes": 122574
+    },
+    "cat": {
+      "folder": "mascot-scotishfolded",
+      "frames": [
+        {
+          "name": "00.png",
+          "left": 121,
+          "top": 231,
+          "width": 1013,
+          "height": 905,
+          "bottom": 1135,
+          "sha256": "c08e9291b4d3c8c4389cc9e340cb5303edb2a98ad4708dee2881df3f2620a47d"
+        },
+        {
+          "name": "01.png",
+          "left": 121,
+          "top": 230,
+          "width": 1015,
+          "height": 907,
+          "bottom": 1136,
+          "sha256": "4a6eed7ae115ad20bd2d69ee3a93505b55053718bff202fda0925b7b07b43916"
+        },
+        {
+          "name": "02.png",
+          "left": 115,
+          "top": 224,
+          "width": 1029,
+          "height": 922,
+          "bottom": 1145,
+          "sha256": "347811c012622759eb5caf26acf1346279c1c0019accb677b560cce66f04545e"
+        },
+        {
+          "name": "03.png",
+          "left": 118,
+          "top": 237,
+          "width": 1011,
+          "height": 899,
+          "bottom": 1135,
+          "sha256": "26ed73029b5bff062b25f5cd838895961e1f4cbf9ec7c5675bbd87e9192b7c83"
+        },
+        {
+          "name": "04.png",
+          "left": 132,
+          "top": 231,
+          "width": 995,
+          "height": 907,
+          "bottom": 1137,
+          "sha256": "a73d3c2cc31971dfdb658a66f950e6bcf634fd389272e04a9badaac48a8232c5"
+        },
+        {
+          "name": "05.png",
+          "left": 130,
+          "top": 232,
+          "width": 1007,
+          "height": 883,
+          "bottom": 1114,
+          "sha256": "3b1f889532a6d2b41bb532bbd265641f155a44c014f68fedddf0bd7a2bb48aa6"
+        },
+        {
+          "name": "06.png",
+          "left": 133,
+          "top": 231,
+          "width": 1005,
+          "height": 913,
+          "bottom": 1143,
+          "sha256": "bc31fd421d25c1af1bc1e180708befdf7d3ed6e68e08469efe4a520e26c78da4"
+        },
+        {
+          "name": "07.png",
+          "left": 106,
+          "top": 322,
+          "width": 1070,
+          "height": 810,
+          "bottom": 1131,
+          "sha256": "c60e90d6c6913260399b81a8386bca4c44cecfad731e1ba4b0b057d22266ea3e"
+        },
+        {
+          "name": "08.png",
+          "left": 152,
+          "top": 215,
+          "width": 973,
+          "height": 892,
+          "bottom": 1106,
+          "sha256": "d5baeddc8052275c31a2fd07ef82bdc3f5c56b2f90b015d9e8e683293ad13bf5"
+        },
+        {
+          "name": "09.png",
+          "left": 126,
+          "top": 268,
+          "width": 1024,
+          "height": 858,
+          "bottom": 1125,
+          "sha256": "051d7078d989d45765be8ccf124dc889ed701b9127123f12e3fc1f4e16a397b6"
+        }
+      ],
+      "scale": 0.21682242990654205,
+      "bytes": 158898
+    },
+    "sloth": {
+      "folder": "mascot-slot",
+      "frames": [
+        {
+          "name": "00.png",
+          "left": 229,
+          "top": 254,
+          "width": 814,
+          "height": 850,
+          "bottom": 1103,
+          "sha256": "0fc3eca0dd65109eaf11bd03cc188727c659c54a786db95bc39e0af549f1a60c"
+        },
+        {
+          "name": "01.png",
+          "left": 236,
+          "top": 254,
+          "width": 818,
+          "height": 854,
+          "bottom": 1107,
+          "sha256": "cb16c422b366b95b01b6a959157e9f2242fd3257fcb78305cd4f6312692a6bea"
+        },
+        {
+          "name": "02.png",
+          "left": 113,
+          "top": 293,
+          "width": 1051,
+          "height": 756,
+          "bottom": 1048,
+          "sha256": "3e47d09817d11a875ce7036dca5e346d5edbf940eb7201d2073bcb32a51c426e"
+        },
+        {
+          "name": "03.png",
+          "left": 252,
+          "top": 283,
+          "width": 846,
+          "height": 778,
+          "bottom": 1060,
+          "sha256": "4e700bcc4961b8bbca3d2d6964f69b577fef00384e1c4ca38b859a154b88eda0"
+        },
+        {
+          "name": "04.png",
+          "left": 233,
+          "top": 293,
+          "width": 964,
+          "height": 774,
+          "bottom": 1066,
+          "sha256": "720ebf008f0e92339f2b6ab868534dbfe743b4008c76cfc42f82a9eacaf4295d"
+        },
+        {
+          "name": "05.png",
+          "left": 251,
+          "top": 255,
+          "width": 872,
+          "height": 825,
+          "bottom": 1079,
+          "sha256": "1e23ab7a9890c131bb1fd14a83812157d437f0e6143b9810da289abd283fdd42"
+        },
+        {
+          "name": "06.png",
+          "left": 193,
+          "top": 210,
+          "width": 933,
+          "height": 866,
+          "bottom": 1075,
+          "sha256": "13b397981aa6a0f9bdf7b7204fc05c5af8f5ee8db86be6622b8343ce68c46800"
+        },
+        {
+          "name": "07.png",
+          "left": 231,
+          "top": 252,
+          "width": 835,
+          "height": 854,
+          "bottom": 1105,
+          "sha256": "d01ee9a2f6e6f1e17763e3daa20d79ce684746319af163f8c4a1166d5ee52648"
+        },
+        {
+          "name": "08.png",
+          "left": 279,
+          "top": 353,
+          "width": 819,
+          "height": 726,
+          "bottom": 1078,
+          "sha256": "8da443b5d2f4f1695b3009ecf70d75e33496860f9e9689bf03f45a4023d7b3b4"
+        }
+      ],
+      "scale": 0.2140221402214022,
+      "bytes": 117272
+    },
+    "kitsune": {
+      "folder": "mascot-kitsune",
+      "frames": [
+        {
+          "name": "00.png",
+          "left": 142,
+          "top": 100,
+          "width": 978,
+          "height": 1063,
+          "bottom": 1162,
+          "sha256": "ca718540a074ca0a4c35289bf61437891a79177ca9c67bd8e6759799ffd0d96d"
+        },
+        {
+          "name": "01.png",
+          "left": 143,
+          "top": 100,
+          "width": 979,
+          "height": 1064,
+          "bottom": 1163,
+          "sha256": "f0fad0ded93cafcc479ca75a45da254fb2ca26323eb998e8db7f80c1e985f92f"
+        },
+        {
+          "name": "02.png",
+          "left": 147,
+          "top": 101,
+          "width": 972,
+          "height": 1063,
+          "bottom": 1163,
+          "sha256": "2472575f1a313078c034119d816f8c4b90694f9de93685ea8afd5650c625818d"
+        },
+        {
+          "name": "03.png",
+          "left": 106,
+          "top": 155,
+          "width": 1026,
+          "height": 983,
+          "bottom": 1137,
+          "sha256": "ced8caab2c7642af5341f93cb67c0720e8a5ed2ea856587c6161f193565ad4a6"
+        },
+        {
+          "name": "04.png",
+          "left": 135,
+          "top": 102,
+          "width": 984,
+          "height": 1073,
+          "bottom": 1174,
+          "sha256": "f1df4d759f455db0b8ac859eb0387a29f7c89a88cd6e3bbf95499d3024312689"
+        },
+        {
+          "name": "05.png",
+          "left": 143,
+          "top": 108,
+          "width": 987,
+          "height": 1044,
+          "bottom": 1151,
+          "sha256": "affd33b2e598b55ec14098115dff0db08a8c756aac5c77034eaf7474c83863d7"
+        },
+        {
+          "name": "06.png",
+          "left": 143,
+          "top": 98,
+          "width": 977,
+          "height": 1065,
+          "bottom": 1162,
+          "sha256": "e49f7328d2e8ab47cc26372b84eb1fa2194e0ab12584787c899b31eaa92ccd66"
+        },
+        {
+          "name": "07.png",
+          "left": 109,
+          "top": 250,
+          "width": 1034,
+          "height": 903,
+          "bottom": 1152,
+          "sha256": "82b1dc18a0800c34a51d144a70fd3fdb7a52cf3140206f5ad00be55194d7dd16"
+        },
+        {
+          "name": "08.png",
+          "left": 127,
+          "top": 100,
+          "width": 1023,
+          "height": 1028,
+          "bottom": 1127,
+          "sha256": "0808edf09c53a60763cc5162a35307353d641b2195acc970353ec0cd4b98eec6"
+        },
+        {
+          "name": "09.png",
+          "left": 107,
+          "top": 157,
+          "width": 1029,
+          "height": 1020,
+          "bottom": 1176,
+          "sha256": "f7b495ad2f595e7c6991d7ab9cbc3c43b2cd6f2e8abfb620f5b4648e17805e77"
+        }
+      ],
+      "scale": 0.21501390176088972,
+      "bytes": 183226
+    },
+    "frenchie": {
+      "folder": "mascot-frenchie",
+      "frames": [
+        {
+          "name": "idle/00.png",
+          "left": 48,
+          "top": 16,
+          "width": 197,
+          "height": 298,
+          "bottom": 313,
+          "sha256": "39965e2f72f5a2e63983b699880b373681f86105e5d3a13cd0487add998dff2a"
+        },
+        {
+          "name": "idle/01.png",
+          "left": 36,
+          "top": 5,
+          "width": 222,
+          "height": 309,
+          "bottom": 313,
+          "sha256": "be1282e4b1337a54a973cb900be8156ca17db256016d90f3e952c2399ac2392a"
+        },
+        {
+          "name": "idle/02.png",
+          "left": 44,
+          "top": 10,
+          "width": 206,
+          "height": 304,
+          "bottom": 313,
+          "sha256": "51bdedc0f244da9560efdb435a48e598616fc82fbc46ddabec4b0c8210feb8a2"
+        },
+        {
+          "name": "run/00.png",
+          "left": 7,
+          "top": 10,
+          "width": 280,
+          "height": 304,
+          "bottom": 313,
+          "sha256": "2f476759725743420e8d2dfe2da1a5af6a88ce8ab369cf26ef6523597f57f378"
+        },
+        {
+          "name": "run/01.png",
+          "left": 6,
+          "top": 9,
+          "width": 280,
+          "height": 306,
+          "bottom": 314,
+          "sha256": "176ba7d8c9610985b56f6600e3166158ecb31a92b8be7c44c153b1229347e153"
+        },
+        {
+          "name": "run/02.png",
+          "left": 5,
+          "top": 9,
+          "width": 283,
+          "height": 306,
+          "bottom": 314,
+          "sha256": "14ff603e3c9d8d72bebc0ed798c0016397755f81b1476ad06212a7d9715067c2"
+        },
+        {
+          "name": "run/03.png",
+          "left": 15,
+          "top": 8,
+          "width": 264,
+          "height": 306,
+          "bottom": 313,
+          "sha256": "c5581e0501e67e0c801995c1d264eb31047174322257d4c8b4bb2afbd464393b"
+        },
+        {
+          "name": "jump/00.png",
+          "left": 15,
+          "top": 8,
+          "width": 264,
+          "height": 306,
+          "bottom": 313,
+          "sha256": "c5581e0501e67e0c801995c1d264eb31047174322257d4c8b4bb2afbd464393b"
+        }
+      ],
+      "scale": 0.7483870967741936,
+      "bytes": 117604
+    }
+  }
+}

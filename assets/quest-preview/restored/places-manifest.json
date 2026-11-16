@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "source": "Restored persimmon city scenes on the original ruins-style rocky island base",
+  "vertices": 64209,
+  "triangles": 21403,
+  "petTriangles": 0,
+  "dimensions": [
+    1440,
+    980
+  ],
+  "geometry": {
+    "centralpark": {
+      "vertices": 44535,
+      "triangles": 14845
+    },
+    "coney": {
+      "vertices": 34956,
+      "triangles": 11652
+    },
+    "highline": {
+      "vertices": 41169,
+      "triangles": 13723
+    },
+    "rockefeller": {
+      "vertices": 43428,
+      "triangles": 14476
+    },
+    "kyoto": {
+      "vertices": 48318,
+      "triangles": 16106
+    },
+    "okinawa": {
+      "vertices": 62412,
+      "triangles": 20804
+    },
+    "nikko": {
+      "vertices": 33570,
+      "triangles": 11190
+    },
+    "hokkaido": {
+      "vertices": 27486,
+      "triangles": 9162
+    },
+    "canalmarket": {
+      "vertices": 42174,
+      "triangles": 14058
+    },
+    "krabi": {
+      "vertices": 49302,
+      "triangles": 16434
+    },
+    "inthanon": {
+      "vertices": 43290,
+      "triangles": 14430
+    }
+  },
+  "files": {
+    "place-centralpark-day.webp": 57978,
+    "place-centralpark-night.webp": 44944,
+    "place-coney-day.webp": 40244,
+    "place-coney-night.webp": 33698,
+    "place-highline-day.webp": 54144,
+    "place-highline-night.webp": 41956,
+    "place-rockefeller-day.webp": 50770,
+    "place-rockefeller-night.webp": 46600,
+    "place-kyoto-day.webp": 41026,
+    "place-kyoto-night.webp": 33222,
+    "place-okinawa-day.webp": 62370,
+    "place-okinawa-night.webp": 51590,
+    "place-nikko-day.webp": 42350,
+    "place-nikko-night.webp": 32688,
+    "place-hokkaido-day.webp": 42834,
+    "place-hokkaido-night.webp": 41576,
+    "place-canalmarket-day.webp": 43768,
+    "place-canalmarket-night.webp": 35734,
+    "place-krabi-day.webp": 70168,
+    "place-krabi-night.webp": 52432,
+    "place-inthanon-day.webp": 50692,
+    "place-inthanon-night.webp": 39348
+  }
+}

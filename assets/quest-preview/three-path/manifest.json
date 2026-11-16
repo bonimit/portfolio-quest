@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 2,
+  "source": "Same live three-path geometry, CPU artwork previews; not browser screenshots",
+  "vertices": 99912,
+  "triangles": 33304,
+  "petTriangles": 0,
+  "dimensions": [
+    1440,
+    980
+  ],
+  "geometry": {
+    "nyc-spring-day": {
+      "vertices": 181032,
+      "triangles": 60344
+    },
+    "nyc-spring-night": {
+      "vertices": 182760,
+      "triangles": 60920
+    },
+    "nyc-summer-day": {
+      "vertices": 181032,
+      "triangles": 60344
+    },
+    "nyc-summer-night": {
+      "vertices": 182760,
+      "triangles": 60920
+    },
+    "nyc-autumn-day": {
+      "vertices": 181320,
+      "triangles": 60440
+    },
+    "nyc-autumn-night": {
+      "vertices": 183048,
+      "triangles": 61016
+    },
+    "nyc-winter-day": {
+      "vertices": 181032,
+      "triangles": 60344
+    },
+    "nyc-winter-night": {
+      "vertices": 182760,
+      "triangles": 60920
+    },
+    "tokyo-spring-day": {
+      "vertices": 93624,
+      "triangles": 31208
+    },
+    "tokyo-spring-night": {
+      "vertices": 93624,
+      "triangles": 31208
+    },
+    "tokyo-summer-day": {
+      "vertices": 81252,
+      "triangles": 27084
+    },
+    "tokyo-summer-night": {
+      "vertices": 81252,
+      "triangles": 27084
+    },
+    "tokyo-autumn-day": {
+      "vertices": 99912,
+      "triangles": 33304
+    },
+    "tokyo-autumn-night": {
+      "vertices": 99912,
+      "triangles": 33304
+    },
+    "tokyo-winter-day": {
+      "vertices": 66240,
+      "triangles": 22080
+    },
+    "tokyo-winter-night": {
+      "vertices": 66240,
+      "triangles": 22080
+    },
+    "bangkok-raining-day": {
+      "vertices": 80097,
+      "triangles": 26699
+    },
+    "bangkok-raining-night": {
+      "vertices": 80097,
+      "triangles": 26699
+    },
+    "bangkok-summer-day": {
+      "vertices": 87153,
+      "triangles": 29051
+    },
+    "bangkok-summer-night": {
+      "vertices": 87153,
+      "triangles": 29051
+    },
+    "bangkok-winter-day": {
+      "vertices": 92127,
+      "triangles": 30709
+    },
+    "bangkok-winter-night": {
+      "vertices": 92127,
+      "triangles": 30709
+    },
+    "place-centralpark-day": {
+      "vertices": 87081,
+      "triangles": 29027
+    },
+    "place-centralpark-night": {
+      "vertices": 88809,
+      "triangles": 29603
+    },
+    "place-coney-day": {
+      "vertices": 86214,
+      "triangles": 28738
+    },
+    "place-coney-night": {
+      "vertices": 87942,
+      "triangles": 29314
+    },
+    "place-highline-day": {
+      "vertices": 93486,
+      "triangles": 31162
+    },
+    "place-highline-night": {
+      "vertices": 95214,
+      "triangles": 31738
+    },
+    "place-rockefeller-day": {
+      "vertices": 181032,
+      "triangles": 60344
+    },
+    "place-rockefeller-night": {
+      "vertices": 182760,
+      "triangles": 60920
+    },
+    "place-kyoto-day": {
+      "vertices": 84786,
+      "triangles": 28262
+    },
+    "place-kyoto-night": {
+      "vertices": 84786,
+      "triangles": 28262
+    },
+    "place-okinawa-day": {
+      "vertices": 88296,
+      "triangles": 29432
+    },
+    "place-okinawa-night": {
+      "vertices": 88296,
+      "triangles": 29432
+    },
+    "place-nikko-day": {
+      "vertices": 76494,
+      "triangles": 25498
+    },
+    "place-nikko-night": {
+      "vertices": 76494,
+      "triangles": 25498
+    },
+    "place-hakuba-day": {
+      "vertices": 76440,
+      "triangles": 25480
+    },
+    "place-hakuba-night": {
+      "vertices": 76440,
+      "triangles": 25480
+    },
+    "place-canalmarket-day": {
+      "vertices": 89835,
+      "triangles": 29945
+    },
+    "place-canalmarket-night": {
+      "vertices": 89835,
+      "triangles": 29945
+    },
+    "place-krabi-day": {
+      "vertices": 84579,
+      "triangles": 28193
+    },
+    "place-krabi-night": {
+      "vertices": 84579,
+      "triangles": 28193
+    },
+    "place-inthanon-day": {
+      "vertices": 84411,
+      "triangles": 28137
+    },
+    "place-inthanon-night": {
+      "vertices": 104691,
+      "triangles": 34897
+    }
+  },
+  "files": {
+    "nyc-spring-day.webp": 70878,
+    "nyc-spring-night.webp": 61170,
+    "nyc-summer-day.webp": 70470,
+    "nyc-summer-night.webp": 60742,
+    "nyc-autumn-day.webp": 72454,
+    "nyc-autumn-night.webp": 61522,
+    "nyc-winter-day.webp": 71010,
+    "nyc-winter-night.webp": 64874,
+    "tokyo-spring-day.webp": 61542,
+    "tokyo-spring-night.webp": 46970,
+    "tokyo-summer-day.webp": 59044,
+    "tokyo-summer-night.webp": 45202,
+    "tokyo-autumn-day.webp": 64150,
+    "tokyo-autumn-night.webp": 47634,
+    "tokyo-winter-day.webp": 63706,
+    "tokyo-winter-night.webp": 59284,
+    "bangkok-raining-day.webp": 55412,
+    "bangkok-raining-night.webp": 47156,
+    "bangkok-summer-day.webp": 60012,
+    "bangkok-summer-night.webp": 48570,
+    "bangkok-winter-day.webp": 63280,
+    "bangkok-winter-night.webp": 48716,
+    "place-centralpark-day.webp": 61770,
+    "place-centralpark-night.webp": 51808,
+    "place-coney-day.webp": 51896,
+    "place-coney-night.webp": 45482,
+    "place-highline-day.webp": 64538,
+    "place-highline-night.webp": 49906,
+    "place-rockefeller-day.webp": 71644,
+    "place-rockefeller-night.webp": 66744,
+    "place-kyoto-day.webp": 51496,
+    "place-kyoto-night.webp": 40980,
+    "place-okinawa-day.webp": 67920,
+    "place-okinawa-night.webp": 53486,
+    "place-nikko-day.webp": 54314,
+    "place-nikko-night.webp": 42986,
+    "place-hakuba-day.webp": 52558,
+    "place-hakuba-night.webp": 51516,
+    "place-canalmarket-day.webp": 56744,
+    "place-canalmarket-night.webp": 45720,
+    "place-krabi-day.webp": 68538,
+    "place-krabi-night.webp": 52372,
+    "place-inthanon-day.webp": 62290,
+    "place-inthanon-night.webp": 54268
+  }
+}

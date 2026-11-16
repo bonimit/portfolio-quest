@@ -27,3 +27,9 @@ Thumbs.db
 
 # Local coordinator output (approve reports explicitly before tracking)
 automation/reports/
+
+# Recoverable local source/render baselines (never public assets)
+.local-snapshots/
+
+# Rebuildable screenshot download archives exceed GitHub file limits
+/public/quest-preview/scene-review/all-scenes*.zip

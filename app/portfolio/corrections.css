@@ -1,0 +1,58 @@
+/* Round 2: additive only. The hero remains full bleed and its effects unchanged. */
+.home--reference .reference-hero {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+.home--reference { --portfolio-content-max: 90rem; }
+.home--reference .reference-hero-copy { width: min(100%, var(--portfolio-content-max)); margin-inline: auto; }
+.home--reference .reference-hero .hero-actions,
+.home--reference .reference-hero .motion-toggle { left: max(var(--landing-gutter), calc((100% - var(--portfolio-content-max)) / 2 + var(--landing-gutter))); }
+.home--reference .landing-playground {
+  width: 100%;
+  max-width: var(--portfolio-content-max);
+  margin-inline: auto;
+}
+.home--reference .landing-card {
+  scroll-margin-top: calc(var(--site-header-height, 0px) + 8rem);
+}
+.home--reference .landing-playground [id] {
+  scroll-margin-top: calc(var(--site-header-height, 0px) + 8rem);
+}
+
+/* Sort control: additive, mounted into the existing toolbar (see components/home/portfolio-sort.tsx). */
+.home--reference .portfolio-sort-host { display: contents; }
+.home--reference .portfolio-sort-rule { flex: 0 0 auto; width: 1px; height: 20px; margin: 0 .35rem; background: var(--landing-line); }
+.home--reference .portfolio-sort-seg {
+  flex: 0 0 auto;
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--landing-line);
+  border-radius: 999px;
+  box-shadow: 2px 2px 0 rgb(19 19 19 / .14);
+}
+.home--reference .portfolio-sort-seg button {
+  min-height: 44px;
+  padding: .35rem .75rem;
+  border: 0;
+  background: none;
+  color: var(--color-muted);
+  font-family: var(--landing-font-sans);
+  font-size: .74rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background var(--landing-color-duration, .2s), color var(--landing-color-duration, .2s);
+}
+.home--reference .portfolio-sort-seg button + button { border-left: 1.5px solid var(--color-ink); }
+.home--reference .portfolio-sort-seg button.on { background: var(--color-ink); color: var(--color-paper); }
+.home--reference .portfolio-sort-seg button:focus-visible { outline: 2px solid currentColor; outline-offset: -4px; }
+.home--reference .portfolio-sort-status {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+/* Sorted orders mix card spans, so let the grid backfill holes. Curated keeps the original flow. */
+.home--reference .landing-board[data-sort]:not([data-sort="curated"]) { grid-auto-flow: dense; }
+.home--reference .landing-tally b { display: inline-block; transition: transform .35s var(--landing-spring); }
+.home--reference .landing-tally b.portfolio-sort-bump { transform: scale(1.18) rotate(-3deg); }
+@media (prefers-reduced-motion: reduce) {
+  .home--reference .landing-tally b { transition: none; }
+  .home--reference .landing-tally b.portfolio-sort-bump { transform: none; }
+}

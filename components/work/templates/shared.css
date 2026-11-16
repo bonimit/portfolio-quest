@@ -1,0 +1,42 @@
+/* Shared pieces for the case-study templates (D1–D6). D0 keeps app/work/[slug]/case-study.css. */
+.tpl { font-family: var(--landing-font-serif); color: var(--color-ink); padding-bottom: var(--temp-space-9, 5rem); }
+/* Zero-specificity resets so each template's own spacing always wins. */
+:where(.tpl) :where(h1, h2, h3, p, figure) { margin: 0; }
+.tpl a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+.tpl-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin: .5rem 0 1rem; font: 500 .85rem/1.2 var(--landing-font-sans); }
+.tpl-top a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-ink); text-underline-offset: .2em; }
+.tpl-sample { padding: .2rem .6rem; border: 1px dashed var(--color-ink); border-radius: 999px; font-size: .72rem; }
+.tpl-eyebrow { font: 500 .72rem/1.3 var(--landing-font-sans); letter-spacing: .12em; text-transform: uppercase; color: var(--color-muted); }
+
+.tpl-tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .35rem; }
+.tpl-tags a { display: inline-flex; align-items: center; min-height: 32px; padding: .15rem .7rem; border: 1px solid var(--color-ink); border-radius: 999px; background: var(--color-paper); color: var(--color-ink); text-decoration: none; font: .76rem/1.3 var(--landing-font-sans); transition: background var(--landing-color-duration); }
+.tpl-tags a:hover { background: color-mix(in srgb, var(--card-tint) 60%, var(--color-paper)); }
+
+.tpl-art { position: relative; width: 100%; background: color-mix(in srgb, var(--card-tint) 28%, var(--color-paper)); border: 1px solid var(--color-ink); overflow: hidden; }
+.tpl-art svg { position: absolute; inset: 8%; width: 84%; height: 84%; fill: none; stroke: var(--color-ink); stroke-width: 1.2; }
+.tpl-art svg * { vector-effect: non-scaling-stroke; }
+.tpl figcaption { font: .78rem/1.45 var(--landing-font-sans); color: var(--color-muted); margin-top: .55rem; }
+.tpl figcaption b { color: var(--color-ink); font-weight: 600; margin-right: .4rem; }
+
+.tpl-pager { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 4rem; padding-top: 1.2rem; border-top: 1px solid var(--color-ink); font-family: var(--landing-font-sans); }
+.tpl-pager a { display: grid; gap: .25rem; min-height: 44px; color: var(--color-ink); text-decoration: none; font: 400 1.3rem/1.25 var(--landing-font-serif); }
+.tpl-pager a span { font: .74rem/1 var(--landing-font-sans); color: var(--color-muted); }
+.tpl-pager a[rel="next"] { text-align: right; }
+.tpl-pager a:hover { text-decoration: underline; text-underline-offset: .2em; }
+
+/* Template preview bar (development only) */
+.tpl-switch { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; margin: var(--temp-space-4, 1rem) 0 0; padding: .5rem .6rem; border: 1px dashed var(--color-ink); background: var(--color-secondary-paper); font-family: var(--landing-font-sans); }
+.tpl-switch-label { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+.tpl-switch ul { list-style: none; display: flex; flex-wrap: wrap; gap: .3rem; padding: 0; margin: 0; }
+.tpl-switch a { display: inline-flex; align-items: center; gap: .35rem; min-height: 36px; padding: .2rem .7rem; border: 1px solid var(--color-ink); border-radius: 999px; background: var(--color-paper); color: var(--color-ink); text-decoration: none; font-size: .78rem; }
+.tpl-switch a[aria-current] { background: var(--color-ink); color: var(--color-paper); }
+.tpl-switch a:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; }
+
+@media (max-width: 40rem) {
+  .tpl-switch ul { flex-wrap: nowrap; overflow-x: auto; max-width: 100%; }
+  .tpl-switch a { white-space: nowrap; }
+  .tpl-pager { grid-template-columns: 1fr; }
+  .tpl-pager a[rel="next"] { text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { .tpl * { transition: none !important; animation: none !important; } }

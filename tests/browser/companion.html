@@ -1,0 +1,61 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Companion Round 3 · Live browser checks</title>
+<style>body{font:15px/1.5 system-ui;background:#eceae3;color:#131313;margin:24px}button{padding:12px;background:#f79a3b;border:1px solid}pre{white-space:pre-wrap}iframe{display:block;border:1px solid;margin-top:16px;height:900px;background:#131313}#surface{overflow:auto}li{margin:8px 0}.pass{color:#20551c}.fail{color:#8c210c}</style>
+<h1>Companion Round 3 · Live browser checks</h1><p>Tests the real local website in same-origin frames at eight CSS widths. Checks visible bounds and center-point hit targets after opening and input scrolling, plus path transitions and focus policy. Programmatic events are not physical touch, screen-reader or visual art approval. Run again after changing the browser’s reduced-motion setting.</p><button id="run">Run live matrix</button><ol id="results"></ol><div id="surface"></div><pre id="detail"></pre>
+<script>
+const widths=[320,390,768,1024,1279,1280,1440,1920], rows=[];
+const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function until(predicate,label){for(let i=0;i<100;i++){if(predicate())return;await sleep(50);}throw new Error('Timed out: '+label);}
+function visiblePaths(doc,win,label){
+  const items=[...doc.querySelectorAll('.title-paths .title-path')].map(link=>{
+    const r=link.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;
+    const hit=doc.elementFromPoint(x,y),style=win.getComputedStyle(link);
+    return {href:new URL(link.href).pathname,rect:{x:r.x,y:r.y,width:r.width,height:r.height},within:r.left>=-1&&r.right<=win.innerWidth+1&&r.top>=0&&r.bottom<=win.innerHeight,hit:!!hit&&(hit===link||link.contains(hit)),display:style.display,visibility:style.visibility};
+  });
+  if(items.length!==2 || items.some(item=>!item.within||!item.hit||item.display==='none'||item.visibility==='hidden'))throw new Error(label+': '+JSON.stringify(items));
+  return {label,items};
+}
+async function run(){
+  document.querySelector('#run').disabled=true;document.querySelector('#results').textContent='';rows.length=0;
+  for(const width of widths){
+    const frame=document.createElement('iframe');frame.title='Live entrance '+width;frame.style.width=width+'px';frame.height='900';frame.src='/';document.querySelector('#surface').replaceChildren(frame);
+    const row={width,height:900,passed:false,checks:[]};
+    try{
+      await new Promise((resolve,reject)=>{frame.onload=resolve;frame.onerror=reject;});
+      const win=frame.contentWindow,doc=win.document;
+      await doc.fonts.ready;
+      await until(()=>doc.querySelector('.wayfinder-avatar'),'avatar');
+      // Wait for hydration: repeated click is safe only until the panel first mounts.
+      for(let attempt=0;attempt<30&&!doc.querySelector('#companion-panel');attempt++){doc.querySelector('.wayfinder-avatar').click();await sleep(100);}
+      await until(()=>doc.querySelector('#companion-panel'),'panel opening');await sleep(650);
+      row.innerWidth=win.innerWidth;row.reducedMotion=win.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      row.checks.push(visiblePaths(doc,win,'after open/focus'));
+      const input=doc.querySelector('#guide-question');input.focus();input.scrollIntoView({block:'nearest'});await sleep(120);
+      row.checks.push(visiblePaths(doc,win,'after input scrolling'));
+      if(doc.querySelector('#guide-disclosure').textContent!=='Scripted guide · Not AI')throw new Error('disclosure');
+      // Normal focus elsewhere must not be captured by the companion's Escape handling.
+      const portfolio=doc.querySelector('.title-path--portfolio');portfolio.focus();portfolio.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await sleep(220);
+      if(!doc.querySelector('#companion-panel')||doc.activeElement!==portfolio)throw new Error('unrelated Escape/focus was stolen');
+      row.checks.push({label:'unrelated Escape preserves focus',passed:true});
+      input.focus();input.dispatchEvent(new win.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));await until(()=>!doc.querySelector('#companion-panel'),'scoped Escape');
+      if(doc.activeElement!==doc.querySelector('.wayfinder-avatar'))throw new Error('Escape focus return');
+      row.checks.push({label:'panel Escape returns to avatar',passed:true});
+      for(const path of ['portfolio','adventure']){
+        doc.querySelector('.wayfinder-avatar').click();await until(()=>doc.querySelector('#companion-panel'),'reopen');await sleep(550);
+        row.checks.push(visiblePaths(doc,win,'before '+path+' click'));
+        const link=doc.querySelector('.title-path--'+path);
+        if(row.reducedMotion){row.checks.push({label:path+' reduced-motion native href',href:new URL(link.href).pathname});doc.querySelector('.guide-close').click();await until(()=>!doc.querySelector('#companion-panel'),'reduced close');continue;}
+        link.click();await until(()=>doc.querySelector('.path-transition[open]'),'path transition');
+        doc.querySelector('.path-transition button').click();await until(()=>!doc.querySelector('.path-transition'),'cancel transition');
+        if(doc.activeElement!==link)throw new Error('path cancellation focus');
+      }
+      row.passed=true;
+    }catch(error){row.error=String(error);}
+    rows.push(row);const li=document.createElement('li');li.className=row.passed?'pass':'fail';li.textContent=width+'px — '+(row.passed?'PASS':row.error);document.querySelector('#results').append(li);
+  }
+  const report={createdAt:new Date().toISOString(),userAgent:navigator.userAgent,rows};
+  document.querySelector('#detail').textContent=JSON.stringify(report,null,2);
+  await fetch('/__companion-results',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(report)});
+  document.querySelector('#run').disabled=false;
+}
+document.querySelector('#run').addEventListener('click',run);
+</script></html>

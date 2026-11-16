@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>P2 AI Concierge</title>
+<link rel="stylesheet" href="play.css">
+<style>
+  .p2 { display: grid; grid-template-columns: minmax(0, 1fr); height: min(78vh, 46rem); min-height: 34rem; transition: grid-template-columns .45s var(--slide); }
+  body.is-system .p2 { grid-template-columns: minmax(0, 1fr) minmax(0, 26rem); }
+  .chat { display: flex; flex-direction: column; min-height: 0; width: min(46rem, 100%); margin-inline: auto; border-inline: 1px solid var(--line); background: var(--card); }
+  .chat-head { display: flex; align-items: center; gap: .7rem; padding: .8rem 1.2rem; border-bottom: 1.5px solid var(--ink); background: var(--paper); }
+  .avatar { width: 2.4rem; height: 2.4rem; border-radius: 50%; border: 1.5px solid var(--ink); background: var(--tint); display: grid; place-items: center; font: 400 1.1rem/1 var(--display); }
+  .chat-head b { display: block; font: 600 .95rem/1.2 var(--sans); }
+  .chat-head small { font: .74rem/1 var(--sans); color: var(--muted); }
+  .log { flex: 1; min-height: 0; }
+  .card { margin-top: .6rem; padding: .7rem .8rem; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--card); font-family: var(--sans); font-size: .88rem; }
+  .card dl { display: grid; grid-template-columns: auto 1fr; gap: .25rem .8rem; margin: 0 0 .6rem; }
+  .card dt { color: var(--muted); }
+  .card dd { margin: 0; font-weight: 600; }
+  .booked { background: color-mix(in srgb, var(--lime) 50%, var(--card)); }
+  .starters[hidden] { display: none; }
+  .starters { display: flex; flex-wrap: wrap; gap: .35rem; padding: 0 1.2rem .8rem; }
+
+  .inspector { display: none; flex-direction: column; min-height: 0; border-left: 1.5px dashed var(--note); background: #eef2fc; font-family: var(--sans); }
+  body.is-system .inspector { display: flex; }
+  .inspector h2 { padding: .9rem 1rem; border-bottom: 1px solid rgb(47 95 208 / .3); font: 700 .74rem/1 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--note); }
+  .turns { flex: 1; overflow-y: auto; padding: .8rem 1rem; display: grid; gap: .7rem; align-content: start; }
+  .turn { padding: .7rem .8rem; border: 1.5px solid var(--note); background: #fff; font-size: .8rem; animation: msg-in .35s var(--spring) both; }
+  .turn q { display: block; font: italic .92rem/1.35 var(--serif); margin-bottom: .5rem; }
+  .turn dl { display: grid; grid-template-columns: 5.5rem 1fr; gap: .2rem .6rem; margin: 0; }
+  .turn dt { color: var(--note); font-weight: 600; }
+  .turn dd { margin: 0; word-break: break-word; }
+  .conf { display: inline-block; height: 6px; background: var(--note); vertical-align: middle; margin-right: .35rem; }
+  .rule { margin-top: .5rem; padding-top: .45rem; border-top: 1px dashed rgb(47 95 208 / .4); color: var(--note); font-weight: 600; }
+  .empty { color: var(--muted); font-style: italic; }
+  @media (max-width: 56rem) {
+    .p2, body.is-system .p2 { grid-template-columns: minmax(0, 1fr); height: auto; }
+    .chat { height: 34rem; border: 0; }
+    .inspector { max-height: 22rem; border-left: 0; border-top: 1.5px dashed var(--note); }
+  }
+</style></head>
+<body>
+<div class="badge">P2 · AI Concierge</div>
+<div class="wrap">
+  <nav class="topbar"><a href="#">← Selected Work</a><span class="sample">Sample project · scripted demo, not a live AI</span></nav>
+  <header class="head">
+    <div>
+      <p class="eyebrow">Professional Work · Hospitality · Conversation</p>
+      <h1>AI concierge</h1>
+      <p class="pitch">A booking concierge for a restaurant. Talk to it. Change your mind.</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="soundBtn" aria-pressed="false"><span class="ico" aria-hidden="true">🔈</span><span>Sound off</span></button>
+      <button class="btn" id="systemBtn" aria-pressed="false"><span class="ico" aria-hidden="true">◐</span>Show the system</button>
+      <button class="btn btn--solid" id="depthBtn">Full case study <span aria-hidden="true">→</span></button>
+    </div>
+  </header>
+
+  <main class="stage p2" aria-label="AI concierge, interactive">
+    <section class="chat" aria-label="Conversation" data-note="Chat surface · one idea per bubble">
+      <div class="chat-head"><span class="avatar" aria-hidden="true">C</span><div><b>Concierge</b><small>Sample Bistro · usually replies instantly</small></div></div>
+      <div class="log" id="log" role="log" aria-live="polite"></div>
+      <div class="starters" id="starters" data-note="Starter chips · teach what it can do">
+        <button class="chip">Table for 4 at 8pm</button><button class="chip">Are you open Monday?</button><button class="chip">Any vegan dishes?</button><button class="chip">Tell me a joke</button>
+      </div>
+      <form class="composer" id="form" data-note="Free text · keyword intents + slot parsing">
+        <label class="eyebrow" for="input" style="position:absolute;left:-9999px">Message</label>
+        <input id="input" autocomplete="off" placeholder="Ask anything about tonight…">
+        <button class="btn btn--solid" type="submit">Send</button>
+      </form>
+    </section>
+    <aside class="inspector" aria-label="Under the hood">
+      <h2>Under the hood · each message</h2>
+      <div class="turns" id="turns"><p class="empty">Send a message to see how it's understood.</p></div>
+    </aside>
+  </main>
+
+  <section class="foot">
+    <div class="tasks">
+      <div class="tasks-head"><h2 class="eyebrow">Try this</h2><span class="count" id="taskCount">0 / 3 found</span></div>
+      <ol>
+        <li data-task="book">Book a table</li>
+        <li data-task="fallback">Ask something it can't answer</li>
+        <li data-task="correct">Change your mind halfway through</li>
+      </ol>
+    </div>
+    <p class="caption" id="caption" aria-live="polite"><small class="eyebrow">What you're seeing</small><span>Say anything. Try “Show the system” to watch it think.</span></p>
+  </section>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <header><h2 id="drawerTitle">The full case study</h2><button class="btn" id="drawerClose">Close <span aria-hidden="true">✕</span></button></header>
+  <div class="tabs" role="tablist" aria-label="Case study sections">
+    <button role="tab" id="t1" aria-controls="p-1" aria-selected="true">Research</button>
+    <button role="tab" id="t2" aria-controls="p-2" aria-selected="false" tabindex="-1">Decisions</button>
+    <button role="tab" id="t3" aria-controls="p-3" aria-selected="false" tabindex="-1">Metrics</button>
+    <button role="tab" id="t4" aria-controls="p-4" aria-selected="false" tabindex="-1">Constraints</button>
+  </div>
+  <section class="panel" role="tabpanel" id="p-1" aria-labelledby="t1">
+    <h3>Question</h3><p>What do guests actually ask before dinner, and in what words?</p>
+    <h3>Method (sample)</h3><ul><li>Coded a sample of booking calls and messages into intents.</li><li>Collected the exact phrasing guests use for time and party size.</li></ul>
+    <h3>Finding</h3><p>Most messages carry two facts at once (“4 of us at 8”). <span class="ph">Placeholder until real data is approved</span></p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-2" aria-labelledby="t2" hidden>
+    <h3>Ask only for what's missing</h3><p>Slots fill from anything the guest already said.</p>
+    <h3>Corrections edit, never restart</h3><p>“Actually 6” changes one slot and re-confirms.</p>
+    <h3>Two misses, then a person</h3><p>The second no-match offers the host team instead of looping.</p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-3" aria-labelledby="t3" hidden>
+    <div class="metric"><span>Bookings completed without staff</span><span class="ph">[Placeholder]</span></div>
+    <div class="metric"><span>Hand-offs to a person</span><span class="ph">[Placeholder]</span></div>
+    <div class="metric"><span>Average turns to book</span><span class="ph">[Placeholder]</span></div>
+  </section>
+  <section class="panel" role="tabpanel" id="p-4" aria-labelledby="t4" hidden>
+    <ul><li>Deterministic and scripted: no generated answers about allergens or prices.</li><li>Every reply under 25 words.</li><li>Must always offer a human.</li></ul>
+  </section>
+</aside>
+
+<script src="play.js"></script>
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const chat = Play.chat($("#log"));
+  const INTENTS = [
+    { id: "book", kw: ["book", "table", "reserve", "reservation", "booking", "dinner", "seat"] },
+    { id: "hours", kw: ["open", "hours", "close", "closing", "monday", "tuesday", "sunday", "today"] },
+    { id: "menu", kw: ["vegan", "vegetarian", "gluten", "allergy", "allergies", "menu", "diet", "dishes", "food"] },
+    { id: "where", kw: ["where", "address", "directions", "parking", "located"] },
+    { id: "human", kw: ["human", "person", "staff", "speak", "someone", "manager", "host"] },
+    { id: "thanks", kw: ["thanks", "thank", "cheers"] },
+    { id: "greet", kw: ["hi", "hello", "hey"] },
+  ];
+  const NUM = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+  const CORRECT = /\b(actually|instead|change|make it|no wait|rather)\b/i;
+  const YES = /^(yes|yep|yeah|confirm|sounds good|perfect|ok|okay|great)\b/i;
+  const S = { booking: null, misses: 0 };
+
+  function parse(raw) {
+    const t = raw.toLowerCase().replace(/\b(one|two|three|four|five|six|seven|eight|nine|ten)\b/g, (w) => NUM[w]);
+    const words = t.match(/[a-z']+/g) || [];
+    let best = null;
+    for (const it of INTENTS) { const hits = it.kw.filter((k) => words.includes(k)); if (hits.length && (!best || hits.length > best.hits.length)) best = { id: it.id, hits }; }
+    const size = (t.match(/(?:for|party of)\s*(\d{1,2})\b(?!\s*(?::|am|pm))/) || t.match(/\b(\d{1,2})\s*(?:people|persons|guests|of us|pax)/) || [])[1];
+    const tm = t.match(/\bat\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/) || t.match(/\b(\d{1,2})(?::(\d{2}))?\s*(am|pm)\b/) || t.match(/\b(\d{1,2}):(\d{2})\b/);
+    const time = tm ? `${tm[1]}:${tm[2] || "00"} ${tm[3] || "pm"}` : undefined;
+    return { id: best?.id, hits: best?.hits || [], size: size ? +size : undefined, time };
+  }
+
+  function log(text, info) {
+    const box = $("#turns"); box.querySelector(".empty")?.remove();
+    const conf = info.intent === "no match" ? 0 : Math.min(.97, .55 + .18 * Math.max(1, info.hits.length));
+    const el = document.createElement("div"); el.className = "turn";
+    el.innerHTML = `<q>${Play.esc(text)}</q><dl>
+      <dt>Intent</dt><dd>${info.intent}</dd>
+      <dt>Confidence</dt><dd><span class="conf" style="width:${conf * 70}px"></span>${Math.round(conf * 100)}%</dd>
+      <dt>Matched</dt><dd>${info.hits.length ? info.hits.join(", ") : "—"}</dd>
+      <dt>Slots</dt><dd>${S.booking ? `people: ${S.booking.size ?? "?"} · time: ${S.booking.time ?? "?"}` : "—"}</dd>
+      <dt>Misses</dt><dd>${S.misses}</dd></dl><div class="rule">Rule: ${info.rule}</div>`;
+    box.prepend(el);
+  }
+
+  const card = (b) => `<div class="card"><dl><dt>People</dt><dd>${b.size}</dd><dt>Time</dt><dd>${b.time}, tonight</dd></dl><div class="row"><button class="chip" data-say="Confirm">Confirm</button><button class="chip" data-say="Change it">Change</button></div></div>`;
+
+  async function reply(text) {
+    const p = parse(text);
+    let intent = p.id, rule = "";
+    const slots = p.size || p.time;
+    if (S.booking && !S.booking.done && YES.test(text) && S.booking.size && S.booking.time) intent = "confirm";
+    else if (S.booking && S.booking.size && S.booking.time && slots && CORRECT.test(text)) intent = "correct";
+    else if (S.booking && !S.booking.done && /^change/i.test(text)) intent = "change";
+    else if (slots && (!intent || intent === "book" || S.booking)) intent = "book";
+
+    await chat.typing();
+    if (intent && intent !== "book" && intent !== "correct" && intent !== "confirm" && intent !== "change") S.misses = 0;
+
+    switch (intent) {
+      case "book": {
+        S.misses = 0;
+        if (!S.booking || S.booking.done) S.booking = {};
+        if (p.size) S.booking.size = p.size; if (p.time) S.booking.time = p.time;
+        if (!S.booking.size) { rule = "Slot missing → ask for that one thing only"; chat.add("bot", `Lovely. How many people?<div class="row"><button class="chip" data-say="2 people">2</button><button class="chip" data-say="4 people">4</button><button class="chip" data-say="6 people">6</button></div>`); }
+        else if (!S.booking.time) { rule = "Slot missing → ask for that one thing only"; chat.add("bot", `Table for ${S.booking.size}. What time?<div class="row"><button class="chip" data-say="at 7pm">7 pm</button><button class="chip" data-say="at 8pm">8 pm</button><button class="chip" data-say="at 9:30pm">9:30 pm</button></div>`); }
+        else { rule = "All slots filled → confirm before booking"; chat.add("bot", `Here's what I have:${card(S.booking)}`); }
+        break;
+      }
+      case "correct":
+        if (p.size) S.booking.size = p.size; if (p.time) S.booking.time = p.time;
+        rule = "Correction → edit one slot, keep the rest";
+        chat.add("bot", `No problem, updated.${card(S.booking)}`);
+        Play.complete("correct", "Corrections edit the slot, not the conversation. Nobody has to start over.");
+        break;
+      case "change":
+        rule = "Change → ask which slot";
+        chat.add("bot", `Sure. Just tell me the new detail, like “actually 6 people” or “make it 9pm”.`);
+        break;
+      case "confirm":
+        S.booking.done = true; rule = "Confirmed → book and summarise";
+        chat.add("bot", `<div class="card booked"><b>Booked ✓</b><dl style="margin:.4rem 0 0"><dt>People</dt><dd>${S.booking.size}</dd><dt>Time</dt><dd>${S.booking.time}, tonight</dd></dl></div><small>Sample booking. Nothing was reserved.</small>`);
+        Play.complete("book", "It only asked for what was missing. Say everything at once and it skips straight to confirm.");
+        break;
+      case "hours": rule = "FAQ → short fixed answer"; chat.add("bot", "We're open Tuesday to Sunday, 5 pm to 11 pm. Closed Mondays. <small>Sample hours.</small>"); break;
+      case "menu": rule = "Dietary → tagged answer, never improvise allergens"; chat.add("bot", "Every dish is tagged vegan, vegetarian or gluten-free. For allergies, the host team confirms in person. <small>Sample answer.</small>"); break;
+      case "where": rule = "FAQ → short fixed answer"; chat.add("bot", "We're at 12 Sample Street, next to the park. <small>Sample address.</small>"); break;
+      case "human": rule = "Human requested → hand off immediately"; chat.add("bot", "Of course. I'll ask the host team to call you back. <small>In the real product this opens a call-back form.</small>"); break;
+      case "thanks": rule = "Thanks → close warmly, leave door open"; chat.add("bot", "Anytime. Enjoy your evening!"); break;
+      case "greet": rule = "Greeting → show what I can do"; chat.add("bot", "Hi! I can book a table, share opening hours, or answer menu questions."); break;
+      default:
+        S.misses++; intent = "no match";
+        if (S.misses === 1) {
+          rule = "1st miss → say what I can do, offer choices";
+          chat.add("bot", `That one's outside what I know. I can help with:<div class="row"><button class="chip" data-say="Book a table">Bookings</button><button class="chip" data-say="When are you open?">Hours</button><button class="chip" data-say="Show me the menu">Menu</button></div>`);
+          Play.complete("fallback", "A no-match never says “I don't understand” twice. The first miss shows what it can do; the second offers a person.");
+        } else {
+          rule = "2nd miss → offer a person, stop guessing";
+          chat.add("bot", `Let me get a person for that.<div class="row"><button class="chip" data-say="Talk to a person">Talk to the host</button></div>`);
+        }
+    }
+    log(text, { intent: intent || "no match", hits: p.hits, rule });
+    Play.blip();
+    const left = 3 - Play.done.size;
+    if (Date.now() > Play._lock) Play.say(left ? `Rule just used: ${rule}.` : "All three found. Every reply you saw was a designed rule, not a guess.");
+  }
+
+  async function send(text) {
+    text = text.trim(); if (!text) return;
+    $("#starters").hidden = true;
+    chat.add("me", Play.esc(text)); Play.tick();
+    await reply(text);
+  }
+  $("#form").addEventListener("submit", (e) => { e.preventDefault(); const v = $("#input").value; $("#input").value = ""; send(v); });
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-say], #starters .chip"); if (!b) return;
+    send(b.dataset.say || b.textContent);
+  });
+  chat.add("bot", "Good evening! I'm the concierge for Sample Bistro. Want to book a table for tonight?");
+})();
+</script>
+</body></html>

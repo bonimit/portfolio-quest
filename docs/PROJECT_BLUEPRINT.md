@@ -14,6 +14,26 @@ These decisions are approved by the project owner and take precedence over any c
 4. **Public content excludes private and NDA material.** Private, NDA and internal-only content must never reach the public frontend, the static search index, the guide FAQ or any future AI index. See [Content Rules](CONTENT_RULES.md).
 5. **Phase 2 is a small playable vertical slice**, not a full world. See Phase 2 in section 11.
 6. **Paid AI services are deferred** (Phase 5 and later). Nothing in Phases 0-4 may require an AI API key or usage-based billing.
+7. **Entrance / portfolio split (approved 2026-11-10).** `/` is a new interactive, accessible path-selection entrance. `/portfolio` preserves the latest approved orange reference-led homepage, including its typography, motion, cards and footer. This supersedes earlier homepage placement and automatic mobile editorial-entry assumptions: mobile receives the accessible entrance with Portfolio first and a direct skip link; no visitor is forced into the game. The first entrance milestone includes an explicitly local scripted guide only. The full portfolio/game companion, public search index and paid AI remain separate future work.
+
+8. **Round 2 entrance and navigation update (approved 2026-11-10).** `/` is a restrained game-title screen with exactly two primary path buttons: PORTFOLIO → `/portfolio`, ADVENTURE → `/world` (preview/coming soon, not playable). Keep direct Selected Work access. Replace the redundant mode bar with a compact desktop header and accessible disclosure menu on content routes. Use an original placeholder walking guide until reference sprite rights are verified. Typed conversation remains an explicitly scripted fallback; a genuine free-form AI service requires separate approval after provider, cost, privacy and public-abuse evaluation. No service is activated now.
+9. **Portfolio layout corrections only (approved 2026-11-10).** Preserve protected orange visual-effect sources. A pass-through layout imports additive CSS: zero-minimum hero grid tracks, centered 90rem editorial measure and focus offsets. Full-bleed orange hero, fitted wordmark, circles and motion remain. Owner-approved route labels are Portfolio, Selected Work and Adventure Preview.
+
+10. **Adventure lineup and case-study template (approved 2026-11-15).** Locally replace `/world` with the approved AD1 project lineup: Island default, optional Arcade/Neon themes, grid/carousel, story panel and the unchanged P1–P3 playable prototype embeds. The path label is Adventure. This supersedes the old coming-soon `/world` placeholder; it does not claim a roaming RPG exists. D6 Art Book is the default project template; individual projects can select D0–D6. Unbuilt Adventure tiles and sample case studies remain development-only. Full case-study links require explicit approved published records. Live replacement, commits and deployment require separate owner instructions.
+
+11. **Island entrance promoted (approved 2026-11-15).** `/` uses the latest restored island experience shared with `/quest-preview`, preserving current city/season scenes plus New Destination Scenes in Settings. Default remains Tokyo autumn/day; season changes start off. Portfolio → `/portfolio`; Adventure → the playable prototype lineup at `/world`; a direct Selected Work link → `/work` remains available. The old title-screen implementation is preserved in source and a recovery snapshot. No production deployment is implied.
+
+12. **Concept Lab third path (approved 2026-11-15).** The main island adds a third path to `/concepts`, with an additive gallery pavilion and branch. Preserve the existing scenery and Portfolio/Adventure entrances. Concept Lab uses existing explicitly labelled development samples; no real concepts or artwork are supplied. This supersedes the two-primary-path restriction for the main island. The `/quest-preview` comparison remains two-path.
+
+13. **Three-path scene redesign approved for extension (2026-11-15).** The owner approved the new composition: smaller Concept Lab left, main Portfolio centre, Adventure right, closer black day labels, natural back-facing entry, existing rocky base, full-circle drag/reset and shared guide/Settings. Extend it across the 11 current city/season stops and 11 destination scenes, with the current day/night toggle (44 light-specific views). This is the intended future homepage, but implementation stays on the review route until the owner approves the complete screenshot collection. Do not promote it to `/`, replace the current comparison or deploy before that final approval.
+
+14. **Site hierarchy confirmed (2026-11-16).** The island homepage leads to Portfolio Home, Concept Lab and Adventure. Portfolio Home leads to Selected Work and project details. Concept Lab leads to individual visual concept details, reusing the approved case-study designs and labelled sample records. Adventure leads to project stories or playable prototypes. About Me and Contact belong in shared navigation on the island and content pages. This confirms the site structure; the final scene-collection promotion gate in decision 13 remains in place.
+
+15. **Unified navigation and Portfolio routing (2026-11-16).** All application pages use the `/portfolio` top navigation as the shared source of truth. Desktop shows direct section links without a Menu button; mobile uses the responsive disclosure menu. Portfolio Quest returns to the island at `/`. Selecting Portfolio in navigation, the island or the guide opens Selected Work at `/work`. The orange `/portfolio` overview is reached through a footer button labelled “See all works”. This supersedes the Portfolio Home-first route in decisions 11–14; it does not promote the pending new island scenery.
+
+16. **Latest island selected as homepage; navigation exception (2026-11-16).** The owner identified `/quest-preview/concept-scene` as the chosen design and directed that the island page have no shared top navigation. `/` now renders the same latest `SceneStudyExperience` and full scene collection, defaulting to Tokyo autumn/day. Portfolio opens `/work`, Concept Lab `/concepts`, and Adventure `/world`. The Portfolio Quest brand on other pages returns to `/`. Both the homepage and matching scene-review route omit the shared top header; other application pages retain it. Footer access to “See all works” remains. The original island stays at `/quest-preview` for comparison. This supersedes the promotion hold in decision 13 and the all-pages header rule in decision 15 for the island only. This is a local implementation change, not deployment authorization.
+
+17. **Scene life and guide refinements (2026-11-16).** Remove only the added background walking figures from every current scene. Keep water-sport participants, skiers, vehicle riders, the main avatar, pets and the requested genie. Clouds drift visibly; autumn scenes can blow fallen leaves in stronger gusts. The main island's Talk to me trigger toggles the conversation open/closed, and its close icon is larger. All scene motion continues to respect pause/reduced motion.
 
 ## 1. Product vision
 Build an original, illustrated, browser-based interactive portfolio inspired by the *feel* of a vibrant modern platform game (expressive animation, colorful layered scenes, rounded shapes), **not** a copy of Nintendo art, characters, music, world maps or mechanics. Visitors can select an avatar, roam a 3/4-view illustrated world, discover projects, and optionally skip the game and use a fast, accessible editorial portfolio. A small guide character is available in both modes. Phase 1 uses deterministic scripted search and navigation; a later phase can add AI chat grounded in approved published project content.
@@ -36,9 +56,11 @@ Build an original, illustrated, browser-based interactive portfolio inspired by 
 
 ## 2. Navigation / information architecture
 
-Top-level: Home | Selected Work | Concept Lab | Prototype Arcade | About | Contact.
+Entrance: two primary path buttons, an optional guide and a small direct Selected Work link. No full navigation, mode bar or footer competes with the title screen.
 
-Home choices: Start Adventure, View Portfolio. Persistent mode switch visible in game and editorial routes. Direct case study links bypass the game.
+Content routes: brand → `/portfolio`; desktop exposes Selected Work, Concept Lab and Prototype Arcade plus Menu. At ≤56rem only brand and Menu remain. The disclosure contains Entrance (`/`), Portfolio (`/portfolio`), Selected Work (`/work`), Concept Lab (`/concepts`), Prototype Arcade (`/arcade`), About (`/about`), Contact (`/contact`) and Adventure Preview — Coming Soon (`/world`). Current sections use `aria-current="page"` or nested `"location"`. Escape closes the disclosure and restores Menu focus. Selecting a link or leaving the menu closes it.
+
+PORTFOLIO bypasses the entrance directly; professional content is never gated behind a transition, guide or game. Start Adventure remains reserved for implemented gameplay. Existing placeholder detail/filter routes remain future work.
 
 ### Selected Work (professional, long form)
 Discipline filters: Product Design / UX/UI; Branding; Graphic Design; Marketing & Campaigns.
@@ -59,8 +81,9 @@ Multiple tags allowed; choose one primary category. Show preview, live demo URL,
 About story, role/skills, experience timeline, resume download, professional links. Contact with clear email/contact action; avoid exposing private information not intended for public release.
 
 ## 3. Routes (proposed)
-- `/` dual-mode introduction
-- `/world` playable map; dynamic import (no server-side Phaser rendering)
+- `/` immersive path-selection entrance and explicitly local scripted guide
+- `/portfolio` preserved orange editorial homepage
+- `/world` explicitly non-playable adventure preview today; future playable map will use client-only dynamic import
 - `/work` filterable professional work
 - `/work/[slug]` case study
 - `/concepts` and `/concepts/[slug]`
@@ -117,6 +140,8 @@ Create a TypeScript adapter that maps Sanity document records to `PortfolioProje
 ## 6. AI companion — two phases
 
 ### Phase 1: Free deterministic guide
+The approved entrance milestone now includes a small route-only scripted Wayfinder on `/`. It has suggested prompts, typed questions, explicit unknown handling and allowlisted destination IDs. It does not implement project search, world movement, a model, API route, credentials or an SDK. The provider interface leaves room for a future server-backed implementation without exposing secrets in the browser. The broader content-index guide below remains future scope.
+
 The guide is scripted and uses a free local search index built only from published, public content (no external service, no API key). The specific search library and index build step are TBD. A persistent character in portfolio and world mode, with a chat-like search panel. Visitor may type a question. Normalize text and search project title, description, skill tags, industry, product type, summary, public FAQs. For exact keywords and questions, return approved prewritten answers; otherwise present ranked relevant project cards and navigation options. If unmatched, say no good match and offer categories. Never pretend the search system is a generative AI.
 
 Actions: `findProjects(filters)`, `showProjectPreview(projectId)`, `navigateToLocation(locationId)`, `guideToProject(projectId)`, `openCaseStudy(projectId)`, `jumpToChapter(projectId, chapterId)`, `showWorldMap()`, `switchMode(mode)`. All actions require validated IDs; no arbitrary route execution.

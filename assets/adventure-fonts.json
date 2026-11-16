@@ -1,0 +1,42 @@
+{
+  "public/fonts/figtree/OFL.txt": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/figtree/OFL.txt",
+    "sha256": "140d37233e7f3ce7313798befa9600893bcceaf41a55fa0fa5ad52f7f657a268",
+    "bytes": 4388
+  },
+  "public/fonts/figtree/Figtree[wght].ttf": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/figtree/Figtree%5Bwght%5D.ttf",
+    "sha256": "26ad3db9b31ff7dde67a91ff515d022d2f495cd506590699cf264f0bfe6fb714",
+    "bytes": 62712
+  },
+  "public/fonts/pressstart2p/OFL.txt": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/pressstart2p/OFL.txt",
+    "sha256": "705960c3281a5765ecc0b59bd4ed7ca59eed165748076bc2fc3e8fdbfeb944b0",
+    "bytes": 4413
+  },
+  "public/fonts/pressstart2p/PressStart2P-Regular.ttf": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/pressstart2p/PressStart2P-Regular.ttf",
+    "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d",
+    "bytes": 118204
+  },
+  "public/fonts/ibmplexmono/OFL.txt": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/OFL.txt",
+    "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+    "bytes": 4456
+  },
+  "public/fonts/ibmplexmono/IBMPlexMono-Regular.ttf": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/IBMPlexMono-Regular.ttf",
+    "sha256": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46",
+    "bytes": 135580
+  },
+  "public/fonts/ibmplexmono/IBMPlexMono-Medium.ttf": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/IBMPlexMono-Medium.ttf",
+    "sha256": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755",
+    "bytes": 136704
+  },
+  "public/fonts/ibmplexmono/IBMPlexMono-SemiBold.ttf": {
+    "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/ibmplexmono/IBMPlexMono-SemiBold.ttf",
+    "sha256": "d3c38e55c78f5b0f28009fddba4834ec503278936a5986032424c9bd2d23aa46",
+    "bytes": 140216
+  }
+}

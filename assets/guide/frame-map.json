@@ -1,0 +1,1131 @@
+{
+  "sourceSha256": "ea86951126787ae4e9893a4285afb640e602f1669a898e205fd5a18e5485d4c6",
+  "sourceSize": [
+    1536,
+    1024
+  ],
+  "cell": [
+    144,
+    176
+  ],
+  "footAnchor": [
+    72,
+    160
+  ],
+  "columns": 7,
+  "rows": 6,
+  "groups": {
+    "idle-front": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "idle-back": [
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "turn": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "walk-right": [
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21
+    ],
+    "walk-left": [
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28
+    ],
+    "thinking": [
+      29,
+      30,
+      31
+    ],
+    "happy": [
+      32,
+      33,
+      34
+    ],
+    "talking": [
+      35,
+      36,
+      37,
+      38
+    ],
+    "wave": [
+      39,
+      40,
+      41
+    ]
+  },
+  "frames": [
+    {
+      "id": 0,
+      "name": "idle-front-0",
+      "sourceRegion": [
+        18,
+        45,
+        124,
+        197
+      ],
+      "characterBounds": [
+        25,
+        48,
+        116,
+        192
+      ],
+      "sourceAnchorX": 71,
+      "uniformScale": 0.972222,
+      "outputBounds": [
+        27,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 1,
+      "name": "idle-front-1",
+      "sourceRegion": [
+        128,
+        45,
+        232,
+        197
+      ],
+      "characterBounds": [
+        134,
+        49,
+        224,
+        192
+      ],
+      "sourceAnchorX": 181,
+      "uniformScale": 0.979021,
+      "outputBounds": [
+        26,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 2,
+      "name": "idle-front-2",
+      "sourceRegion": [
+        236,
+        45,
+        340,
+        197
+      ],
+      "characterBounds": [
+        243,
+        49,
+        334,
+        192
+      ],
+      "sourceAnchorX": 289,
+      "uniformScale": 0.979021,
+      "outputBounds": [
+        27,
+        20,
+        116,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 3,
+      "name": "idle-front-3",
+      "sourceRegion": [
+        344,
+        45,
+        448,
+        197
+      ],
+      "characterBounds": [
+        351,
+        49,
+        442,
+        192
+      ],
+      "sourceAnchorX": 397,
+      "uniformScale": 0.979021,
+      "outputBounds": [
+        27,
+        20,
+        116,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 4,
+      "name": "idle-front-4",
+      "sourceRegion": [
+        452,
+        45,
+        559,
+        197
+      ],
+      "characterBounds": [
+        459,
+        50,
+        551,
+        192
+      ],
+      "sourceAnchorX": 508,
+      "uniformScale": 0.985915,
+      "outputBounds": [
+        24,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 5,
+      "name": "idle-back-0",
+      "sourceRegion": [
+        579,
+        44,
+        669,
+        195
+      ],
+      "characterBounds": [
+        586,
+        50,
+        667,
+        189
+      ],
+      "sourceAnchorX": 626,
+      "uniformScale": 1.007194,
+      "outputBounds": [
+        32,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 6,
+      "name": "idle-back-1",
+      "sourceRegion": [
+        670,
+        44,
+        759,
+        195
+      ],
+      "characterBounds": [
+        671,
+        51,
+        752,
+        189
+      ],
+      "sourceAnchorX": 714,
+      "uniformScale": 1.014493,
+      "outputBounds": [
+        28,
+        20,
+        110,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 7,
+      "name": "idle-back-2",
+      "sourceRegion": [
+        759,
+        44,
+        847,
+        195
+      ],
+      "characterBounds": [
+        760,
+        52,
+        841,
+        190
+      ],
+      "sourceAnchorX": 801,
+      "uniformScale": 1.014493,
+      "outputBounds": [
+        30,
+        21,
+        112,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 8,
+      "name": "idle-back-3",
+      "sourceRegion": [
+        847,
+        44,
+        935,
+        195
+      ],
+      "characterBounds": [
+        848,
+        52,
+        932,
+        190
+      ],
+      "sourceAnchorX": 891,
+      "uniformScale": 1.014493,
+      "outputBounds": [
+        28,
+        20,
+        113,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 9,
+      "name": "idle-back-4",
+      "sourceRegion": [
+        935,
+        44,
+        1020,
+        195
+      ],
+      "characterBounds": [
+        935,
+        51,
+        1013,
+        190
+      ],
+      "sourceAnchorX": 976,
+      "uniformScale": 1.007194,
+      "outputBounds": [
+        31,
+        20,
+        110,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 10,
+      "name": "turn-0",
+      "sourceRegion": [
+        1027,
+        44,
+        1129,
+        195
+      ],
+      "characterBounds": [
+        1035,
+        49,
+        1123,
+        191
+      ],
+      "sourceAnchorX": 1081,
+      "uniformScale": 0.985915,
+      "outputBounds": [
+        27,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 11,
+      "name": "turn-1",
+      "sourceRegion": [
+        1131,
+        44,
+        1223,
+        195
+      ],
+      "characterBounds": [
+        1138,
+        49,
+        1215,
+        190
+      ],
+      "sourceAnchorX": 1180,
+      "uniformScale": 0.992908,
+      "outputBounds": [
+        30,
+        20,
+        106,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 12,
+      "name": "turn-2",
+      "sourceRegion": [
+        1225,
+        44,
+        1321,
+        195
+      ],
+      "characterBounds": [
+        1231,
+        50,
+        1312,
+        189
+      ],
+      "sourceAnchorX": 1272,
+      "uniformScale": 1.007194,
+      "outputBounds": [
+        31,
+        20,
+        113,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 13,
+      "name": "turn-3",
+      "sourceRegion": [
+        1324,
+        44,
+        1410,
+        195
+      ],
+      "characterBounds": [
+        1330,
+        52,
+        1408,
+        191
+      ],
+      "sourceAnchorX": 1369,
+      "uniformScale": 1.007194,
+      "outputBounds": [
+        33,
+        20,
+        112,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 14,
+      "name": "turn-4",
+      "sourceRegion": [
+        1410,
+        44,
+        1510,
+        195
+      ],
+      "characterBounds": [
+        1411,
+        47,
+        1502,
+        191
+      ],
+      "sourceAnchorX": 1458,
+      "uniformScale": 0.972222,
+      "outputBounds": [
+        26,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 15,
+      "name": "walk-right-0",
+      "sourceRegion": [
+        22,
+        238,
+        139,
+        374
+      ],
+      "characterBounds": [
+        40,
+        238,
+        121,
+        368
+      ],
+      "sourceAnchorX": 78,
+      "uniformScale": 1.076923,
+      "outputBounds": [
+        31,
+        20,
+        118,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 16,
+      "name": "walk-right-1",
+      "sourceRegion": [
+        142,
+        234,
+        238,
+        374
+      ],
+      "characterBounds": [
+        148,
+        235,
+        226,
+        367
+      ],
+      "sourceAnchorX": 187,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        31,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 17,
+      "name": "walk-right-2",
+      "sourceRegion": [
+        247,
+        234,
+        342,
+        374
+      ],
+      "characterBounds": [
+        253,
+        235,
+        333,
+        368
+      ],
+      "sourceAnchorX": 291,
+      "uniformScale": 1.052632,
+      "outputBounds": [
+        32,
+        20,
+        116,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 18,
+      "name": "walk-right-3",
+      "sourceRegion": [
+        351,
+        234,
+        447,
+        374
+      ],
+      "characterBounds": [
+        357,
+        236,
+        435,
+        368
+      ],
+      "sourceAnchorX": 395,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        32,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 19,
+      "name": "walk-right-4",
+      "sourceRegion": [
+        455,
+        234,
+        552,
+        374
+      ],
+      "characterBounds": [
+        462,
+        235,
+        542,
+        368
+      ],
+      "sourceAnchorX": 501,
+      "uniformScale": 1.052632,
+      "outputBounds": [
+        31,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 20,
+      "name": "walk-right-5",
+      "sourceRegion": [
+        558,
+        234,
+        654,
+        374
+      ],
+      "characterBounds": [
+        565,
+        236,
+        644,
+        368
+      ],
+      "sourceAnchorX": 605,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        30,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 21,
+      "name": "walk-right-6",
+      "sourceRegion": [
+        662,
+        234,
+        758,
+        374
+      ],
+      "characterBounds": [
+        670,
+        236,
+        749,
+        368
+      ],
+      "sourceAnchorX": 710,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        30,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 22,
+      "name": "walk-left-0",
+      "sourceRegion": [
+        784,
+        238,
+        895,
+        374
+      ],
+      "characterBounds": [
+        800,
+        238,
+        876,
+        368
+      ],
+      "sourceAnchorX": 836,
+      "uniformScale": 1.076923,
+      "outputBounds": [
+        33,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 23,
+      "name": "walk-left-1",
+      "sourceRegion": [
+        895,
+        234,
+        986,
+        374
+      ],
+      "characterBounds": [
+        901,
+        235,
+        977,
+        367
+      ],
+      "sourceAnchorX": 940,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        31,
+        20,
+        112,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 24,
+      "name": "walk-left-2",
+      "sourceRegion": [
+        1000,
+        234,
+        1096,
+        374
+      ],
+      "characterBounds": [
+        1009,
+        235,
+        1085,
+        367
+      ],
+      "sourceAnchorX": 1046,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        33,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 25,
+      "name": "walk-left-3",
+      "sourceRegion": [
+        1109,
+        234,
+        1203,
+        374
+      ],
+      "characterBounds": [
+        1117,
+        235,
+        1193,
+        367
+      ],
+      "sourceAnchorX": 1154,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        33,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 26,
+      "name": "walk-left-4",
+      "sourceRegion": [
+        1212,
+        234,
+        1307,
+        374
+      ],
+      "characterBounds": [
+        1220,
+        236,
+        1297,
+        368
+      ],
+      "sourceAnchorX": 1259,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        31,
+        20,
+        113,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 27,
+      "name": "walk-left-5",
+      "sourceRegion": [
+        1319,
+        234,
+        1413,
+        374
+      ],
+      "characterBounds": [
+        1327,
+        237,
+        1403,
+        367
+      ],
+      "sourceAnchorX": 1363,
+      "uniformScale": 1.076923,
+      "outputBounds": [
+        33,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 28,
+      "name": "walk-left-6",
+      "sourceRegion": [
+        1424,
+        234,
+        1518,
+        374
+      ],
+      "characterBounds": [
+        1432,
+        235,
+        1509,
+        367
+      ],
+      "sourceAnchorX": 1468,
+      "uniformScale": 1.060606,
+      "outputBounds": [
+        34,
+        20,
+        116,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 29,
+      "name": "thinking-0",
+      "sourceRegion": [
+        22,
+        585,
+        123,
+        726
+      ],
+      "characterBounds": [
+        30,
+        590,
+        114,
+        720
+      ],
+      "sourceAnchorX": 73,
+      "uniformScale": 1.076923,
+      "outputBounds": [
+        26,
+        20,
+        116,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 30,
+      "name": "thinking-1",
+      "sourceRegion": [
+        149,
+        585,
+        247,
+        726
+      ],
+      "characterBounds": [
+        156,
+        591,
+        240,
+        721
+      ],
+      "sourceAnchorX": 200,
+      "uniformScale": 1.076923,
+      "outputBounds": [
+        25,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 31,
+      "name": "thinking-2",
+      "sourceRegion": [
+        254,
+        585,
+        355,
+        726
+      ],
+      "characterBounds": [
+        260,
+        587,
+        347,
+        721
+      ],
+      "sourceAnchorX": 307,
+      "uniformScale": 1.044776,
+      "outputBounds": [
+        23,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 32,
+      "name": "happy-0",
+      "sourceRegion": [
+        368,
+        585,
+        481,
+        726
+      ],
+      "characterBounds": [
+        375,
+        592,
+        465,
+        720
+      ],
+      "sourceAnchorX": 421,
+      "uniformScale": 1.09375,
+      "outputBounds": [
+        22,
+        20,
+        120,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 33,
+      "name": "happy-1",
+      "sourceRegion": [
+        478,
+        585,
+        586,
+        726
+      ],
+      "characterBounds": [
+        483,
+        592,
+        571,
+        719
+      ],
+      "sourceAnchorX": 527,
+      "uniformScale": 1.102362,
+      "outputBounds": [
+        23,
+        20,
+        120,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 34,
+      "name": "happy-2",
+      "sourceRegion": [
+        586,
+        585,
+        709,
+        726
+      ],
+      "characterBounds": [
+        593,
+        589,
+        687,
+        720
+      ],
+      "sourceAnchorX": 637,
+      "uniformScale": 1.068702,
+      "outputBounds": [
+        25,
+        20,
+        125,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 35,
+      "name": "talking-0",
+      "sourceRegion": [
+        715,
+        585,
+        818,
+        726
+      ],
+      "characterBounds": [
+        722,
+        591,
+        801,
+        720
+      ],
+      "sourceAnchorX": 765,
+      "uniformScale": 1.085271,
+      "outputBounds": [
+        25,
+        20,
+        111,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 36,
+      "name": "talking-1",
+      "sourceRegion": [
+        822,
+        585,
+        916,
+        726
+      ],
+      "characterBounds": [
+        830,
+        589,
+        909,
+        720
+      ],
+      "sourceAnchorX": 866,
+      "uniformScale": 1.068702,
+      "outputBounds": [
+        34,
+        20,
+        118,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 37,
+      "name": "talking-2",
+      "sourceRegion": [
+        914,
+        585,
+        1001,
+        726
+      ],
+      "characterBounds": [
+        920,
+        585,
+        998,
+        718
+      ],
+      "sourceAnchorX": 960,
+      "uniformScale": 1.052632,
+      "outputBounds": [
+        30,
+        20,
+        112,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 38,
+      "name": "talking-3",
+      "sourceRegion": [
+        1001,
+        585,
+        1112,
+        726
+      ],
+      "characterBounds": [
+        1002,
+        586,
+        1088,
+        719
+      ],
+      "sourceAnchorX": 1047,
+      "uniformScale": 1.052632,
+      "outputBounds": [
+        25,
+        20,
+        116,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 39,
+      "name": "wave-0",
+      "sourceRegion": [
+        1269,
+        790,
+        1348,
+        934
+      ],
+      "characterBounds": [
+        1276,
+        794,
+        1345,
+        914
+      ],
+      "sourceAnchorX": 1309,
+      "uniformScale": 1.166667,
+      "outputBounds": [
+        34,
+        20,
+        114,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 40,
+      "name": "wave-1",
+      "sourceRegion": [
+        1349,
+        790,
+        1423,
+        934
+      ],
+      "characterBounds": [
+        1353,
+        815,
+        1416,
+        928
+      ],
+      "sourceAnchorX": 1389,
+      "uniformScale": 1.238938,
+      "outputBounds": [
+        27,
+        20,
+        105,
+        160
+      ],
+      "outputFootY": 160
+    },
+    {
+      "id": 41,
+      "name": "wave-2",
+      "sourceRegion": [
+        1424,
+        790,
+        1525,
+        934
+      ],
+      "characterBounds": [
+        1428,
+        797,
+        1507,
+        919
+      ],
+      "sourceAnchorX": 1470,
+      "uniformScale": 1.147541,
+      "outputBounds": [
+        24,
+        20,
+        115,
+        160
+      ],
+      "outputFootY": 160
+    }
+  ]
+}

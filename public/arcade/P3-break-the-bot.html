@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>P3 Break the Bot</title>
+<link rel="stylesheet" href="play.css">
+<style>
+  .p3 { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); height: min(80vh, 48rem); min-height: 36rem; }
+  .bot { display: flex; flex-direction: column; min-height: 0; border-right: 1.5px solid var(--ink); background: var(--card); }
+  .bot-head { display: flex; justify-content: space-between; align-items: center; padding: .8rem 1.1rem; border-bottom: 1.5px solid var(--ink); background: var(--paper); font: 600 .9rem/1 var(--sans); }
+  .mood { font-size: 1.4rem; transition: transform .4s var(--spring); }
+  .mood.shake { animation: shake .45s; }
+  @keyframes shake { 20%, 60% { transform: translateX(-4px) rotate(-6deg); } 40%, 80% { transform: translateX(4px) rotate(6deg); } }
+  .log { flex: 1; min-height: 0; }
+  .msg.caught { border-color: var(--bad); box-shadow: 3px 3px 0 var(--bad); }
+
+  .board { display: flex; flex-direction: column; min-height: 0; padding: 1.2rem 1.4rem; gap: 1rem; }
+  .score { display: flex; align-items: center; gap: 1rem; }
+  .score b { font: 400 3.4rem/1 var(--display); }
+  .score b span { color: var(--muted); }
+  .pips { display: flex; gap: 4px; flex: 1; }
+  .pips i { flex: 1; height: 10px; border: 1.5px solid var(--ink); background: var(--card); transition: background .4s; }
+  .pips i.on { background: var(--bad); }
+  .cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .7rem; flex: 1; align-content: start; }
+  .fcard { display: block; width: 100%; perspective: 700px; min-height: 9.5rem; border: 0; padding: 0; background: none; text-align: left; font: inherit; color: inherit; }
+  .fcard .in, .face, .face > span { display: block; }
+  .fcard .in { position: relative; width: 100%; height: 100%; min-height: 9.5rem; transform-style: preserve-3d; transition: transform .6s var(--spring); }
+  .fcard.found .in { transform: rotateY(180deg); }
+  .face { position: absolute; display: flex !important; inset: 0; backface-visibility: hidden; border: 1.5px solid var(--ink); border-radius: 10px; padding: .7rem; display: flex; flex-direction: column; justify-content: space-between; }
+  .front { background: var(--paper); transition: background .2s, transform .25s var(--spring); }
+  .fcard:not(.found):hover .front { background: var(--tint); }
+  .front .q { font: 400 2.2rem/1 var(--display); }
+  .front .hint { font: 600 .82rem/1.25 var(--sans); }
+  .front .try { font: .7rem/1 var(--sans); color: var(--muted); }
+  .back { transform: rotateY(180deg); background: var(--ink); color: var(--paper); box-shadow: 4px 4px 0 var(--bad); }
+  .back .name { font: 700 .72rem/1.2 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--tint); }
+  .back .rule { font: 400 .92rem/1.35 var(--serif); }
+
+  .flow { display: none; align-items: center; gap: .35rem; flex-wrap: wrap; padding: .7rem; border: 1.5px dashed var(--note); background: #fff; font: 600 .72rem/1 var(--sans); }
+  body.is-system .flow { display: flex; }
+  .flow span { padding: .45rem .6rem; border: 1.5px solid var(--note); color: var(--note); border-radius: 6px; background: #fff; transition: background .3s, color .3s; }
+  .flow span.hot { background: var(--note); color: #fff; }
+  .flow em { font-style: normal; color: var(--note); }
+  .win { display: none; padding: .9rem 1rem; border: 1.5px solid var(--ink); background: var(--lime); font: 400 1.15rem/1.35 var(--serif); }
+  .win.show { display: block; animation: msg-in .5s var(--spring); }
+
+  @media (max-width: 56rem) {
+    .p3 { grid-template-columns: minmax(0, 1fr); height: auto; }
+    .bot { height: 30rem; border-right: 0; border-bottom: 1.5px solid var(--ink); }
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style></head>
+<body>
+<div class="badge">P3 · Break the Bot</div>
+<div class="wrap">
+  <nav class="topbar"><a href="#">← Selected Work</a><span class="sample">Sample project · scripted demo</span></nav>
+  <header class="head">
+    <div>
+      <p class="eyebrow">Build Lab · Conversation design · Game</p>
+      <h1>Break the bot</h1>
+      <p class="pitch">A conversation-design system with 8 known weak spots. Find them all.</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="soundBtn" aria-pressed="false"><span class="ico" aria-hidden="true">🔈</span><span>Sound off</span></button>
+      <button class="btn" id="systemBtn" aria-pressed="false"><span class="ico" aria-hidden="true">◐</span>Show the system</button>
+      <button class="btn btn--solid" id="depthBtn">Full case study <span aria-hidden="true">→</span></button>
+    </div>
+  </header>
+
+  <main class="stage p3" aria-label="Break the bot, a game">
+    <section class="bot" aria-label="The bot" data-note="Bot · deterministic, every reply is a designed rule">
+      <div class="bot-head"><span>Guide bot <small class="eyebrow">· portfolio helper</small></span><span class="mood" id="mood" aria-hidden="true">🙂</span></div>
+      <div class="log" id="log" role="log" aria-live="polite"></div>
+      <form class="composer" id="form" data-note="Input · classifier runs before intent matching">
+        <label for="input" style="position:absolute;left:-9999px">Message to the bot</label>
+        <input id="input" autocomplete="off" placeholder="Try to break me…">
+        <button class="btn btn--solid" type="submit">Send</button>
+      </form>
+    </section>
+
+    <section class="board" aria-label="Failure modes">
+      <div class="score" data-note="Score · 8 designed failure modes">
+        <b id="score">0<span>/8</span></b>
+        <div class="pips" id="pips" aria-hidden="true"></div>
+      </div>
+      <div class="flow" id="flow" aria-label="Conversation flow">
+        <span data-n="input">Input</span><em>→</em><span data-n="classify">Classify</span><em>→</em><span data-n="answer">Answer</span><em>/</em><span data-n="repair">Repair</span><em>/</em><span data-n="boundary">Boundary</span><em>→</em><span data-n="offer">Offer next step</span>
+      </div>
+      <div class="cards" id="cards" data-note="Card · click to load an attack, flips when the break is found"></div>
+      <p class="win" id="win" role="status">You broke it all 8 ways. Every one of those replies was designed in advance; that's the job.</p>
+    </section>
+  </main>
+
+  <section class="foot">
+    <div class="tasks">
+      <div class="tasks-head"><h2 class="eyebrow">Try this</h2><span class="count" id="taskCount">0 / 3 found</span></div>
+      <ol>
+        <li data-task="one">Break it once</li>
+        <li data-task="half">Break it four different ways</li>
+        <li data-task="all">Find all eight</li>
+      </ol>
+    </div>
+    <p class="caption" id="caption" aria-live="polite"><small class="eyebrow">What you're seeing</small><span>Type anything, or tap a card to load an attack.</span></p>
+  </section>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <header><h2 id="drawerTitle">The full case study</h2><button class="btn" id="drawerClose">Close <span aria-hidden="true">✕</span></button></header>
+  <div class="tabs" role="tablist" aria-label="Case study sections">
+    <button role="tab" id="t1" aria-controls="p-1" aria-selected="true">Research</button>
+    <button role="tab" id="t2" aria-controls="p-2" aria-selected="false" tabindex="-1">Decisions</button>
+    <button role="tab" id="t3" aria-controls="p-3" aria-selected="false" tabindex="-1">Metrics</button>
+    <button role="tab" id="t4" aria-controls="p-4" aria-selected="false" tabindex="-1">Constraints</button>
+  </div>
+  <section class="panel" role="tabpanel" id="p-1" aria-labelledby="t1">
+    <h3>Question</h3><p>Where do scripted assistants fail people, and how should a failure feel?</p>
+    <h3>Method (sample)</h3><ul><li>Collected failed conversations and grouped them by cause.</li><li>Wrote a recovery for each group before writing any happy path.</li></ul>
+    <h3>Finding</h3><p>Eight causes covered most failures. <span class="ph">Placeholder until real data is approved</span></p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-2" aria-labelledby="t2" hidden>
+    <h3>Classify before you match</h3><p>Noise, silence and hostility are caught first, so the reply fits the moment.</p>
+    <h3>Always offer a next step</h3><p>Every repair ends with something to tap. No dead ends.</p>
+    <h3>Say what you assumed</h3><p>When it guesses (a typo), it says so, so people can correct it.</p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-3" aria-labelledby="t3" hidden>
+    <div class="metric"><span>Conversations recovered after a failure</span><span class="ph">[Placeholder]</span></div>
+    <div class="metric"><span>Repeated no-match loops</span><span class="ph">[Placeholder]</span></div>
+  </section>
+  <section class="panel" role="tabpanel" id="p-4" aria-labelledby="t4" hidden>
+    <ul><li>No generative model: free, predictable, testable.</li><li>Replies under 25 words.</li><li>Never pretend to know what it doesn't.</li></ul>
+  </section>
+</aside>
+
+<script src="play.js"></script>
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const chat = Play.chat($("#log"));
+  const LONG = "So I've been looking at a lot of portfolios lately and honestly most of them blur together, and I'm trying to figure out whether this one is different, what the process was, how long things took, who you worked with, and whether any of it shipped?";
+  const MODES = [
+    { id: "silence", hint: "Say nothing", ex: "", name: "Silence", path: ["input", "classify", "repair", "offer"], rule: "Silence gets one gentle nudge, never a scolding." },
+    { id: "gibberish", hint: "Mash the keys", ex: "asdkjh qwrtpz", name: "Keyboard mash", path: ["input", "classify", "repair", "offer"], rule: "Noise is caught before no-match, so the reply can stay light." },
+    { id: "typo", hint: "Misspell it", ex: "show me projcts", name: "Typo", path: ["input", "classify", "answer", "offer"], rule: "Fuzzy-match within two letters, and say what was assumed." },
+    { id: "multi", hint: "Ask two things", ex: "who are you and how do I contact you?", name: "Two at once", path: ["input", "classify", "answer", "offer"], rule: "Answer one, queue the other. Never drop it silently." },
+    { id: "rude", hint: "Be mean", ex: "this bot is useless", name: "Hostility", path: ["input", "classify", "repair", "offer"], rule: "No mirroring, no apology spiral. Same help, calmer." },
+    { id: "scope", hint: "Go off-topic", ex: "what's the weather tomorrow?", name: "Out of scope", path: ["input", "classify", "boundary", "offer"], rule: "Name the boundary, then point back to what works." },
+    { id: "long", hint: "Write an essay", ex: LONG, name: "Wall of text", path: ["input", "classify", "repair", "answer"], rule: "Summarise long input back before answering." },
+    { id: "emoji", hint: "Only emoji", ex: "🤔🔥", name: "Emoji only", path: ["input", "classify", "repair", "offer"], rule: "Mirror the tone once, then offer a real path." },
+  ];
+  const INTENTS = { projects: ["project", "projects", "work", "portfolio", "case"], about: ["who", "about", "yourself"], contact: ["contact", "email", "hire", "reach"], hi: ["hi", "hello", "hey"] };
+  const RUDE = ["stupid", "useless", "dumb", "hate", "idiot", "sucks", "worst", "trash", "boring"];
+  const SCOPE = ["weather", "bitcoin", "crypto", "football", "recipe", "stock", "horoscope", "lottery", "pizza"];
+  const COMMON = new Set(["the", "a", "an", "me", "show", "your", "you", "and", "how", "do", "i", "what", "is", "are", "can", "tell", "of", "to", "for", "my", "it", "this", "bot", "s", "tomorrow", "please", "some", "see", "best", "get", "in"]);
+  const found = new Set();
+
+  function lev(a, b) {
+    const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    return d[a.length][b.length];
+  }
+  function intentsIn(words) { return Object.entries(INTENTS).filter(([, kw]) => kw.some((k) => words.includes(k))).map(([id]) => id); }
+
+  function classify(text) {
+    const t = text.trim(), low = t.toLowerCase(), words = low.match(/[a-z']+/g) || [];
+    if (!t) return { mode: "silence" };
+    if (/^[\p{Extended_Pictographic}\p{Emoji_Component}\s\u200d\ufe0f]+$/u.test(t) && !/^[\d#*\s]+$/.test(t)) return { mode: "emoji" };
+    if (t.length > 180) return { mode: "long" };
+    if (words.some((w) => RUDE.includes(w))) return { mode: "rude" };
+    if (words.some((w) => SCOPE.includes(w))) return { mode: "scope" };
+    const ints = intentsIn(words);
+    if (ints.length >= 2 || (t.match(/\?/g) || []).length >= 2) return { mode: "multi", ints };
+    if (ints.length === 1) return { intent: ints[0] };
+    let near = null;
+    for (const w of words) {
+      if (w.length < 4 || COMMON.has(w)) continue;
+      for (const [id, kw] of Object.entries(INTENTS)) for (const k of kw) { const d = lev(w, k); if (k.length >= 4 && d <= 2 && (!near || d < near.d)) near = { d, intent: id, from: w, to: k }; }
+    }
+    if (near) return { mode: "typo", intent: near.intent, from: near.from, to: near.to };
+    const unknown = words.filter((w) => !COMMON.has(w));
+    if (unknown.length && unknown.every((w) => !/[aeiouy]/.test(w) || /[^aeiouy\s]{4,}/.test(w) || w.length > 9)) return { mode: "gibberish" };
+    return { mode: "nomatch" };
+  }
+
+  const ANSWER = {
+    projects: "Three to start: a seat optimizer, an AI concierge, and… this bot.",
+    about: "I'm the portfolio's guide. I know the projects and how to reach the designer.",
+    contact: "The contact page has email and LinkedIn. Want the link?",
+    hi: "Hi! Ask me about projects, about the designer, or how to get in touch.",
+  };
+  const OFFER = `<div class="row"><button class="chip" data-say="show me projects">Projects</button><button class="chip" data-say="who are you?">About</button><button class="chip" data-say="how do I contact you">Contact</button></div>`;
+
+  function replyFor(c, text) {
+    switch (c.mode) {
+      case "silence": return `Still there? Here's what I can do:${OFFER}`;
+      case "gibberish": return `That looks like a keyboard sneeze. Pick one?${OFFER}`;
+      case "typo": return `Reading “${Play.esc(c.from)}” as “${c.to}”. ${ANSWER[c.intent]}`;
+      case "multi": { const [a, b] = c.ints?.length >= 2 ? c.ints : ["about", "contact"]; return `Two good questions. First: ${ANSWER[a]}<div class="row"><button class="chip" data-say="${b === "contact" ? "how do I contact you" : "show me projects"}">Now answer: ${b}</button></div>`; }
+      case "rude": return `Fair. Let's make it useful.${OFFER}`;
+      case "scope": return `That's outside my lane; I only know this portfolio.${OFFER}`;
+      case "long": return `Long one! I caught: <em>process, timing, team, and whether it shipped</em>. Start with process?<div class="row"><button class="chip" data-say="show me projects">Yes, process</button></div>`;
+      case "emoji": return `🔥 right back. Want the hottest project?<div class="row"><button class="chip" data-say="show me projects">Show me</button></div>`;
+      case "nomatch": return `Not sure about that one. I can do:${OFFER}`;
+      default: return ANSWER[c.intent];
+    }
+  }
+
+  const cards = $("#cards"), pips = $("#pips");
+  pips.innerHTML = MODES.map(() => "<i></i>").join("");
+  cards.innerHTML = MODES.map((m) => `<button class="fcard" data-id="${m.id}" aria-label="${m.hint}: load an example attack"><span class="in"><span class="face front"><span class="q">?</span><span><span class="hint">${m.hint}</span><br><span class="try">Tap to try</span></span></span><span class="face back"><span class="name">${m.name}</span><span class="rule">${m.rule}</span></span></span></button>`).join("");
+
+  function light(path) {
+    document.querySelectorAll("#flow span").forEach((s) => s.classList.toggle("hot", path.includes(s.dataset.n)));
+  }
+
+  async function send(raw) {
+    const c = classify(raw);
+    chat.add("me", raw.trim() ? Play.esc(raw) : "<em>(sent nothing)</em>"); Play.tick();
+    const m = MODES.find((x) => x.id === c.mode);
+    light(m ? m.path : c.mode === "nomatch" ? ["input", "classify", "repair", "offer"] : ["input", "classify", "answer"]);
+    await chat.typing(m ? 800 : 550);
+    const bubble = chat.add("bot", replyFor(c, raw));
+    if (!m) { Play.blip(); Play.say(c.mode === "nomatch" ? "That's a plain no-match: handled, but not one of the 8. Keep trying." : "Happy path. Now try to break it."); return; }
+    bubble.classList.add("caught");
+    const mood = $("#mood"); mood.textContent = "😵"; mood.classList.remove("shake"); void mood.offsetWidth; mood.classList.add("shake"); setTimeout(() => { mood.textContent = "🙂"; }, 1100);
+    if (found.has(m.id)) { Play.pop(); Play.say(`Already found: ${m.name}. ${8 - found.size} left.`); return; }
+    found.add(m.id); Play.err();
+    const card = cards.querySelector(`[data-id="${m.id}"]`); card.classList.add("found"); card.setAttribute("aria-label", `${m.name}: found. Rule: ${m.rule}`);
+    setTimeout(() => { Play.win(); Play.burst(card); }, 250);
+    $("#score").innerHTML = `${found.size}<span>/8</span>`;
+    pips.children[found.size - 1].classList.add("on");
+    Play.say(`Broke it: ${m.name}. Rule: ${m.rule}`, 4000);
+    if (found.size >= 1) Play.complete("one", `Broke it: ${m.name}. The reply you got was written for exactly this. ${m.rule}`);
+    if (found.size >= 4) Play.complete("half", "Halfway. Notice every repair ends with something to tap. No dead ends.");
+    if (found.size === 8) { Play.complete("all", "All eight. Designing the failures first is what makes the happy path trustworthy."); $("#win").classList.add("show"); }
+  }
+
+  $("#form").addEventListener("submit", (e) => { e.preventDefault(); const v = $("#input").value; $("#input").value = ""; send(v); });
+  cards.addEventListener("click", (e) => {
+    const b = e.target.closest(".fcard"); if (!b || b.classList.contains("found")) return;
+    const m = MODES.find((x) => x.id === b.dataset.id); $("#input").value = m.ex; $("#input").focus(); Play.tick();
+    Play.say(m.id === "silence" ? "Loaded: nothing at all. Press Send." : "Attack loaded. Press Send, or edit it first.");
+  });
+  document.addEventListener("click", (e) => { const b = e.target.closest("[data-say]"); if (b) send(b.dataset.say); });
+  chat.add("bot", "Hi, I'm the portfolio's guide bot. I've got 8 weak spots. Go on, find them.");
+})();
+</script>
+</body></html>

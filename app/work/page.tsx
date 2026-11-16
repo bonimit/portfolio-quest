@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
-import { PlaceholderPage } from "@/components/placeholder-page";
+import { WorkExplorer } from "@/components/work/work-explorer";
+import { parseWorkQuery } from "@/lib/work/projects";
+import { getProjects, IS_SAMPLE } from "@/lib/work/source";
+import "./work.css";
 
 const description =
-  "Professional design projects and detailed case studies will be collected here.";
+  "Professional design projects, concepts and prototypes, filterable by discipline, industry and business model.";
 
 export const metadata: Metadata = {
   title: "Selected Work",
@@ -10,6 +13,9 @@ export const metadata: Metadata = {
   openGraph: { title: "Selected Work | Portfolio Quest", description },
 };
 
-export default function WorkPage() {
-  return <PlaceholderPage title="Selected Work" description={description} />;
+type Props = { searchParams: Promise<Record<string, string | string[] | undefined>> };
+
+export default async function WorkPage({ searchParams }: Props) {
+  const projects = getProjects();
+  return <WorkExplorer projects={projects} initial={parseWorkQuery(await searchParams)} sample={IS_SAMPLE && projects.length > 0} />;
 }

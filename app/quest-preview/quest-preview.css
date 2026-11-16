@@ -1,0 +1,389 @@
+/* Route-owned title screen. Protected Portfolio and shared entrance styles are untouched. */
+body:has(.quest-preview) > :is(.site-header,.site-footer) { display: none; }
+.main-content:has(> .quest-preview) { width:100%; max-width:none; padding:0; min-height:100svh; }
+.main-content > section.quest-preview { width: 100%; max-width: none; margin: 0; }
+@property --sky-top { syntax: '<color>'; inherits: true; initial-value: #bad0ce; }
+@property --sky-bottom { syntax: '<color>'; inherits: true; initial-value: #ece1ca; }
+.quest-preview {
+  --q-paper:#f6f5f1; --q-ink:#131313; --q-orange:#f79a3b; --q-muted:#d3d9db;
+  --q-note-bg:#263c45; --q-note-ink:#f6f5f1; --q-note-line:#b9cbc24d; --q-control-border:#9bb6b1;
+  --sky-top:#142337; --sky-bottom:#37495e;
+  height:100svh; height:100dvh; min-height:0; display:grid; grid-template-rows:auto minmax(0,1fr) auto;
+  position:relative; isolation:isolate; overflow:clip; color:var(--q-paper); font-family:var(--landing-font-sans);
+  background:radial-gradient(ellipse at 72% 22%,#ffe2a333,transparent 32%),linear-gradient(165deg,var(--sky-top),var(--sky-bottom));
+  transition:--sky-top 1100ms cubic-bezier(.22,1,.36,1),--sky-bottom 1100ms cubic-bezier(.22,1,.36,1),color 450ms ease;
+}
+.quest-preview[data-city="tokyo"] { --sky-top:#1c2039; --sky-bottom:#3e405a; }
+.quest-preview[data-city="bangkok"] { --sky-top:#122d30; --sky-bottom:#3c504b; }
+.quest-preview[data-light="day"] { --sky-top:#bad0ce; --sky-bottom:#ece1ca; --q-muted:#354b50; --q-note-bg:#f3eee1; --q-note-ink:#172c30; --q-control-border:#657b75; color:var(--q-ink); }
+.quest-preview[data-city="bangkok"][data-light="day"] { --sky-top:#c1d0b8; --sky-bottom:#eed5ad; }
+.quest-preview[data-season="raining"] { --sky-top:#102635; --sky-bottom:#344e5a; }
+.quest-preview[data-season="raining"][data-light="day"] { --sky-top:#a5bdc4; --sky-bottom:#c9d2c4; }
+.quest-preview[data-season="winter"][data-light="day"] { --sky-top:#b7cbd4; --sky-bottom:#e4e7dc; }
+.quest-preview[data-city="bangkok"][data-season="winter"][data-light="day"] { --sky-top:#bfcdbf; --sky-bottom:#e4d4af; }
+.quest-preview :is(a,button,input,textarea,summary) { -webkit-tap-highlight-color:transparent; }
+.quest-preview :is(a,button,input,textarea,summary,[tabindex]):focus-visible { outline:3px solid var(--q-orange); outline-offset:4px; }
+.quest-preview[data-light="day"] :is(a,button,input,textarea,summary,[tabindex]):focus-visible { outline-color:#914710; }
+.quest-preview button,.quest-preview summary { min-height:44px; cursor:pointer; font:inherit; color:inherit; }
+.quest-hud { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.35rem clamp(1rem,3vw,3rem); font-size:.75rem; z-index:8; }
+.quest-hud > a { display:inline-flex; align-items:center; min-height:44px; text-decoration:none; }
+.quest-hud > a:hover { text-decoration:underline; text-underline-offset:.3em; }
+.quest-composition { position:absolute; inset:0; min-height:0; width:100%; }
+.quest-world { position:relative; height:100%; width:100%; transition:width 600ms cubic-bezier(.22,1,.36,1),height 600ms cubic-bezier(.22,1,.36,1); }
+.quest-heading { position:absolute; top:3.5rem; left:0; right:0; z-index:5; text-align:center; padding:.2rem 1rem .5rem; pointer-events:none; }
+.quest-heading h1 { font:400 clamp(3.6rem,7vw,7.5rem)/.95 var(--font-display); text-transform:uppercase; letter-spacing:-.035em; margin:0; }
+.quest-heading h1 span { color:var(--q-orange); }
+.quest-preview[data-light="day"] .quest-heading h1 span { color:#914710; }
+.quest-heading p { font-size:clamp(.75rem,1.1vw,.95rem); line-height:1.4; margin:.5rem 0 0; color:var(--q-muted); }
+.quest-artboard { position:absolute; inset:0; height:100%; min-height:0; touch-action:pan-y; }
+.quest-illustration,.quest-canvas,.quest-scene-outgoing,.quest-live-outgoing { position:absolute; inset:0; display:block; width:100%; height:100%; }
+.quest-illustration,.quest-scene-outgoing { object-fit:contain; pointer-events:none; user-select:none; }
+.quest-canvas { opacity:0; transition:opacity 350ms ease; }
+.quest-canvas[data-ready="true"] { opacity:1; }
+.quest-artboard[data-renderer="webgl"] .quest-illustration { visibility:hidden; }
+.quest-scene-outgoing { z-index:1; animation:quest-dissolve 1100ms cubic-bezier(.22,1,.36,1) both; }
+.quest-live-outgoing { z-index:1; opacity:0; pointer-events:none; }
+@keyframes quest-dissolve { to { opacity:0; visibility:hidden; } }
+.quest-render-note { position:absolute; bottom:.3rem; left:1rem; font-size:.65rem; color:var(--q-muted); }
+.quest-map-hint { position:absolute; bottom:4rem; left:0; right:0; pointer-events:none; text-align:center; font-size:.7rem; line-height:1.3; color:var(--q-muted); margin:.2rem 1rem; }
+.quest-map-hint span { padding-inline:.3rem; }
+.quest-signs { position:absolute; inset:0; pointer-events:none; z-index:4; }
+.quest-sign { position:absolute; color:inherit; pointer-events:auto; text-decoration:none; background:none; border:0; padding:0; min-width:44px; min-height:44px; }
+.quest-sign--portfolio { left:var(--portfolio-left,20%); top:var(--portfolio-top,22%); width:var(--portfolio-width,20%); height:var(--portfolio-height,40%); }
+.quest-sign--world { left:var(--world-left,60%); top:var(--world-top,35%); width:var(--world-width,20%); height:var(--world-height,25%); }
+.quest-floating-label { position:absolute; top:18%; right:calc(100% + 3.5rem); width:clamp(7rem,12vw,13rem); text-align:right; pointer-events:auto; transition:opacity 600ms ease,translate 600ms cubic-bezier(.22,1,.36,1); }
+.quest-sign--world .quest-floating-label { right:auto; left:calc(100% + 3.5rem); text-align:left; }
+.quest-floating-label::after { content:""; position:absolute; width:1.1rem; top:1.4rem; left:calc(100% + .2rem); border-top:1px solid currentColor; opacity:.5; }
+.quest-sign--world .quest-floating-label::after { left:auto; right:calc(100% + .2rem); }
+.quest-sign-number { display:block; font-size:.56rem; letter-spacing:.08em; margin-bottom:.4rem; }
+.quest-sign strong { display:block; font:400 clamp(1.25rem,2.1vw,2.3rem)/1 var(--font-display); letter-spacing:.02em; }
+.quest-sign strong > span { font:400 .75em var(--landing-font-sans); }
+.quest-label-short { display:none; }
+.quest-sign small { display:block; font-size:.72rem; line-height:1.4; margin-top:.4rem; }
+.quest-building-aura { position:absolute; bottom:0; left:5%; width:90%; height:18%; border-radius:50%; background:radial-gradient(ellipse,#f79a3b88,transparent 70%); opacity:0; scale:.8; transition:opacity 500ms ease,scale 600ms ease,box-shadow 600ms ease; }
+.quest-sign[data-selected="true"] .quest-building-aura,.quest-sign:focus-visible .quest-building-aura { opacity:1; scale:1.15; box-shadow:0 0 35px #f79a3b55; }
+.quest-preview .quest-sign:focus-visible { outline:2px dashed currentColor; outline-offset:5px; border-radius:25% 25% 10% 10%; }
+@media (hover:hover) and (pointer:fine) {
+  .quest-floating-label { opacity:0; translate:8px 0; }
+  .quest-sign--world .quest-floating-label { translate:-8px 0; }
+  .quest-sign:is(:hover,:focus-visible,[data-selected="true"]) .quest-floating-label { opacity:1; translate:0; }
+}
+/* One fixed input edge; new conversation fills the space above it. */
+.quest-composition--guide .quest-world { width:calc(100% - 24rem); }
+.quest-preview .guide-dialog { position:absolute; inset:auto 1.5rem 0 auto; width:22rem; max-height:min(29rem,100%); display:flex; flex-direction:column; min-height:0; padding:.5rem; margin:0; color:inherit; background:none; border:0; box-shadow:none; backdrop-filter:none; z-index:7; text-align:left; transform:none; animation:quest-chat-in 350ms cubic-bezier(.22,1,.36,1) both; }
+.quest-preview .guide-dialog::before { content:none; }
+@keyframes quest-chat-in { from { opacity:0; translate:0 8px; } to { opacity:1; translate:0; } }
+.quest-preview .guide-dialog header { display:flex; align-items:center; justify-content:space-between; gap:.5rem; flex:none; }
+.quest-preview .guide-identity { display:flex; align-items:center; gap:.5rem; }
+.quest-preview .guide-portrait { width:32px; flex:none; }
+.quest-preview .guide-portrait .assistant-sprite { width:32px; height:calc(32px * 176 / 144); }
+.quest-preview .guide-dialog h2 { font:400 1.4rem/1 var(--font-display); margin:0; letter-spacing:-.02em; }
+.quest-preview .guide-dialog h2 span { color:var(--q-orange); }
+.quest-preview #quest-guide-disclosure { font-size:.7rem; line-height:1.3; margin:.25rem 0; color:var(--q-muted); }
+.quest-preview .guide-dialog button { min-width:44px; min-height:44px; border:0; background:transparent; color:inherit; font:inherit; cursor:pointer; padding:.4rem .7rem; transition:background 180ms ease,translate 180ms ease; }
+.quest-preview .guide-dialog .guide-close { font-size:2.25rem; min-width:48px; min-height:48px; line-height:1; padding:0; flex:none; }
+.quest-preview .guide-history { flex:1 1 auto; min-height:0; max-height:17rem; overflow:auto; overscroll-behavior:contain; border:0; margin:0; padding:0; font-size:.82rem; line-height:1.55; }
+.quest-preview .guide-exchange { border:0; padding:.5rem 0; animation:quest-chat-in 250ms ease both; }
+.quest-preview .guide-exchange p { font:inherit; margin:.5rem 0; }
+.quest-preview .guide-exchange strong { display:block; font-size:.66rem; text-transform:uppercase; letter-spacing:.08em; color:var(--q-muted); margin-bottom:.2rem; }
+.quest-preview .guide-history nav { display:flex; flex-wrap:wrap; gap:.25rem 1rem; }
+.quest-preview .guide-history nav a { display:inline-flex; align-items:center; min-height:44px; font-size:.8rem; text-underline-offset:.25em; }
+.quest-preview .guide-examples { display:flex; flex-wrap:wrap; gap:.4rem; flex:none; margin:.6rem 0; }
+.quest-preview .guide-examples button { border-radius:999px; font-size:.75rem; padding:0; min-height:44px; border:0; }
+.quest-preview .guide-examples button span { display:block; padding:.25rem .6rem; border:1px solid var(--q-control-border); border-radius:999px; font-size:.75rem; line-height:1.4; }
+.quest-preview .guide-examples button:hover { background:none; translate:0; }
+.quest-preview .guide-examples button:hover span { background:#f79a3b30; }
+.quest-preview .guide-dialog form { flex:none; margin:0; padding:0; border:0; }
+.quest-preview .guide-input-row { display:flex; align-items:flex-end; gap:.5rem; padding:.5rem; border:1px solid var(--q-control-border); border-radius:18px; background:color-mix(in srgb,var(--q-note-bg) 58%,transparent); }
+.quest-preview .guide-input-row:focus-within { outline:2px solid var(--q-orange); outline-offset:2px; }
+.quest-preview[data-light="day"] .guide-input-row:focus-within { outline-color:#914710; }
+.quest-preview .guide-input-row textarea { flex:1; min-width:0; width:100%; height:3.6rem; min-height:3.6rem; max-height:7rem; padding:.35rem .25rem; resize:none; background:none; color:inherit; border:0; border-radius:0; font:inherit; font-size:16px; line-height:1.4; margin:0; box-shadow:none; }
+.quest-preview .guide-input-row textarea:focus-visible { outline:none; }
+.quest-preview .guide-input-row textarea::placeholder { color:var(--q-muted); opacity:1; }
+.quest-preview .guide-input-row button { flex:none; background:var(--q-orange); color:var(--q-ink); width:44px; min-width:44px; height:44px; padding:0; font-size:1.3rem; border:0; border-radius:50%; box-shadow:none; transform:none; }
+.quest-preview .quest-message-user { margin-left:2rem; padding:.5rem .7rem; border-radius:12px 12px 2px 12px; background:#f79a3b24; white-space:pre-wrap; }
+.quest-preview .quest-message-guide { padding-left:.7rem; border-left:2px solid var(--q-orange); }
+.quest-preview .quest-chat-welcome { font-size:.85rem; color:var(--q-muted); margin:.65rem 0; }
+.quest-preview .guide-history nav a { color:inherit; }
+.quest-preview #quest-guide-error { font-size:.8rem; margin:.3rem 0 0; }
+/* The approved source sprite remains unchanged; only preview cadence/pose transforms vary. */
+.quest-walker { --actor-scale:.65; position:absolute; left:0; top:0; width:max(44px,calc(96px * var(--actor-scale))); height:calc(110px * var(--actor-scale) + 22px); z-index:3; contain:layout style; will-change:transform; }
+.quest-preview .quest-walker > .wayfinder-avatar { position:absolute; inset:0; width:100%; height:100%; min-width:44px; padding:0 0 22px; border:0; background:none; color:inherit; cursor:pointer; transform:none; }
+.quest-preview .assistant-sprite { position:relative; display:block; overflow:hidden; contain:layout paint; isolation:isolate; pointer-events:none; }
+.quest-preview .quest-walker .assistant-sprite { width:calc(90px * var(--actor-scale)); height:calc(110px * var(--actor-scale)); margin-inline:auto; translate:0 var(--run-bob,0px); rotate:var(--run-lean,0deg); transform-origin:50% 100%; transition:opacity 450ms ease,scale 450ms ease,rotate 180ms ease; }
+.quest-preview .assistant-sprite img { position:absolute; display:block; max-width:none; margin:0; user-select:none; }
+.quest-preview .assistant-poster { inset:0; width:100%; height:100%; }
+.quest-preview .assistant-sheet { left:0; top:0; width:calc(var(--sprite-columns) * 100%); height:calc(var(--sprite-rows) * 100%); visibility:hidden; }
+.quest-preview .assistant-sprite[data-loaded="true"] .assistant-sheet { visibility:visible; }
+.quest-preview .assistant-sprite[data-loaded="true"] .assistant-poster { visibility:hidden; }
+.quest-preview .avatar-caption { position:absolute; top:auto; bottom:calc(100% + 6px - 9px * var(--actor-scale)); left:50%; right:auto; transform:translateX(-50%); white-space:nowrap; font-size:13px; font-weight:600; line-height:1.2; padding:7px 12px; border:1px solid #13131320; border-radius:999px; background:var(--q-paper); color:var(--q-ink); box-shadow:0 3px 12px #10202a1a; }
+.quest-preview .avatar-caption::after { content:""; position:absolute; top:calc(100% - 5px); left:50%; width:10px; height:10px; background:inherit; border-right:1px solid #13131320; border-bottom:1px solid #13131320; border-radius:0 0 2px 0; transform:translateX(-50%) rotate(45deg); }
+.quest-walker:has(button:focus-visible) { outline:3px solid var(--q-orange); outline-offset:4px; }
+.quest-preview .quest-walker button:disabled { cursor:default; opacity:1; }
+.quest-preview[data-leaving]:not([data-leaving=""]) .avatar-caption { visibility:hidden; }
+.quest-preview[data-entering="true"] .quest-walker .assistant-sprite { opacity:0; scale:.5; }
+.quest-preview[data-entering="true"] .quest-sign[data-selected="true"] .quest-building-aura { animation:quest-door-entry 560ms ease-out both; }
+@keyframes quest-door-entry { 50% { opacity:1; scale:1.6; box-shadow:0 0 55px #f79a3b99; } to { opacity:0; scale:2; } }
+.quest-reference-pet { position:absolute; left:0; top:0; width:44px; height:44px; pointer-events:none; z-index:2; contain:layout style; will-change:transform; }
+.quest-pet-facing,.quest-pet-clip { position:absolute; inset:0; display:block; }
+.quest-pet-clip { overflow:hidden; contain:layout paint; }
+.quest-pet-sheet { position:absolute; top:0; left:0; width:500%; height:200%; max-width:none; image-rendering:pixelated; user-select:none; }
+.quest-pet-shadow { position:absolute; width:55%; height:9%; left:22.5%; bottom:0; background:#172c3055; border-radius:50%; }
+/* Bounded weather uses one compositor layer; snow-covered architecture remains when motion is off. */
+.quest-weather { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:2; mask-image:linear-gradient(transparent,#000 20%,#000 75%,transparent); }
+.quest-weather > span { position:absolute; inset:-200px 0 0; background-image:radial-gradient(1.5px 1.5px at 30px 20px,#ffffffe6 90%,transparent),radial-gradient(1px 1px at 110px 90px,#ffffffb0 90%,transparent),radial-gradient(2px 2px at 220px 160px,#ffffffc0 90%,transparent); background-size:280px 200px; animation:quest-weather-fall 12s linear infinite; }
+.quest-weather--rain > span { background-image:linear-gradient(110deg,transparent 48%,#d7e9f555 49%,#d7e9f555 51%,transparent 52%); background-size:45px 200px; opacity:.4; animation-duration:1.4s; }
+@keyframes quest-weather-fall { to { transform:translateY(200px); } }
+.quest-tools { position:relative; z-index:8; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:.4rem clamp(1rem,3vw,3rem); color:var(--q-muted); font-size:.75rem; }
+.quest-scene-tour { display:flex; align-items:center; gap:1rem; }
+.quest-tour-location { display:grid; gap:.15rem; min-width:8.5rem; margin:0; line-height:1.3; }
+.quest-tour-location strong { font-size:.8rem; font-weight:500; }
+.quest-tour-location > span { font-size:.72rem; }
+.quest-tour-location small { font-size:.66rem; opacity:.8; margin-left:.4rem; }
+.quest-tour-buttons { display:flex; align-items:center; }
+.quest-tour-buttons button { display:grid; place-items:center; min-width:44px; height:44px; border:0; background:none; color:inherit; padding:0; font:inherit; border-radius:22px; }
+.quest-tour-buttons button:hover { background:#89928a25; }
+.quest-tour-buttons .quest-tour-toggle { display:flex; justify-content:center; gap:.35rem; padding-inline:.5rem; }
+.quest-tour-toggle > span { display:grid; text-align:left; font-size:.65rem; line-height:1.25; }
+.quest-tour-toggle strong { font-size:.7rem; font-weight:500; }
+.quest-tour-toggle[data-running="true"] strong { color:inherit; }
+.quest-tour-toggle[data-running="true"] strong::before { content:""; display:inline-block; width:5px; height:5px; margin-right:4px; border-radius:50%; background:currentColor; }
+.quest-tour-buttons svg { width:12px; height:12px; fill:none; stroke:currentColor; stroke-width:2; }
+.quest-tour-buttons button:disabled { opacity:.6; cursor:default; }
+.quest-tool-actions { display:flex; flex-wrap:wrap; align-items:center; gap:0 1rem; }
+.quest-tools { grid-row:3; position:relative; }
+.quest-pause,.quest-fullscreen,.quest-tools summary { display:inline-flex; align-items:center; gap:.5rem; border:0; border-bottom:1px solid currentColor; background:none; color:inherit; padding:0; list-style:none; font-size:.72rem; }
+.quest-tools summary::-webkit-details-marker { display:none; }
+.quest-settings { position:absolute; bottom:calc(100% + .2rem); right:1rem; width:min(20rem,calc(100vw - 2rem)); padding:1rem; background:var(--q-paper); color:var(--q-ink); box-shadow:4px 5px var(--q-orange); border:1px solid var(--q-ink); }
+.quest-checkbox { display:flex; gap:.5rem; align-items:center; min-height:44px; font-size:.8rem; }
+.quest-checkbox input { width:18px; height:18px; accent-color:#914710; }
+.quest-setting-note { font-size:.75rem; line-height:1.5; margin:.4rem 0 0; }
+.quest-travel { position:fixed; z-index:10; left:50%; bottom:1rem; transform:translateX(-50%); max-width:calc(100% - 2rem); width:max-content; display:flex; align-items:center; flex-wrap:wrap; justify-content:center; gap:.3rem 1rem; color:var(--q-paper); background:#203742; border:1px solid #f79a3b88; box-shadow:0 6px 24px #10202a33; padding:.35rem 1rem; font-size:.8rem; }
+.quest-travel :is(a,button) { min-height:44px; display:inline-flex; align-items:center; background:none; border:0; padding:.3rem; color:inherit; font:inherit; text-decoration:underline; text-underline-offset:.25em; }
+.quest-icebreaker { position:absolute; z-index:5; bottom:.5rem; left:50%; transform:translateX(-50%); width:min(23rem,calc(100% - 2rem)); padding:.6rem 3rem .6rem .8rem; background:var(--q-note-bg); color:var(--q-note-ink); border-top:2px solid var(--q-orange); font-size:.75rem; line-height:1.5; }
+.quest-icebreaker p { margin:0; }
+.quest-icebreaker strong { display:block; }
+.quest-icebreaker button { padding:.2rem 0; color:inherit; background:none; border:0; font-size:.75rem; text-decoration:underline; }
+.quest-icebreaker .quest-icebreaker-close { position:absolute; top:0; right:0; width:44px; font-size:1.2rem; text-decoration:none; }
+@media (max-width:63.999rem) {
+  .quest-floating-label { width:clamp(6rem,12vw,9rem); right:calc(100% + .6rem); }
+  .quest-sign--world .quest-floating-label { left:calc(100% + .6rem); }
+  .quest-floating-label::after { width:.4rem; }
+  .quest-sign-number { display:none; }
+  .quest-sign strong { font-size:clamp(1.1rem,2.6vw,1.7rem); }
+  .quest-sign small { font-size:.67rem; }
+}
+@media (max-width:63.999rem) {
+  .quest-hud { padding-block:.1rem; }
+  .quest-heading h1 { font-size:clamp(3rem,11vw,5.5rem); }
+  .quest-heading p { max-width:23rem; margin:.3rem auto 0; font-size:.72rem; }
+  .quest-heading { padding-bottom:.25rem; }
+  .quest-tools { flex-direction:column; align-items:stretch; gap:0; padding-block:0 .25rem; }
+  .quest-scene-tour { justify-content:space-between; gap:.3rem; }
+  .quest-tour-location { min-width:0; max-width:7rem; }
+  .quest-tour-location strong { font-size:.72rem; }
+  .quest-tour-location > span { font-size:.65rem; }
+  .quest-tour-buttons .quest-tour-toggle { max-width:6rem; }
+  .quest-tool-actions { justify-content:space-between; }
+  .quest-preview .quest-composition--guide .quest-world { width:100%; height:50%; }
+  .quest-preview .guide-dialog { inset:auto .75rem 0 auto; width:calc(100% - 1.5rem); max-height:50%; padding:.25rem; }
+  .quest-preview .guide-dialog header { min-height:36px; }
+  .quest-preview .guide-dialog h2 { font-size:1.15rem; }
+  .quest-preview .guide-portrait { width:24px; }
+  .quest-preview .guide-portrait .assistant-sprite { width:24px; height:calc(24px * 176 / 144); }
+  .quest-preview .guide-examples { flex-wrap:nowrap; margin:.25rem 0; }
+  .quest-preview .guide-examples button { padding:0; }
+  .quest-preview .guide-history { max-height:10rem; font-size:.78rem; }
+  .quest-floating-label,.quest-sign--world .quest-floating-label { top:calc(.75rem - var(--portfolio-top,0px)); right:auto; left:calc(22vw - var(--portfolio-left,0px)); bottom:auto; transform:translateX(-50%); width:34vw; text-align:center; }
+  .quest-sign--world .quest-floating-label { top:calc(.75rem - var(--world-top,0px)); left:calc(78vw - var(--world-left,0px)); }
+  .quest-label-long { display:none; }
+  .quest-label-short { display:inline; }
+  .quest-floating-label::after { display:none; }
+  .quest-sign strong { font-size:clamp(1.05rem,4vw,1.5rem); }
+  .quest-preview .quest-composition--guide .quest-heading h1 { font-size:2.5rem; }
+  .quest-preview .quest-composition--guide .quest-map-hint { font-size:.6rem; }
+  .quest-time-toggle { width:132px; }
+}
+.quest-time-toggle { position:relative; isolation:isolate; display:grid; grid-template-columns:1fr 1fr; width:144px; padding:4px; border:1px solid currentColor; border-radius:28px; background:#172c3012; color:inherit; }
+.quest-time-toggle > span:not(.quest-time-thumb) { display:flex; justify-content:center; align-items:center; gap:5px; font-size:.75rem; z-index:1; }
+.quest-time-toggle svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.5; }
+.quest-time-thumb { position:absolute; top:4px; bottom:4px; left:4px; width:calc(50% - 4px); border-radius:22px; background:var(--q-orange); box-shadow:0 2px 4px #172c3033; transition:transform 350ms cubic-bezier(.22,1,.36,1); }
+.quest-time-toggle[data-light="night"] .quest-time-thumb { transform:translateX(100%); }
+.quest-time-toggle[data-light="day"] > span:nth-child(2),.quest-time-toggle[data-light="night"] > span:nth-child(3) { color:var(--q-ink); }
+@media (max-height:480px) {
+  .quest-preview { height:auto; min-height:100svh; }
+  .quest-preview { min-height:36rem; }
+  .quest-heading h1 { font-size:3rem; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .quest-preview,.quest-preview *,.quest-preview *::before,.quest-preview *::after { animation:none !important; transition:none !important; }
+  .quest-floating-label { opacity:1; translate:0; }
+  .quest-weather,.quest-scene-outgoing { display:none; }
+}
+.quest-preview[data-paused="true"] .quest-weather > span { animation-play-state:paused !important; }
+
+/* Tablets keep a full-width map above the anchored conversation. */
+@media (min-width:48rem) and (max-width:63.999rem) {
+  .quest-preview .quest-composition--guide .quest-world { height:55%; }
+  .quest-preview .guide-dialog { max-height:45%; width:22rem; right:1.25rem; }
+  .quest-preview .quest-composition--guide .quest-heading h1 { font-size:3.5rem; }
+}
+
+/* Direct, bounded camera manipulation; core navigation stays native. */
+.quest-artboard[data-renderer="webgl"] { cursor:grab; touch-action:pan-y pinch-zoom; }
+.quest-artboard[data-dragging="true"] { cursor:grabbing; user-select:none; }
+.quest-orbit-tools { position:absolute; left:.75rem; bottom:.25rem; z-index:5; display:flex; align-items:center; gap:.2rem; font-size:.7rem; color:var(--q-muted); }
+.quest-orbit-tools > span { margin-right:.3rem; pointer-events:none; }
+.quest-orbit-tools button { min-width:44px; min-height:44px; background:color-mix(in srgb,var(--q-note-bg) 65%,transparent); border:1px solid var(--q-control-border); border-radius:999px; padding:.25rem .55rem; cursor:pointer; font:inherit; color:inherit; }
+.quest-orbit-tools button:hover { background:var(--q-note-bg); }
+.quest-orbit-tools button:disabled { opacity:.5; cursor:default; }
+.quest-artboard:focus-visible { outline-offset:-4px; }
+@media(max-width:40rem){.quest-orbit-tools { left:.25rem; font-size:.65rem; gap:.1rem; }.quest-orbit-tools button{padding:.2rem .4rem;}}
+
+/* Cinematic actor rendering; native button remains available over the GPU sprite. */
+.quest-walker[data-gpu="true"] .assistant-sprite { opacity:0; }
+.quest-preview[data-leaving]:not([data-leaving=""]) :is(.quest-signs,.quest-heading,.quest-hud,.quest-tools,.quest-reference-pet,.quest-orbit-tools,.quest-map-hint,.quest-weather) { opacity:0;pointer-events:none; }
+.quest-preview[data-entering="true"] .quest-walker { animation:none;scale:1; }
+.quest-preview :is(.guide-dialog,.guide-dialog h2,.guide-dialog p,.guide-dialog button,.guide-dialog input,.guide-dialog label,.guide-dialog a,.guide-dialog small,.guide-history,.guide-suggestions,.quest-icebreaker,.quest-icebreaker button) { font-size:16px;line-height:1.5; }
+.quest-preview .guide-dialog :is(input,textarea,button) { font-family:inherit; }
+.quest-collection { display:grid;gap:.35rem; }
+.quest-collection select { max-width:100%;font:inherit;min-height:44px; }
+
+.quest-preview .guide-dialog :is(textarea,strong,span,small,label,input,button,p,h2,a) { font-size:16px; }
+.quest-preview .quest-conversation.guide-dialog :is(h2,p,span,strong,small,button,textarea,input,label,a) {
+ font-family:var(--landing-font-sans,system-ui),sans-serif;font-size:16px;line-height:1.5;letter-spacing:normal;
+}
+.quest-preview .quest-conversation.guide-dialog h2 { font-weight:600; }
+
+/* Opt-in comparison only; the normal route keeps its current presentation. */
+.quest-preview[data-camera-compare="true"] { grid-template-rows:minmax(0,1fr); }
+.quest-preview[data-camera-compare="true"] :is(.quest-hud,.quest-heading,.quest-tools,.quest-map-hint,.quest-floating-label,.quest-orbit-tools,.quest-icebreaker) { display:none; }
+.quest-preview[data-camera-compare="true"] .quest-world { display:block; }
+.quest-preview[data-camera-compare="true"] .quest-composition { height:100%; }
+.quest-preview[data-camera-compare="true"] .wayfinder-avatar { visibility:hidden; }
+
+.quest-artboard[data-renderer="illustration"] :is(.quest-illustration,.quest-scene-outgoing) { transform:scale(var(--camera-preview-zoom,1));transform-origin:center; }
+
+/* The camera fills the viewport; overlays reserve the actual wrapped toolbar height. */
+.quest-preview .quest-orbit-tools { bottom:calc(var(--quest-tools-height,4rem) + .5rem); }
+.quest-preview .quest-map-hint { bottom:calc(var(--quest-tools-height,4rem) + .75rem); }
+.quest-preview .guide-dialog { bottom:calc(var(--quest-tools-height,4rem) + .5rem); }
+.quest-preview .quest-icebreaker { bottom:calc(var(--quest-tools-height,4rem) + .5rem); }
+
+/* Shared open-sky anchors: varying building heights must not move the labels. */
+@media (min-width:64rem) {
+  .quest-sign--portfolio .quest-floating-label,
+  .quest-sign--world .quest-floating-label {
+    top:calc(var(--label-y,38vh) - var(--portfolio-top,0px));
+    bottom:auto; right:auto;
+    left:calc(var(--board-width,100vw) * .10 - var(--portfolio-left,0px));
+    width:clamp(7rem,calc(var(--board-width,100vw) * .13),11rem);
+    transform:translate(-50%,-50%);
+  }
+  .quest-sign--world .quest-floating-label {
+    top:calc(var(--label-y,38vh) - var(--world-top,0px));
+    left:calc(var(--board-width,100vw) * .90 - var(--world-left,0px));
+  }
+}
+@media (max-width:63.999rem) {
+  .quest-sign--portfolio .quest-floating-label {
+    top:calc(clamp(10rem,30dvh,13rem) - var(--portfolio-top,0px));
+  }
+  .quest-sign--world .quest-floating-label {
+    top:calc(clamp(10rem,30dvh,13rem) - var(--world-top,0px));
+  }
+}
+
+/* One quiet footer row; secondary controls appear only on demand. */
+.quest-tools--compact { flex-direction:row; align-items:center; gap:.75rem; padding:.25rem clamp(.75rem,3vw,3rem) max(.25rem,env(safe-area-inset-bottom)); }
+.quest-scene-caption { display:flex; flex-wrap:wrap; align-items:baseline; gap:.25rem .75rem; min-width:0; margin:0; font-size:.75rem; line-height:1.4; }
+.quest-scene-caption small { font-size:inherit; opacity:.8; white-space:nowrap; }
+.quest-controls { flex-shrink:0; }
+.quest-controls > summary { display:flex; min-height:44px; padding:.35rem .6rem; border:1px solid transparent; border-radius:999px; font-size:.75rem; gap:.5rem; white-space:nowrap; transition:background 160ms ease,border-color 160ms ease; }
+.quest-controls > summary:is(:hover,:focus-visible),.quest-controls[open] > summary { background:var(--q-note-bg); color:var(--q-note-ink); border-color:var(--q-control-border); }
+.quest-controls > summary svg { width:18px; height:18px; fill:var(--q-note-bg); stroke:currentColor; stroke-width:1.5; }
+.quest-controls-panel { right:clamp(.75rem,3vw,3rem); bottom:calc(100% + .5rem); width:min(23rem,calc(100vw - 1.5rem)); max-height:min(32rem,calc(100dvh - 6rem)); overflow:auto; overscroll-behavior:contain; padding:.85rem 1rem; border-radius:1rem; background:var(--q-note-bg); color:var(--q-note-ink); border-color:var(--q-control-border); box-shadow:3px 4px 0 var(--q-orange),0 12px 32px #10202a20; }
+.quest-controls-section + .quest-controls-section { border-top:1px solid var(--q-control-border); padding-top:.75rem; margin-top:.5rem; }
+.quest-controls-panel .quest-scene-tour { display:block; }
+.quest-controls-panel .quest-tour-location { display:none; }
+.quest-controls-panel .quest-tour-buttons { justify-content:space-between; gap:.35rem; }
+.quest-controls-panel .quest-tour-buttons button { padding-inline:.65rem; font-size:.8rem; }
+.quest-controls-panel .quest-tour-buttons .quest-tour-toggle { max-width:none; }
+.quest-controls-panel .quest-tour-toggle > span { display:flex; align-items:center; gap:.3rem; font-size:inherit; }
+.quest-controls-panel .quest-tour-toggle strong { font-size:inherit; }
+.quest-controls-options { display:grid; gap:.65rem; }
+.quest-controls-options .quest-collection { font-size:.8rem; }
+.quest-controls-options select { width:100%; min-width:0; background:var(--q-note-bg); color:inherit; border:1px solid var(--q-control-border); border-radius:.5rem; padding:.4rem; }
+.quest-controls-options .quest-setting-note { margin:0; font-size:.75rem; }
+.quest-controls-actions { display:flex; flex-wrap:wrap; gap:.5rem; border-top:1px solid var(--q-control-border); margin-top:.75rem; padding-top:.5rem; }
+.quest-controls-actions :is(.quest-pause,.quest-fullscreen) { flex:1; justify-content:center; min-height:44px; padding:.4rem .6rem; border:1px solid var(--q-control-border); border-radius:999px; font-size:.8rem; }
+.quest-controls-actions button:hover { background:#89928a25; }
+@media(max-width:25rem) {
+  .quest-scene-caption { display:grid; gap:.1rem; max-width:calc(100% - 9rem); font-size:.7rem; }
+  .quest-controls > summary { font-size:.7rem; gap:.35rem; padding-inline:.4rem; }
+}
+@media(prefers-reduced-motion:reduce) { .quest-controls > summary { transition:none; } }
+
+/* All bottom controls share one physical row, including the map reset portal. */
+.quest-tools--compact { display:grid; grid-template-columns:auto minmax(0,1fr) auto; column-gap:clamp(.4rem,1.5vw,1rem); }
+.quest-preview .quest-camera-slot .quest-orbit-tools { position:static; inset:auto; display:flex; font-size:.75rem; }
+.quest-camera-slot:empty { display:none; }
+.quest-tools--compact:has(.quest-camera-slot:empty) { grid-template-columns:minmax(0,1fr) auto; }
+.quest-tools--compact .quest-scene-caption { display:flex; flex-wrap:nowrap; min-width:0; max-width:none; align-items:center; gap:clamp(.35rem,1.5vw,.75rem); }
+.quest-scene-caption > span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.quest-scene-caption > small { flex-shrink:0; }
+.quest-reset-short { display:none; }
+@media(max-width:40rem) {
+ .quest-tools--compact { padding-inline:.5rem; column-gap:.35rem; }
+ .quest-preview .quest-camera-slot .quest-orbit-tools { font-size:.7rem; }
+ .quest-tools--compact .quest-scene-caption { font-size:.7rem; }
+ .quest-controls > summary { padding-inline:.35rem; font-size:.7rem; gap:.3rem; }
+ .quest-controls > summary svg { width:14px; height:14px; }
+ .quest-reset-long { display:none; }
+ .quest-reset-short { display:inline; }
+}
+
+/* Quiet text controls retain native button semantics and generous hit targets. */
+.quest-preview .quest-camera-slot .quest-orbit-tools button,
+.quest-season-toggle { min-height:44px; padding:.2rem 0; border:0; border-radius:0; background:none; box-shadow:none; font:inherit; color:inherit; white-space:nowrap; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:.25em; }
+.quest-preview .quest-camera-slot .quest-orbit-tools button:hover,
+.quest-season-toggle:hover { background:none; text-decoration-thickness:2px; }
+.quest-scene-caption > .quest-season-toggle { flex-shrink:0; }
+.quest-season-toggle:disabled { opacity:.65; cursor:default; }
+@media(max-width:25rem) {
+ .quest-tools--compact { column-gap:.25rem; }
+ .quest-tools--compact .quest-scene-caption { gap:.25rem; }
+ .quest-controls > summary { font-size:.65rem; }
+ .quest-controls > summary svg { display:none; }
+}
+
+/* Familiar chat composer: full-width writing area above its action row. */
+.quest-preview .quest-chat-composer .guide-input-row { flex-direction:column; align-items:stretch; gap:.5rem; padding:.75rem; border-radius:24px; background:color-mix(in srgb,var(--q-note-bg) 85%,transparent); }
+.quest-preview .quest-chat-composer textarea { flex:none; height:auto; min-height:3rem; max-height:8rem; field-sizing:content; padding:0; overflow-y:auto; }
+.quest-composer-toolbar { display:flex; align-items:flex-end; gap:.5rem; }
+.quest-preview .quest-chat-composer .guide-examples { flex:1; min-width:0; display:flex; flex-wrap:wrap; align-items:center; gap:.15rem .35rem; margin:0; }
+.quest-preview .quest-chat-composer .guide-examples button { width:auto; height:auto; min-height:44px; padding:0; background:none; border:0; border-radius:999px; }
+.quest-preview .quest-chat-composer .guide-examples button span { padding:.2rem .55rem; border:1px solid var(--q-control-border); background:color-mix(in srgb,var(--q-note-ink) 5%,transparent); border-radius:999px; font-size:inherit; line-height:1.5; white-space:nowrap; }
+.quest-preview .quest-chat-composer .guide-examples button:hover span { background:#f79a3b30; }
+.quest-preview .quest-chat-composer .guide-send { flex:none; align-self:flex-end; width:44px; height:44px; margin:0; background:var(--q-orange); color:var(--q-ink); border:1px solid #914710; border-radius:50%; }
+.quest-preview .quest-chat-composer .guide-send:hover { background:#ffad59; }
+.quest-preview .quest-chat-composer button:disabled { opacity:.6; cursor:default; }
+
+.quest-preview .quest-chat-composer .guide-send { display:grid; place-items:center; }
+.quest-chat-composer .guide-send svg { display:block; width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+
+/* Third route: an additive front-edge gallery; original two-path previews stay intact. */
+.quest-sign--concepts{left:var(--concepts-left,43%);top:var(--concepts-top,65%);width:var(--concepts-width,14%);height:var(--concepts-height,18%);}
+.quest-sign--concepts .quest-floating-label{left:50%;right:auto;top:0;transform:translate(-50%,-110%);text-align:center;width:clamp(8rem,14vw,14rem);}
+.quest-sign--concepts .quest-floating-label::after{display:none;}
+.quest-gallery-fallback{display:none;position:absolute;inset:0;width:100%;height:100%;color:var(--q-ink);pointer-events:none;}
+[data-renderer="illustration"] .quest-gallery-fallback{display:block;}
+@media(max-width:48rem){
+ .quest-preview[data-path-count="3"] .quest-sign--portfolio .quest-floating-label{left:calc(17vw - var(--portfolio-left,0px));width:30vw;}
+ .quest-preview[data-path-count="3"] .quest-sign--world .quest-floating-label{left:calc(83vw - var(--world-left,0px));width:30vw;}
+ .quest-preview[data-path-count="3"] .quest-sign--concepts .quest-floating-label{left:calc(50vw - var(--concepts-left,0px));top:calc(.75rem - var(--concepts-top,0px));transform:translateX(-50%);width:30vw;}
+ .quest-preview[data-path-count="3"] .quest-sign strong{font-size:clamp(.9rem,3.6vw,1.35rem);}
+ .quest-preview[data-path-count="3"] .quest-sign-number{font-size:.45rem;}
+}
+/* Keep the close control larger than the shared conversation text sizing. */
+.quest-preview .quest-conversation.guide-dialog .guide-close { font-size:2.25rem; line-height:1; min-width:48px; min-height:48px; }

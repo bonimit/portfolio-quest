@@ -14,7 +14,15 @@
     "integration:plan": "node automation/integration.ts --plan",
     "integration:preflight": "node automation/integration.ts --preflight",
     "integration:audit": "node automation/integration.ts --audit-report",
-    "integration:run": "node automation/integration.ts --execute"
+    "integration:run": "node automation/integration.ts --execute",
+    "test": "npm run test:unit",
+    "test:unit": "node --test tests/website.test.mjs tests/assistant-motion.test.mjs tests/guide-conversation.test.mjs tests/sprite-player.test.mjs tests/companion-panel.test.mjs tests/companion-round3.test.mjs tests/adventure.test.mjs tests/work-model.test.mjs tests/work-drag.test.mjs tests/contact.test.mjs tests/concepts.test.mjs tests/concept-island.test.mjs tests/study-navigation.test.mjs tests/study-pets.test.mjs tests/study-orbit.test.mjs tests/three-path-scenes.test.mjs tests/review-png.test.mjs tests/scene-decorations.test.mjs tests/culture-scenes.test.mjs",
+    "test:http": "node --test tests/website-http.test.mjs",
+    "test:assets": "python3 tests/guide-assets.py",
+    "test:browser": "node scripts/serve-companion-checks.mjs",
+    "test:adventure:http": "node --test tests/adventure-http.test.mjs",
+    "test:adventure:dev": "node scripts/check-adventure-dev.mjs",
+    "test:work:preview": "node --test tests/work-preview-http.test.mjs"
   },
   "engines": {
     "node": ">=20.9.0"

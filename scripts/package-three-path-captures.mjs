@@ -1,0 +1,30 @@
+import sharp from 'sharp';
+import {readFileSync,writeFileSync,copyFileSync,mkdirSync,rmSync,renameSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {THREE_PATH_VIEWS,threePathId,threePathTitle} from '../lib/quest-preview/three-path-catalog.ts';
+import {REVIEW_CAPTURE_VERSION} from '../lib/quest-preview/review-capture-layout.ts';
+const folder='public/quest-preview/scene-review',out='docs/previews/three-path';mkdirSync(out,{recursive:true});
+const files=[],tiles=[],hashes=new Set();let totalBytes=0;
+for(const [i,v]of THREE_PATH_VIEWS.entries()){
+ const stem=`${threePathId(v)}-${v.light}`,path=`${folder}/${stem}.png`,meta=JSON.parse(readFileSync(`${folder}/${stem}.meta.json`)),bytes=readFileSync(path),image=await sharp(path).metadata();
+ if(meta.captureVersion!==REVIEW_CAPTURE_VERSION||meta.scene!==threePathId(v)||meta.light!==v.light||image.width!==2880||image.height!==1960)throw Error(`Incomplete or stale capture: ${stem}`);
+ const sha256=createHash('sha256').update(bytes).digest('hex');hashes.add(sha256);totalBytes+=bytes.length;
+ files.push({scene:threePathId(v),title:threePathTitle(v),light:v.light,file:`${stem}.png`,bytes:bytes.length,sha256,width:image.width,height:image.height,captureVersion:meta.captureVersion});
+ await sharp(path).resize(960).webp({quality:87}).toFile(`${folder}/${stem}.webp`);
+ const tile=await sharp(path).resize(480,327).png().toBuffer(),left=i%4*480,top=Math.floor(i/4)*358;
+ const label=(`${threePathTitle(v)} · ${v.light}`).replaceAll('&','&amp;');
+ tiles.push({input:Buffer.from(`<svg width="480" height="31"><rect width="480" height="31" fill="#f3eee1"/><text x="9" y="21" font-family="sans-serif" font-size="12" fill="#182d30">${label}</text></svg>`),left,top},{input:tile,left,top:top+31});
+}
+if(files.length!==44||hashes.size!==44)throw Error('Expected 44 distinct complete captures');
+await sharp({create:{width:1920,height:11*358,channels:3,background:'#f3eee1'}}).composite(tiles).jpeg({quality:92}).toFile(`${folder}/contact-sheet.jpg`);
+const manifest={schemaVersion:1,reviewDate:'2026-11-16',captureVersion:REVIEW_CAPTURE_VERSION,views:44,format:'1440 × 980 full-page browser capture at 2× resolution',source:'Rendered page DOM with computed CSS and embedded local fonts/images, plus its live WebGL canvas; exported by the local preview page. Resting view, motion paused. Hover labels remain available in the interactive preview.',homepage:'Latest three-path collection is the homepage; shared top navigation is omitted on the island',totalBytes,files};
+writeFileSync(`${folder}/manifest.json`,JSON.stringify(manifest,null,2)+'\n');
+writeFileSync(`${folder}/README.txt`,'THREE-PATH ISLAND — 44 VIEWS FOR APPROVAL\n\n22 scenes in day and night, captured at 2880 × 1960.\nOpen index.html for the gallery, contact-sheet.jpg for the overview, or any PNG for full resolution.\nCaptures show the resting page with motion paused. Hover labels and walking/entry are available in the interactive local preview.\nThe latest three-path island is now the homepage. It intentionally omits the shared top navigation.\n\nCapture method: the browser-rendered page DOM and its live scene canvas, exported inside the local preview.\n');
+writeFileSync(`${folder}/index.html`,`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Three-path island — all 44 screenshots</title><style>body{font:16px system-ui;background:#f3eee1;color:#182d30;margin:3vw}main{display:grid;grid-template-columns:1fr 1fr;gap:2vw}img{width:100%;height:auto}figure{margin:0}h2{font-size:1rem}a{color:inherit}@media(max-width:700px){main{grid-template-columns:1fr}}</style><h1>Three paths. Every scene.</h1><p>44 island captures. This scene collection is used on the homepage.</p><p><a href="contact-sheet.jpg">View all screenshots together</a></p><main>${files.map(v=>`<figure><h2>${v.title.replaceAll('&','&amp;')} · ${v.light}</h2><a href="${v.file}"><img loading="lazy" src="${v.file}" alt="${v.title.replaceAll('&','&amp;')} · ${v.light}"></a></figure>`).join('')}</main></html>`);
+copyFileSync(`${folder}/contact-sheet.jpg`,`${out}/contact-sheet.jpg`);copyFileSync(`${folder}/manifest.json`,`${out}/capture-manifest.json`);
+writeFileSync(`${out}/README.md`,'# Three-path approval captures\n\nAll 44 browser-rendered page/scene captures are saved under `public/quest-preview/scene-review/`. The overview is `contact-sheet.jpg`; provenance, dimensions and hashes are in `capture-manifest.json`.\n\nThe capture uses the page DOM, computed CSS, embedded local fonts/images and its live WebGL canvas, exported inside the local preview. Motion is paused and hover labels use their resting state.\n\nThe homepage now uses this three-path island collection and intentionally omits the shared top navigation.\n');
+const nextArchive=`${folder}/all-scenes-next.zip`;rmSync(nextArchive,{force:true});
+execFileSync('zip',['-q','-0','-j',nextArchive,...files.map(v=>`${folder}/${v.file}`),`${folder}/manifest.json`,`${folder}/contact-sheet.jpg`,`${folder}/README.txt`,`${folder}/index.html`]);
+renameSync(nextArchive,`${folder}/all-scenes.zip`);
+console.log(JSON.stringify({captures:files.length,unique:hashes.size,dimensions:[2880,1960],totalBytes,archive:`${folder}/all-scenes.zip`},null,2));

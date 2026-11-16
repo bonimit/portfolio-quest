@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "source": "Added city elements on the recovered original layered island base",
+  "vertices": 41862,
+  "triangles": 13954,
+  "petTriangles": 0,
+  "dimensions": [
+    1440,
+    980
+  ],
+  "geometry": {
+    "nyc-spring": {
+      "vertices": 41862,
+      "triangles": 13954
+    },
+    "nyc-summer": {
+      "vertices": 38712,
+      "triangles": 12904
+    },
+    "nyc-autumn": {
+      "vertices": 50502,
+      "triangles": 16834
+    },
+    "nyc-winter": {
+      "vertices": 35520,
+      "triangles": 11840
+    },
+    "tokyo-spring": {
+      "vertices": 38760,
+      "triangles": 12920
+    },
+    "tokyo-summer": {
+      "vertices": 45150,
+      "triangles": 15050
+    },
+    "tokyo-autumn": {
+      "vertices": 42936,
+      "triangles": 14312
+    },
+    "tokyo-winter": {
+      "vertices": 34302,
+      "triangles": 11434
+    },
+    "bangkok-raining": {
+      "vertices": 41997,
+      "triangles": 13999
+    },
+    "bangkok-summer": {
+      "vertices": 39759,
+      "triangles": 13253
+    },
+    "bangkok-winter": {
+      "vertices": 50853,
+      "triangles": 16951
+    }
+  },
+  "files": {
+    "new-nyc-spring-day.webp": 45244,
+    "new-nyc-spring-night.webp": 37852,
+    "new-nyc-summer-day.webp": 44424,
+    "new-nyc-summer-night.webp": 37008,
+    "new-nyc-autumn-day.webp": 47432,
+    "new-nyc-autumn-night.webp": 38554,
+    "new-nyc-winter-day.webp": 45022,
+    "new-nyc-winter-night.webp": 38056,
+    "new-tokyo-spring-day.webp": 41180,
+    "new-tokyo-spring-night.webp": 34438,
+    "new-tokyo-summer-day.webp": 44488,
+    "new-tokyo-summer-night.webp": 38140,
+    "new-tokyo-autumn-day.webp": 41876,
+    "new-tokyo-autumn-night.webp": 34440,
+    "new-tokyo-winter-day.webp": 42492,
+    "new-tokyo-winter-night.webp": 37730,
+    "new-bangkok-raining-day.webp": 45934,
+    "new-bangkok-raining-night.webp": 41382,
+    "new-bangkok-summer-day.webp": 48760,
+    "new-bangkok-summer-night.webp": 41326,
+    "new-bangkok-winter-day.webp": 53032,
+    "new-bangkok-winter-night.webp": 46026
+  }
+}

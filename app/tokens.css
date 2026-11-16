@@ -1,0 +1,103 @@
+/* Owner-approved editorial palette and typography (2026-11-10).
+   Scales retain --temp-* names pending final system-wide approval.
+   Original map colors are intentionally preserved. */
+:root {
+  --color-paper: #f6f5f1;
+  --color-surface: #eceae3;
+  --color-ink: #131313;
+  --color-muted: #595751;
+  --color-accent: #f79a3b;
+  --color-secondary-paper: #eceae3;
+  --color-border: #b9b5ac;
+  --color-focus: #131313;
+  --font-body: Arial, Helvetica, sans-serif;
+  --landing-font-serif: "Portfolio Newsreader", Georgia, serif;
+  --landing-font-sans: "Portfolio Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --landing-orange: #f79a3b;
+  --landing-lilac: #d9b8ff;
+  --landing-yellow: #ffd23f;
+  --landing-lime: #cfe86b;
+  --landing-teal: #7fd6c2;
+  --landing-pink: #ffb3d1;
+  --landing-line: rgb(19 19 19 / .16);
+  --landing-footer-muted: #c0beb6;
+  --landing-gutter: 1.25rem;
+  --landing-spring: cubic-bezier(.34, 1.8, .5, 1);
+  --landing-pop: cubic-bezier(.34, 1.56, .64, 1);
+  --landing-slide: cubic-bezier(.2, .7, .2, 1);
+  --landing-control-duration: 280ms;
+  --landing-color-duration: 200ms;
+  --landing-card-duration: 900ms;
+  --landing-reveal-duration: 500ms;
+  --landing-drift-duration: 18s;
+  --font-display: "Portfolio Anton", Impact, "Arial Narrow", sans-serif;
+  --temp-type-xs: .75rem;
+  --temp-type-sm: .875rem;
+  --temp-type-base: 1rem;
+  --temp-type-lg: 1.125rem;
+  --temp-type-xl: 1.5rem;
+  --temp-type-section: clamp(1.8rem, 3.5vw, 2.65rem);
+  --temp-type-hero: clamp(3.25rem, 6.5vw, 6rem);
+  --temp-type-hero-compact: clamp(2.5rem, 8.5vw, 5rem);
+  --temp-type-display-section: clamp(2.5rem, 4.6vw, 4rem);
+  --temp-type-footer: clamp(2rem, 4vw, 3.5rem);
+  --temp-leading-body: 1.65;
+  --temp-leading-heading: 1.08;
+  --temp-space-1: .25rem;
+  --temp-space-2: .5rem;
+  --temp-space-3: .75rem;
+  --temp-space-4: 1rem;
+  --temp-space-5: 1.5rem;
+  --temp-space-6: 2rem;
+  --temp-space-7: 3rem;
+  --temp-space-8: 4rem;
+  --temp-space-9: 6rem;
+  --temp-page-gutter: clamp(1.25rem, 4vw, 3rem);
+  --temp-content-width: 76rem;
+  --temp-reading-width: 40rem;
+  --temp-radius-sm: .125rem;
+  --temp-radius-panel: .125rem;
+  --temp-radius-pill: 999px;
+  --temp-border-width: 1px;
+  --temp-control-border-width: 2px;
+  --temp-touch-target: 2.75rem;
+  --temp-focus-width: 3px;
+  --temp-focus-offset: 4px;
+  --temp-shadow: 3px 3px 0 #131313;
+  --temp-duration: 160ms;
+  --temp-easing: ease-out;
+  --temp-z-page: 0;
+  --temp-z-nav: 10;
+  --temp-z-skip: 20;
+  --temp-icon-size: 1.25rem;
+  /* Preview-only world styling; final game art direction remains unapproved. */
+  --temp-world-sky: #e5f0ea;
+  --temp-world-surface: #fff7e5;
+  --temp-world-ink: #243b33;
+  --temp-world-muted: #435c50;
+  --temp-world-edge: #42624e;
+  --temp-world-radius: 1.75rem;
+  --temp-world-shadow: 0 .4rem 0 #bdd0b4;
+  --temp-map-shadow: #b5c4ab;
+  --temp-map-earth: #8d9e7d;
+  --temp-map-grass: #c5d7ac;
+  --temp-map-edge: #a4bb8c;
+  --temp-map-path: #f4e7c8;
+  --temp-map-building: #faf0d8;
+  --temp-map-building-shade: #dfd3b4;
+  --temp-map-roof: #c77759;
+  --temp-map-roof-shade: #a55643;
+  --temp-map-window: #fff8e4;
+  --temp-map-ink: #364f43;
+  --temp-map-lilac: #d7c8e8;
+  --temp-map-purple: #9182b5;
+  --temp-map-gold: #d8ae59;
+  --temp-map-gold-shade: #bc8d3e;
+  --temp-map-trunk: #856b50;
+  --temp-map-tree: #537854;
+  --temp-map-tree-light: #719768;
+  --temp-map-flower: #af6556;
+}
+/* Temporary responsive thresholds used by globals.css:
+   compact 40rem, stacked cards 48rem, stacked hero/header/footer 64rem.
+   Native media queries require literal values. */

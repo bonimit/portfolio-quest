@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 2,
+  "source": "Tokyo autumn/day Concept Lab architecture approval study; rasterized from local geometry",
+  "vertices": 58326,
+  "triangles": 19442,
+  "petTriangles": 0,
+  "dimensions": [
+    1440,
+    980
+  ],
+  "geometry": {
+    "tokyo-autumn-all": {
+      "vertices": 58326,
+      "triangles": 19442
+    },
+    "tokyo-autumn-base": {
+      "vertices": 56790,
+      "triangles": 18930
+    },
+    "tokyo-autumn-banner": {
+      "vertices": 96,
+      "triangles": 32
+    },
+    "tokyo-autumn-curtains": {
+      "vertices": 72,
+      "triangles": 24
+    },
+    "tokyo-autumn-lantern-0": {
+      "vertices": 456,
+      "triangles": 152
+    },
+    "tokyo-autumn-lantern-1": {
+      "vertices": 456,
+      "triangles": 152
+    },
+    "tokyo-autumn-lantern-2": {
+      "vertices": 456,
+      "triangles": 152
+    }
+  },
+  "files": {
+    "tokyo-autumn-day.webp": 61722,
+    "base.webp": 61122,
+    "banner.webp": 2968,
+    "curtains.webp": 2862,
+    "lantern-0.webp": 2926,
+    "lantern-1.webp": 2942,
+    "lantern-2.webp": 2938
+  }
+}

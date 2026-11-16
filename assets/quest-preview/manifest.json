@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 2,
+  "source": "Recovered original layered island base with retained seasonal scene elements",
+  "vertices": 28500,
+  "triangles": 9500,
+  "petTriangles": 0,
+  "dimensions": [
+    1440,
+    980
+  ],
+  "geometry": {
+    "nyc-spring": {
+      "vertices": 28500,
+      "triangles": 9500
+    },
+    "nyc-summer": {
+      "vertices": 28932,
+      "triangles": 9644
+    },
+    "nyc-autumn": {
+      "vertices": 39999,
+      "triangles": 13333
+    },
+    "nyc-winter": {
+      "vertices": 25548,
+      "triangles": 8516
+    },
+    "tokyo-spring": {
+      "vertices": 30354,
+      "triangles": 10118
+    },
+    "tokyo-summer": {
+      "vertices": 36144,
+      "triangles": 12048
+    },
+    "tokyo-autumn": {
+      "vertices": 41022,
+      "triangles": 13674
+    },
+    "tokyo-winter": {
+      "vertices": 20055,
+      "triangles": 6685
+    },
+    "bangkok-raining": {
+      "vertices": 20556,
+      "triangles": 6852
+    },
+    "bangkok-summer": {
+      "vertices": 36216,
+      "triangles": 12072
+    },
+    "bangkok-winter": {
+      "vertices": 25338,
+      "triangles": 8446
+    }
+  },
+  "files": {
+    "nyc-spring-day.webp": 42356,
+    "nyc-spring-night.webp": 35264,
+    "nyc-summer-day.webp": 40706,
+    "nyc-summer-night.webp": 34730,
+    "nyc-autumn-day.webp": 41436,
+    "nyc-autumn-night.webp": 32392,
+    "nyc-winter-day.webp": 34556,
+    "nyc-winter-night.webp": 32072,
+    "tokyo-spring-day.webp": 42102,
+    "tokyo-spring-night.webp": 34218,
+    "tokyo-summer-day.webp": 44650,
+    "tokyo-summer-night.webp": 37142,
+    "tokyo-autumn-day.webp": 37806,
+    "tokyo-autumn-night.webp": 30306,
+    "tokyo-winter-day.webp": 33184,
+    "tokyo-winter-night.webp": 30828,
+    "bangkok-raining-day.webp": 31518,
+    "bangkok-raining-night.webp": 27216,
+    "bangkok-summer-day.webp": 52296,
+    "bangkok-summer-night.webp": 38758,
+    "bangkok-winter-day.webp": 33996,
+    "bangkok-winter-night.webp": 26598
+  }
+}

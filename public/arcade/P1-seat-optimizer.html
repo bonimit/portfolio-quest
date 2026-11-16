@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>P1 Seat Optimizer</title>
+<link rel="stylesheet" href="play.css">
+<style>
+  .p1 { display: grid; grid-template-columns: 17rem minmax(0, 1fr); grid-template-rows: auto auto; }
+  .p1-controls { grid-row: 1 / 3; padding: 1.4rem; border-right: 1.5px solid var(--ink); display: grid; gap: 1.5rem; align-content: start; background: var(--paper); }
+  .ctl label, .ctl .lbl { display: flex; justify-content: space-between; align-items: baseline; font: 600 .74rem/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .55rem; }
+  .ctl output { font: 400 1.6rem/1 var(--display); letter-spacing: 0; }
+  input[type="range"] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; }
+  input[type="range"]::-webkit-slider-runnable-track { height: 6px; background: var(--ink); border-radius: 3px; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; margin-top: -10px; border-radius: 50%; background: var(--orange); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); transition: transform .2s var(--spring); }
+  input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.18); }
+  input[type="range"]::-moz-range-track { height: 6px; background: var(--ink); border-radius: 3px; }
+  input[type="range"]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--orange); border: 2px solid var(--ink); }
+  .switch { display: flex; align-items: center; justify-content: space-between; width: 100%; min-height: 44px; padding: .3rem .3rem .3rem .9rem; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--card); font: 500 .85rem/1 var(--sans); }
+  .switch i { width: 46px; height: 28px; border-radius: 999px; background: var(--paper2); border: 1.5px solid var(--ink); position: relative; transition: background .2s; }
+  .switch i::after { content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: var(--ink); transition: transform .3s var(--spring); }
+  .switch[aria-pressed="true"] i { background: var(--lime); }
+  .switch[aria-pressed="true"] i::after { transform: translateX(18px); }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; }
+  .seg button { min-height: 44px; border: 0; background: var(--card); font: 500 .78rem/1.1 var(--sans); padding: .2rem .4rem; }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+  .p1-floor { padding: 1.4rem 1.4rem .6rem; display: grid; gap: 1rem; }
+  .floor-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .floor { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-auto-flow: dense; gap: .8rem; padding: 1rem; border: 1.5px dashed var(--line); border-radius: 12px; }
+  .tbl { position: relative; min-height: 6.4rem; border: 1.5px solid var(--ink); border-radius: 10px; background: var(--card); overflow: hidden; padding: .55rem .65rem; display: flex; flex-direction: column; justify-content: space-between; transition: border-color .3s, transform .4s var(--spring); }
+  .tbl.wide { grid-column: span 2; }
+  .tbl .fill { position: absolute; inset: auto 0 0 0; height: 0; background: color-mix(in srgb, var(--orange) 70%, var(--card)); transition: height .5s var(--slide); }
+  .tbl.full .fill { background: var(--orange); }
+  .tbl.waste { border-color: var(--bad); border-style: dashed; }
+  .tbl > *:not(.fill) { position: relative; }
+  .tbl b { font: 400 1.3rem/1 var(--display); }
+  .tbl .cap { font: 500 .7rem/1 var(--sans); color: var(--muted); }
+  .tbl .turns { display: flex; gap: 3px; }
+  .tbl .turns i { flex: 1; height: 6px; border: 1px solid var(--ink); background: var(--card); }
+  .tbl .turns i.on { background: var(--ink); }
+  .tbl.bump { animation: bump .5s var(--spring); }
+  @keyframes bump { 40% { transform: scale(1.05) rotate(-1deg); } }
+  .wait { display: flex; align-items: center; gap: .8rem; min-height: 3rem; }
+  .wait .lbl { font: 600 .72rem/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+  .party { display: inline-flex; align-items: center; gap: .2rem; padding: .2rem .5rem; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--pink); font: 600 .74rem/1 var(--sans); animation: msg-in .35s var(--spring) both; }
+  .party.big { background: var(--bad); color: #fff; }
+  .none { font: italic .9rem/1 var(--serif); color: var(--muted); }
+
+  .p1-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1.5px solid var(--ink); }
+  .kpi { padding: 1rem 1.4rem; }
+  .kpi + .kpi { border-left: 1px solid var(--line); }
+  .kpi dt { font: 600 .68rem/1 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .kpi dd { margin: .35rem 0 0; font: 400 2.4rem/1 var(--display); }
+  .kpi dd.bad { color: var(--bad); }
+  .kpi small { display: block; margin-top: .3rem; font: .74rem/1.3 var(--sans); color: var(--muted); }
+
+  @media (max-width: 56rem) {
+    .p1 { grid-template-columns: minmax(0, 1fr); }
+    .p1-controls { grid-row: auto; border-right: 0; border-bottom: 1.5px solid var(--ink); }
+    .floor { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .p1-kpis { grid-template-columns: 1fr 1fr; }
+    .kpi:nth-child(3) { border-left: 0; }
+  }
+</style></head>
+<body>
+<div class="badge">P1 · Seat Optimizer</div>
+<div class="wrap">
+  <nav class="topbar"><a href="#">← Selected Work</a><span class="sample">Sample project · simulated data</span></nav>
+  <header class="head">
+    <div>
+      <p class="eyebrow">Build Lab · Restaurant Tech · Tool</p>
+      <h1>Seat optimizer</h1>
+      <p class="pitch">A seating engine for a busy dining room. Run a night. Break it.</p>
+    </div>
+    <div class="actions">
+      <button class="btn" id="soundBtn" aria-pressed="false"><span class="ico" aria-hidden="true">🔈</span><span>Sound off</span></button>
+      <button class="btn" id="systemBtn" aria-pressed="false"><span class="ico" aria-hidden="true">◐</span>Show the system</button>
+      <button class="btn btn--solid" id="depthBtn">Full case study <span aria-hidden="true">→</span></button>
+    </div>
+  </header>
+
+  <main class="stage p1" aria-label="Seat optimizer, interactive">
+    <section class="p1-controls" aria-label="Tonight's settings">
+      <div class="ctl" data-note="Slider · step 5 · recompute on input">
+        <label for="covers">Guests tonight <output id="coversOut" for="covers">60</output></label>
+        <input type="range" id="covers" min="20" max="160" step="5" value="60">
+      </div>
+      <div class="ctl" data-note="Slider · drives party mix">
+        <label for="avg">Avg party size <output id="avgOut" for="avg">3</output></label>
+        <input type="range" id="avg" min="1" max="9" step="1" value="3">
+      </div>
+      <div class="ctl" data-note="Slider · 4-hour service window">
+        <label for="turn">Minutes per table <output id="turnOut" for="turn">90</output></label>
+        <input type="range" id="turn" min="45" max="150" step="15" value="90">
+      </div>
+      <div class="ctl" data-note="Toggle · last-resort rule">
+        <button class="switch" id="combine" aria-pressed="false">Let tables combine <i aria-hidden="true"></i></button>
+      </div>
+      <div class="ctl" data-note="Segmented control · strategy">
+        <span class="lbl" id="stratLbl">Seating strategy</span>
+        <div class="seg" role="group" aria-labelledby="stratLbl">
+          <button aria-pressed="true" data-s="first">First open table</button>
+          <button aria-pressed="false" data-s="optimized">Optimized</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="p1-floor" aria-label="Floor plan">
+      <div class="floor-top"><span class="eyebrow">Floor · 12 tables · 48 seats</span><span class="eyebrow" id="turnsInfo">2 turns each</span></div>
+      <div class="floor" id="floor" data-note="Table tile · fill = turns used ÷ turns available · red dashed = big table, small party"></div>
+      <div class="wait" data-note="Waitlist · one chip per party, red = no table fits">
+        <span class="lbl">Waitlist</span><div class="chips" id="wait"></div>
+      </div>
+    </section>
+
+    <dl class="p1-kpis" aria-live="polite" data-note="Derived metrics · simulated, never real data">
+      <div class="kpi"><dt>Seat-time used</dt><dd id="kUtil">0%</dd><small id="kCompare"></small></div>
+      <div class="kpi"><dt>Guests seated</dt><dd id="kSeated">0</dd><small id="kSeatedOf"></small></div>
+      <div class="kpi"><dt>Parties waiting</dt><dd id="kWait">0</dd><small>Can't be seated tonight</small></div>
+      <div class="kpi"><dt>Empty chairs at seated tables</dt><dd id="kWaste">0</dd><small>Big tables, small parties</small></div>
+    </dl>
+  </main>
+
+  <section class="foot">
+    <div class="tasks">
+      <div class="tasks-head"><h2 class="eyebrow">Try this</h2><span class="count" id="taskCount">0 / 3 found</span></div>
+      <ol>
+        <li data-task="overflow">Push the room past capacity</li>
+        <li data-task="big">Seat a party bigger than any table</li>
+        <li data-task="beat">Find a night where “Optimized” seats more guests</li>
+      </ol>
+    </div>
+    <p class="caption" id="caption" aria-live="polite"><small class="eyebrow">What you're seeing</small><span>Everyone's seated. Drag the sliders until something breaks.</span></p>
+  </section>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <header><h2 id="drawerTitle">The full case study</h2><button class="btn" id="drawerClose">Close <span aria-hidden="true">✕</span></button></header>
+  <div class="tabs" role="tablist" aria-label="Case study sections">
+    <button role="tab" id="t1" aria-controls="p-1" aria-selected="true">Research</button>
+    <button role="tab" id="t2" aria-controls="p-2" aria-selected="false" tabindex="-1">Decisions</button>
+    <button role="tab" id="t3" aria-controls="p-3" aria-selected="false" tabindex="-1">Metrics</button>
+    <button role="tab" id="t4" aria-controls="p-4" aria-selected="false" tabindex="-1">Constraints</button>
+  </div>
+  <section class="panel" role="tabpanel" id="p-1" aria-labelledby="t1">
+    <h3>Question</h3><p>Why do full dining rooms still turn guests away?</p>
+    <h3>Method (sample)</h3><ul><li>Shadowed hosts during peak service.</li><li>Logged party size vs. table size for every seating.</li><li>Mapped where the waitlist started to grow.</li></ul>
+    <h3>Finding</h3><p>Lost covers came from <em>fit</em>, not from space: small parties at big tables early in the night. <span class="ph">Placeholder until real data is approved</span></p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-2" aria-labelledby="t2" hidden>
+    <h3>Best-fit, not first-free</h3><p>The engine seats each party at the smallest table that fits.</p>
+    <h3>Combining is a last resort</h3><p>Joining tables costs two turns, so it only happens when nothing else fits.</p>
+    <h3>The host always wins</h3><p>Every suggestion can be overridden in one tap. The engine advises; people decide.</p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-3" aria-labelledby="t3" hidden>
+    <div class="metric"><span>Covers per service</span><span class="ph">[Placeholder]</span></div>
+    <div class="metric"><span>Average wait</span><span class="ph">[Placeholder]</span></div>
+    <div class="metric"><span>Host overrides per night</span><span class="ph">[Placeholder]</span></div>
+    <p style="margin-top:1rem">Real numbers appear only once they are approved. The demo above is a simulation.</p>
+  </section>
+  <section class="panel" role="tabpanel" id="p-4" aria-labelledby="t4" hidden>
+    <ul><li>Works offline on the host tablet; syncs when back online.</li><li>Reads table layout from the existing POS.</li><li>Every decision must be explainable in one sentence to a host.</li></ul>
+  </section>
+</aside>
+
+<script src="play.js"></script>
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const FLOOR = [4, 8, 2, 6, 4, 2, 4, 6, 2, 4, 2, 4]; // floor order (what "first open table" walks through)
+  const MIX = [0, -1, 1, 0, 2, -2, 1, 0];
+  const st = { covers: 60, avg: 3, turn: 90, combine: false, strategy: "first" };
+
+  function simulate(s) {
+    const turns = Math.max(1, Math.floor(240 / s.turn));
+    const parties = []; let c = 0, k = 0;
+    while (c < s.covers) { let n = Math.max(1, Math.round(s.avg + MIX[k % 8] * (s.avg > 2 ? 1 : .5))); n = Math.min(n, s.covers - c); parties.push(n); c += n; k++; }
+    const used = FLOOR.map(() => 0), waste = FLOOR.map(() => 0), wait = [];
+    let seatedCovers = 0, maxSeated = 0;
+    const queue = s.strategy === "optimized" ? [...parties].sort((a, b) => b - a) : parties;
+    for (const n of queue) {
+      const free = FLOOR.map((cap, i) => i).filter((i) => FLOOR[i] >= n && used[i] < turns);
+      if (free.length) {
+        const i = s.strategy === "optimized" ? free.sort((a, b) => FLOOR[a] - FLOOR[b])[0] : free[0];
+        used[i]++; waste[i] += FLOOR[i] - n; seatedCovers += n; maxSeated = Math.max(maxSeated, n); continue;
+      }
+      if (s.combine) {
+        let best = null;
+        for (let i = 0; i < FLOOR.length; i++) for (let j = i + 1; j < FLOOR.length; j++)
+          if (used[i] < turns && used[j] < turns && FLOOR[i] + FLOOR[j] >= n) { const w = FLOOR[i] + FLOOR[j] - n; if (!best || w < best[2]) best = [i, j, w]; }
+        if (best) { used[best[0]]++; used[best[1]]++; waste[best[0]] += best[2]; seatedCovers += n; maxSeated = Math.max(maxSeated, n); continue; }
+      }
+      wait.push(n);
+    }
+    const capacity = FLOOR.reduce((a, b) => a + b, 0) * turns;
+    return { turns, parties: parties.length, total: c, seatedCovers, util: seatedCovers / capacity, wait, used, waste, maxSeated, tooBig: wait.filter((n) => n > 8).length };
+  }
+
+  const floor = $("#floor");
+  floor.innerHTML = FLOOR.map((cap, i) => `<div class="tbl${cap >= 6 ? " wide" : ""}" data-i="${i}"><span class="fill"></span><b>T${i + 1}</b><span class="cap">${cap} seats</span><span class="turns"></span></div>`).join("");
+  const tiles = [...floor.children];
+  let prevUsed = [];
+
+  function render() {
+    const r = simulate(st), other = simulate({ ...st, strategy: st.strategy === "first" ? "optimized" : "first" });
+    $("#turnsInfo").textContent = `${r.turns} turn${r.turns > 1 ? "s" : ""} each`;
+    tiles.forEach((t, i) => {
+      t.querySelector(".fill").style.height = `${(r.used[i] / r.turns) * 100}%`;
+      t.querySelector(".turns").innerHTML = Array.from({ length: r.turns }, (_, k) => `<i class="${k < r.used[i] ? "on" : ""}"></i>`).join("");
+      t.classList.toggle("full", r.used[i] === r.turns);
+      t.classList.toggle("waste", r.used[i] > 0 && r.waste[i] / r.used[i] >= FLOOR[i] / 2);
+      if (prevUsed.length && prevUsed[i] !== r.used[i]) { t.classList.remove("bump"); void t.offsetWidth; t.classList.add("bump"); }
+    });
+    prevUsed = r.used;
+    const shown = r.wait.slice(0, 22);
+    $("#wait").innerHTML = r.wait.length ? shown.map((n) => `<span class="party${n > 8 ? " big" : ""}">👥 ${n}</span>`).join("") + (r.wait.length > 22 ? `<span class="party">+${r.wait.length - 22}</span>` : "") : `<span class="none">Nobody waiting</span>`;
+    $("#kUtil").textContent = `${Math.round(r.util * 100)}%`;
+    $("#kCompare").textContent = `${st.strategy === "first" ? "Optimized" : "First open table"} would reach ${Math.round(other.util * 100)}%`;
+    $("#kSeated").textContent = r.seatedCovers;
+    $("#kSeatedOf").textContent = `of ${r.total} guests`;
+    $("#kWait").textContent = r.wait.length; $("#kWait").classList.toggle("bad", r.wait.length > 0);
+    $("#kWaste").textContent = r.waste.reduce((a, b) => a + b, 0);
+
+    if (r.tooBig && !st.combine) Play.say(`A party of ${Math.max(...r.wait)} has no table big enough. Something has to give: try letting tables combine.`);
+    else if (r.wait.length && st.strategy === "first" && other.seatedCovers > r.seatedCovers) Play.say(`${r.wait.length} parties waiting, yet chairs sit empty at big tables. Switch to Optimized and compare.`);
+    else if (r.wait.length) Play.say(`${r.wait.length} parties can't be seated. Capacity is seats × turns: shorten the time per table and watch the queue drain.`);
+    else Play.say(`Everyone's seated, using ${Math.round(r.util * 100)}% of the night's seat-time. Push the sliders until something breaks.`);
+
+    if (r.wait.length) Play.complete("overflow", "Capacity isn't seats, it's seats × turns. The waitlist appears the moment demand beats both.");
+    if (st.combine && r.maxSeated > 8) Play.complete("big", "Combining tables trades two turns for one big party, so the engine only does it when nothing else fits.");
+    if (st.strategy === "optimized" && r.seatedCovers > other.seatedCovers) Play.complete("beat", `Same room, ${r.seatedCovers - other.seatedCovers} more guests. Best-fit stops pairs from using up the 8-tops.`);
+  }
+
+  for (const id of ["covers", "avg", "turn"]) {
+    $("#" + id).addEventListener("input", (e) => { st[id] = +e.target.value; $(`#${id}Out`).textContent = e.target.value; Play.tick(); render(); });
+  }
+  $("#combine").addEventListener("click", (e) => { st.combine = !st.combine; e.currentTarget.setAttribute("aria-pressed", st.combine); Play.pop(); render(); });
+  document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => {
+    st.strategy = b.dataset.s; document.querySelectorAll(".seg button").forEach((x) => x.setAttribute("aria-pressed", x === b)); Play.pop(); render();
+  }));
+  render();
+})();
+</script>
+</body></html>

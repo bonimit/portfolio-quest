@@ -1,0 +1,30 @@
+/* D4 · Quiet Reader. Scale: H1 3.4rem serif · H2 2rem serif · body 1.2rem/1.75 · labels .75rem sans caps */
+.t4 .tpl-art { background: var(--color-secondary-paper); border-color: var(--landing-line); }
+.t4 .tpl-art svg { stroke: var(--color-muted); }
+.t4 .tpl-art svg [fill^="var(--card-tint"] { fill: #c9c5bb; }
+
+.t4-col { width: min(40rem, 100%); margin-inline: auto; }
+.t4-wide { width: min(54rem, 100%); margin-inline: auto; }
+.t4-head { padding: 2.5rem 0 2.5rem; }
+.t4-head h1 { font: 400 clamp(2.4rem, 5vw, 3.4rem)/1.08 var(--landing-font-serif); letter-spacing: -.015em; margin: .9rem 0 1rem; }
+.t4-sub { font-size: 1.3rem; line-height: 1.5; color: var(--color-muted); }
+.t4-byline { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; margin-top: 1.6rem !important; padding-top: 1rem; border-top: 1px solid var(--landing-line); font: .82rem/1.4 var(--landing-font-sans); color: var(--color-muted); }
+.t4-byline b { color: var(--color-ink); font-weight: 500; }
+
+.t4-label { font: 600 .75rem/1 var(--landing-font-sans); letter-spacing: .1em; text-transform: uppercase; color: var(--color-muted); margin-bottom: 1rem !important; }
+.t4-summary { margin: 3rem 0; }
+.t4-summary ul { margin: 0; padding-left: 1.1rem; font-size: 1.15rem; line-height: 1.6; }
+.t4-summary li + li { margin-top: .4rem; }
+.t4-contents { margin-bottom: 3.5rem; padding: 1.2rem 0; border-block: 1px solid var(--landing-line); }
+.t4-contents ol { columns: 2; column-gap: 2rem; margin: 0; padding: 0; list-style: none; counter-reset: c; font: .95rem/1.2 var(--landing-font-sans); }
+.t4-contents li { counter-increment: c; break-inside: avoid; }
+.t4-contents li::before { content: counter(c, decimal-leading-zero); color: var(--color-muted); font-size: .75rem; margin-right: .7rem; }
+.t4-contents a { display: inline-flex; min-height: 36px; align-items: center; color: var(--color-ink); text-decoration: none; }
+.t4-contents a:hover { text-decoration: underline; }
+
+.t4-section { margin-bottom: 4.5rem; scroll-margin-top: 1.5rem; }
+.t4-num { font: 500 .78rem/1 var(--landing-font-sans); color: var(--color-muted); letter-spacing: .06em; }
+.t4-section h2 { font: 400 2rem/1.2 var(--landing-font-serif); letter-spacing: -.01em; margin: .5rem 0 1.4rem; }
+.t4-p { font-size: 1.2rem; line-height: 1.75; margin-bottom: 1.3rem !important; }
+.t4-fig { margin: 2.4rem auto !important; }
+@media (max-width: 40rem) { .t4-contents ol { columns: 1; } .t4-p { font-size: 1.1rem; } }

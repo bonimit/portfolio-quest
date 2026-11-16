@@ -1,0 +1,145 @@
+.scene-study{background:linear-gradient(125deg,#becfce 0%,#d8d9c7 65%,#e9dfc5 100%);color:#263b41;min-height:100dvh;padding:2rem clamp(1rem,4vw,5rem);overflow:hidden;}
+.scene-study-heading{position:relative;z-index:1;text-align:center;margin:0 auto;}
+.scene-study-heading h1{font:400 clamp(3.6rem,7vw,7.5rem)/.95 var(--font-display);text-transform:uppercase;letter-spacing:-.035em;margin:0;color:#131313;}
+.scene-study-heading h1 span{color:#914710;}
+.scene-study-heading p{font-size:clamp(.75rem,1.1vw,.95rem);line-height:1.4;margin:.5rem 0 0;color:#354b50;}
+.scene-study-stage{position:relative;max-width:1440px;aspect-ratio:1440/980;margin:-2.5rem auto -3rem;}
+.scene-study-art{display:block;width:100%;height:auto;}
+.scene-study-destination{position:absolute;display:block;border-radius:.5rem;min-height:44px;min-width:44px;color:inherit;text-decoration:none;outline-offset:5px;}
+.scene-study-destination--concepts{left:22.4%;top:37%;width:9.2%;height:19%;}
+.scene-study-destination--portfolio{left:42%;top:29%;width:16%;height:28%;}
+.scene-study-destination--world{left:65%;top:38%;width:16%;height:20%;}
+.scene-study-destination>.scene-study-label{position:absolute;bottom:calc(100% + .8rem);left:50%;transform:translateX(-50%);text-align:center;white-space:nowrap;transition:translate .2s ease;}
+.scene-study-destination small{display:block;font-size:clamp(.55rem,.8vw,.72rem);letter-spacing:.04em;margin-bottom:.25rem;}
+.scene-study-destination strong{display:block;font-family:var(--font-display);font-size:clamp(1rem,2vw,2rem);line-height:1.1;text-transform:uppercase;}
+.scene-study-destination i{display:block;font-style:normal;margin-top:.25rem;}
+.scene-study-destination:hover>.scene-study-label,.scene-study-destination:focus-visible>.scene-study-label{translate:0 -.3rem;}
+.scene-study-destination:focus-visible{outline:2px dashed #263b41;}
+.scene-study-destination--portfolio>.scene-study-label{bottom:calc(100% + 1.4rem);}
+.scene-study-guide{position:absolute;left:48%;top:62%;width:4.5%;height:auto;pointer-events:none;}
+.scene-study-note{position:relative;z-index:1;display:flex;gap:2rem;justify-content:space-between;align-items:center;max-width:75rem;margin:0 auto;padding-top:1rem;border-top:1px solid #263b4140;font-size:.8rem;line-height:1.6;}
+.scene-study-note p{max-width:40rem;margin:0;}
+.scene-study-note a{color:inherit;white-space:nowrap;text-underline-offset:.25rem;}
+@media(max-width:48rem){
+ .scene-study{padding:2rem .75rem;}
+ .scene-study-stage{width:150%;max-width:none;margin:0 -25% -1rem;}
+ .scene-study-destination small{font-size:.55rem;letter-spacing:0;}
+ .scene-study-destination strong{font-size:clamp(.8rem,3.3vw,1.4rem);}
+ .scene-study-destination--portfolio>.scene-study-label{bottom:calc(100% + 2.8rem);}
+ .scene-study-note{display:block;}
+ .scene-study-note a{display:inline-block;margin-top:1rem;}
+}
+@media(prefers-reduced-motion:reduce){.scene-study-destination>.scene-study-label{transition:none;}.scene-study-destination:hover>.scene-study-label,.scene-study-destination:focus-visible>.scene-study-label{translate:none;}}
+
+/* Match the current island title at its original responsive thresholds. */
+@media(max-width:63.999rem){.scene-study-heading h1{font-size:clamp(3rem,11vw,5.5rem);}.scene-study-heading p{max-width:23rem;margin:.3rem auto 0;font-size:.72rem;}}
+@media(max-height:480px){.scene-study-heading h1{font-size:3rem;}}
+
+/* Outer destinations place their labels on the corresponding side of the island. */
+@media(min-width:48.001rem){
+ .scene-study-stage{width:calc(100% - 20rem);container-type:inline-size;}
+ .scene-study-destination--concepts>.scene-study-label{left:calc(-5.6cqw - .25rem);top:40%;bottom:auto;transform:translate(-100%,-50%);text-align:right;}
+ .scene-study-destination--world>.scene-study-label{left:calc(20.75cqw + .25rem);top:40%;bottom:auto;transform:translateY(-50%);text-align:left;}
+}
+
+/* Full-viewport approval preview, using the existing island controls and guide. */
+.scene-study.quest-preview{display:block;height:100dvh;min-height:36rem;padding:0;color:#000;background:linear-gradient(125deg,#becfce,#d8d9c7 65%,#e9dfc5);}
+.scene-study-heading{position:absolute;top:3.5rem;left:0;right:0;z-index:5;padding:.2rem 1rem .5rem;pointer-events:none;}
+.scene-study-heading :is(h1,p),.scene-study-heading h1 span{color:#000;}
+.scene-study-stage{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(100%,calc(100dvh * 1440 / 980));max-width:none;margin:0;container-type:inline-size;}
+.scene-study-destination{color:#000;z-index:3;}
+.scene-study-destination>.scene-study-label{transition:opacity .3s ease,translate .3s ease;}
+@media(hover:hover) and (pointer:fine){
+ .scene-study-destination>.scene-study-label{opacity:0;pointer-events:none;}
+ .scene-study-destination:is(:hover,:focus-visible)>.scene-study-label{opacity:1;pointer-events:auto;}
+}
+.scene-study-hud,.scene-study-tools{position:absolute;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:.5rem clamp(1rem,3vw,3rem);font-size:.75rem;z-index:8;color:#000;}
+.scene-study-hud{top:0;}
+.scene-study-hud a,.scene-study-tools a{padding:.5rem 0;text-decoration:none;}
+.scene-study-tools{bottom:0;}
+.scene-study-guide{background:none;border:0;padding:0;cursor:pointer;left:47.75%;top:63.2%;width:4.5%;height:auto;min-width:44px;min-height:44px;pointer-events:auto;z-index:4;}
+.scene-study-guide img{display:block;width:100%;height:auto;}
+.scene-study-guide>span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);white-space:nowrap;border-radius:2rem;background:#f6f5f1;padding:.3rem .7rem;color:#000;font-size:.7rem;}
+.scene-study-pet{position:absolute;top:66%;width:4%;aspect-ratio:1;pointer-events:none;}
+.scene-study-pet--0{left:31%;width:5%;}
+.scene-study-pet--1{left:65%;width:3%;top:68%;}
+.scene-study-pet--2{left:28%;top:64%;}
+.scene-study-pet--3{left:69%;top:64%;}
+.scene-study-pet--4{left:34%;top:70%;width:3.5%;}
+@media(max-width:48rem){
+ .scene-study-stage{width:140%;max-width:none;margin:0;}
+ .scene-study-hud>span{font-size:.65rem;}
+}
+
+/* Reuse the current island companion styles without a custom panel skin. */
+.scene-study .quest-walker{z-index:4;}
+.scene-study-destination .scene-study-hover{position:absolute;inset:0;border:2px solid transparent;border-radius:18% 18% 8% 8%;pointer-events:none;opacity:0;transition:opacity 240ms ease,border-color 240ms ease,box-shadow 240ms ease;}
+.scene-study-hover-ring{position:absolute;left:3%;right:3%;bottom:-3%;height:15%;border-radius:50%;background:radial-gradient(ellipse,#f79a3b99,transparent 70%);transform:scale(.8);}
+.scene-study-destination:is(:hover,:focus-visible) .scene-study-hover{opacity:1;border-color:transparent;box-shadow:none;}
+.scene-study-destination:is(:hover,:focus-visible) .scene-study-hover-ring{animation:scene-study-hover-breathe 1.4s ease-in-out infinite alternate;}
+@keyframes scene-study-hover-breathe{to{transform:scale(1.14);opacity:.65;}}
+@media(prefers-reduced-motion:reduce){.scene-study .scene-study-hover,.scene-study .scene-study-hover-ring{animation:none!important;transition:none!important;}}
+.scene-study-moving-world{position:absolute;inset:0;transform-origin:0 0;will-change:transform;}
+.scene-study-moving-part{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1;transition:rotate 600ms cubic-bezier(.22,1,.36,1),transform 600ms cubic-bezier(.22,1,.36,1);}
+.scene-study-moving-part[data-active="true"][data-part^="lantern"]{animation:study-lantern-sway 1.7s ease-in-out infinite alternate;}
+.scene-study-moving-part[data-part="lantern-1"]{animation-delay:-.4s;}
+.scene-study-moving-part[data-part="lantern-2"]{animation-delay:-.8s;}
+.scene-study-moving-part[data-active="true"][data-part="banner"]{animation:study-banner-sway 2.1s ease-in-out infinite alternate;}
+.scene-study-moving-part[data-active="true"][data-part="curtains"]{animation:study-curtain-drift 1.8s ease-in-out infinite alternate;}
+@keyframes study-lantern-sway{from{rotate:-5deg;}to{rotate:5deg;}}
+@keyframes study-banner-sway{from{rotate:-3deg;transform:skewX(-2deg);}to{rotate:4deg;transform:skewX(3deg);}}
+@keyframes study-curtain-drift{from{transform:skewX(-4deg);}to{transform:skewX(5deg);}}
+.scene-study[data-study-travel="true"] :is(.scene-study-heading,.scene-study-hud,.scene-study-tools,.scene-study-label,.scene-study-hover){opacity:0;pointer-events:none;}
+.scene-study[data-study-travel="true"] .scene-study-moving-world .avatar-caption{visibility:hidden;}
+@media(prefers-reduced-motion:reduce){.scene-study-moving-part{animation:none!important;transition:none!important;}}
+
+/* Bring only the outer labels halfway from their sky positions toward the buildings. */
+.scene-study-destination:where(.scene-study-destination--concepts,.scene-study-destination--world)>.scene-study-label{bottom:calc(100% + .4rem);}
+@media(min-width:48.001rem){
+ .scene-study-destination--concepts>.scene-study-label{left:calc(25% - 2cqw);top:-2.5cqw;bottom:auto;transform:translate(-50%,-100%);text-align:center;}
+ .scene-study-destination--world>.scene-study-label{left:calc(25% + 10cqw);top:-2.5cqw;bottom:auto;transform:translate(-50%,-100%);text-align:center;}
+}
+
+.scene-study-actors{position:absolute;inset:0;isolation:isolate;z-index:2;pointer-events:none;}
+.scene-study-actors .quest-walker{pointer-events:auto;}
+.scene-study-canvas-host,.scene-study-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+.scene-study-stage{touch-action:pan-y pinch-zoom;cursor:grab;}
+.scene-study-stage[data-dragging="true"]{cursor:grabbing;user-select:none;}
+.scene-study-destination,.scene-study-stage button{cursor:pointer;}
+.scene-study-orbit-help{position:absolute;bottom:3rem;left:0;right:0;text-align:center;color:#000;font-size:.7rem;margin:.5rem 1rem;pointer-events:none;}
+.scene-study-view-controls{display:flex;align-items:center;gap:.8rem;}
+.scene-study-view-controls button,.scene-study-motion button{min-height:44px;background:none;border:0;padding:.4rem .3rem;color:#000;font:inherit;cursor:pointer;}
+.scene-study-caption{display:flex;align-items:center;gap:.8rem;}
+.scene-study-motion{display:flex;align-items:center;gap:.2rem;}
+.scene-study-motion>span:first-child{margin-right:.35rem;}
+.scene-study-motion button[aria-pressed="true"]{font-weight:700;text-decoration:underline;text-underline-offset:.25rem;}
+.scene-study-motion button:disabled{cursor:default;}
+@media(max-width:36rem){.scene-study-caption{flex-direction:column;gap:0;}.scene-study-caption .quest-scene-caption{margin:0;}.scene-study-tools{align-items:flex-end;}}
+.scene-study .quest-controls>summary:is(:hover,:focus-visible),.scene-study .quest-controls[open]>summary{background:none;border-color:transparent;color:inherit;}
+.scene-study .quest-controls>summary svg{fill:none;}
+.scene-study-season-fade{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.scene-study[data-study-travel="true"] .scene-study-orbit-help{opacity:0;}
+.scene-study-art[hidden]{display:none;}
+.scene-study-stage:focus-visible{outline-offset:-3px;}
+@media(max-width:48rem){.scene-study-orbit-help{font-size:.6rem;}}
+
+/* Articulate the existing front/back pose without substituting a sideways gait. */
+.scene-study .quest-depth-layer{display:none;position:absolute;inset:0;overflow:hidden;transform-origin:50% 76%;}
+.scene-study .assistant-sprite[data-depth-walking]>.assistant-sheet{visibility:hidden;}
+.scene-study .assistant-sprite[data-depth-walking]>.quest-depth-layer{display:block;}
+.scene-study .quest-depth-body{clip-path:polygon(0 0,100% 0,100% 53%,77% 53%,72% 81%,28% 81%,23% 53%,0 53%);}
+.scene-study .quest-depth-left-arm{clip-path:polygon(0 53%,28% 53%,36% 83%,0 83%);transform-origin:27% 57%;rotate:calc(var(--depth-step) * -5deg);}
+.scene-study .quest-depth-right-arm{clip-path:polygon(72% 53%,100% 53%,100% 83%,64% 83%);transform-origin:73% 57%;rotate:calc(var(--depth-step) * 5deg);}
+.scene-study .quest-depth-left-leg{clip-path:polygon(27% 77%,51% 77%,51% 100%,27% 100%);transform-origin:40% 79%;rotate:calc(var(--depth-step) * 4deg);translate:0 calc(var(--depth-left-lift) * -1 * var(--actor-scale));}
+.scene-study .quest-depth-right-leg{clip-path:polygon(49% 77%,74% 77%,74% 100%,49% 100%);transform-origin:61% 79%;rotate:calc(var(--depth-step) * -4deg);translate:0 calc(var(--depth-right-lift) * -1 * var(--actor-scale));}
+
+/* Current island day/night control and its contrasting night presentation. */
+.scene-study.quest-preview[data-light="night"]{background:radial-gradient(ellipse at 72% 22%,#ffe2a31a,transparent 32%),linear-gradient(165deg,var(--sky-top),var(--sky-bottom));color:#f6f5f1;}
+.scene-study[data-light="night"] :is(.scene-study-heading h1,.scene-study-heading h1 span,.scene-study-heading p,.scene-study-hud,.scene-study-tools,.scene-study-orbit-help,.scene-study-destination,.scene-study-view-controls button,.scene-study-motion button){color:#f6f5f1;}
+.scene-study-hud .quest-time-toggle{font-size:.72rem;}
+.scene-study-caption .quest-scene-caption{max-width:36vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.scene-study .quest-controls-panel .quest-collection+.quest-collection{margin-top:.6rem;}
+.scene-study .quest-controls-panel .quest-controls-options>a{display:block;padding:.35rem 0;}
+@media(max-width:48rem){.scene-study-caption{flex-direction:column;gap:0;}.scene-study-caption .quest-scene-caption{max-width:48vw;white-space:normal;text-align:center;font-size:.65rem;margin:0;}.scene-study-tools{align-items:flex-end;}.scene-study-motion{font-size:.65rem;}}
+.scene-study-capture{position:absolute;z-index:15;left:1rem;top:3rem;display:flex;flex-wrap:wrap;max-width:33rem;gap:.4rem;align-items:center;font:12px sans-serif;color:#131313;background:#f6f5f1;padding:.4rem;border-radius:.5rem;}
+.scene-study-capture button{background:none;border:1px solid #657b75;border-radius:.25rem;padding:.3rem .5rem;}
