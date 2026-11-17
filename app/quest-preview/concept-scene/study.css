@@ -143,3 +143,33 @@
 @media(max-width:48rem){.scene-study-caption{flex-direction:column;gap:0;}.scene-study-caption .quest-scene-caption{max-width:48vw;white-space:normal;text-align:center;font-size:.65rem;margin:0;}.scene-study-tools{align-items:flex-end;}.scene-study-motion{font-size:.65rem;}}
 .scene-study-capture{position:absolute;z-index:15;left:1rem;top:3rem;display:flex;flex-wrap:wrap;max-width:33rem;gap:.4rem;align-items:center;font:12px sans-serif;color:#131313;background:#f6f5f1;padding:.4rem;border-radius:.5rem;}
 .scene-study-capture button{background:none;border:1px solid #657b75;border-radius:.25rem;padding:.3rem .5rem;}
+
+/* Match the top navigation: direct desktop controls, one compact mobile disclosure. */
+.scene-study .scene-study-tools.island-bottom-bar { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:center; gap:.5rem 1rem; padding-bottom:max(.5rem,env(safe-area-inset-bottom)); }
+.island-bottom-panel { display:contents; }
+.island-bottom-panel-heading,.island-bottom-toggle { display:none; }
+.island-bottom-center { grid-column:2; grid-row:1; display:flex; align-items:center; justify-content:center; min-width:0; max-width:min(52vw,44rem); gap:.85rem; }
+.island-bottom-center > .island-bottom-caption { flex:0 1 auto; display:block; min-width:0; margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.island-bottom-center > .scene-study-motion { flex:none; white-space:nowrap; }
+.island-bottom-panel > .scene-study-view-controls { grid-column:1; grid-row:1; flex-wrap:wrap; gap:.25rem .8rem; }
+.island-bottom-actions { grid-column:3; grid-row:1; justify-self:end; display:flex; align-items:center; gap:.5rem; }
+.island-bottom-panel .scene-study-view-controls button,.island-bottom-panel .scene-study-motion button { color:inherit; }
+@media(max-width:56rem) {
+ .scene-study .scene-study-tools.island-bottom-bar { grid-template-columns:minmax(0,1fr); gap:.15rem; }
+ .island-bottom-center { grid-column:1; grid-row:1; justify-self:center; max-width:100%; width:max-content; gap:.65rem; }
+ .island-bottom-center > .island-bottom-caption { font-size:.7rem; line-height:1.4; text-align:center; }
+ .island-bottom-center > .scene-study-motion { font-size:.7rem; }
+ .island-bottom-actions { grid-column:1; grid-row:2; justify-self:stretch; justify-content:space-between; width:100%; gap:.25rem; }
+ .island-bottom-toggle { display:inline-flex; align-items:center; justify-content:center; gap:.6rem; min-height:44px; padding:.35rem .6rem; border:1px solid transparent; border-radius:999px; background:transparent; color:inherit; font:inherit; font-size:.75rem; cursor:pointer; }
+ .island-bottom-toggle[aria-expanded="true"] { border-color:currentColor; }
+ .island-bottom-panel { display:none; position:absolute; right:clamp(.75rem,3vw,3rem); bottom:calc(100% + .5rem); width:min(23rem,calc(100vw - 1.5rem)); max-height:calc(100dvh - 7rem); overflow:auto; overscroll-behavior:contain; padding:.85rem 1rem 1rem; border:1px solid var(--q-control-border); border-radius:1rem; background:var(--q-note-bg); color:var(--q-note-ink); box-shadow:0 12px 32px #0003; }
+ .island-bottom-bar[data-controls-open="true"] .island-bottom-panel { display:grid; gap:.85rem; }
+ .island-bottom-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+ .island-bottom-panel-heading strong { font-size:.9rem; font-weight:600; }
+ .island-bottom-panel-heading button { display:grid; place-items:center; width:44px; height:44px; border:1px solid var(--q-control-border); border-radius:50%; background:transparent; color:inherit; cursor:pointer; }
+ .island-bottom-panel-heading svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+ .island-bottom-panel > .scene-study-view-controls { grid-column:auto; grid-row:auto; }
+ .island-bottom-panel > .scene-study-view-controls { gap:1.5rem; }
+ .scene-study .scene-study-orbit-help { bottom:7.25rem; }
+ .island-bottom-bar :is(.quest-controls-panel,.island-bottom-panel) { max-height:calc(100dvh - 9rem); }
+}

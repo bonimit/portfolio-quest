@@ -1,3 +1,6 @@
+import {makeKaruizawaScene} from './karuizawa.ts';
+import {makeCentralParkScene} from './central-park.ts';
+import {makeKyotoCanal} from './organic-water.ts';
 import {Sculpture,MATERIAL as m,type Material} from './restored/world.ts';
 import {PlaceDetails} from './restored/place-scenes/details.ts';
 import {addPlaceScene} from './restored/places.ts';
@@ -10,6 +13,7 @@ import {makeBroadwayEntrances} from './broadway-buildings.ts';
 import {makeConceptPavilion} from './concept-pavilions.ts';
 import {makeSceneDecorations,decorationPlan} from './scene-decorations.ts';
 import {makeCultureScene,replacesCultureBackdrop,isBroadway,type CultureActor} from './culture-scenes.ts';
+import {makeNycSceneDetails} from './nyc-scene-details.ts';
 import {hasBangkokRiver,makeBangkokRiverfront,makeBangkokBoats} from './bangkok-river.ts';
 export type BuildingBounds={min:V3;max:V3};
 export type ThreePathGeometry={culture?:readonly CultureActor[];layers:Record<string,Float32Array>;bounds:Record<'portfolio'|'concepts'|'world',BuildingBounds>};
@@ -76,17 +80,19 @@ function ground(g:Sculpture){
 const cache=new Map<string,ThreePathGeometry>();
 export function makeThreePathGeometry(v:SceneVariant):ThreePathGeometry{
  const key=`${v.city}-${v.season}-${v.place??''}-${v.light}`;const saved=cache.get(key);if(saved)return saved;
- const trafficScene=['taxi','tuktuk'].includes(decorationPlan(v).street);
+ const trafficScene=v.city==='nyc'||['taxi','tuktuk'].includes(decorationPlan(v).street);
  let result:ThreePathGeometry;
  if(isBroadway(v)){
   const g=new Sculpture();ground(g);const entrances=makeBroadwayEntrances();append(g.values,Array.from(entrances.base));addClouds(g,m.cloud);
-  // Broadway is a paved pedestrian street, with crossings aligned to each entrance.
-  g.box([0,.32,3.7],[14,.025,1.55],m.ink);
-  for(const x of [-6,-4.5,-3,3,4.5,6])g.box([x,.34,3.7],[.65,.012,.04],m.gold);
-  for(const x of [0])for(let i=0;i<5;i++)g.box([x,.34,3.1+i*.28],[1.25,.018,.12],m.plaster);
   const layers:Record<string,Float32Array>={base:new Float32Array(g.values),banner:entrances.banner,curtains:entrances.curtains,...entrances.motion};
   for(const [i,dx]of [-.9,0,.9].entries()){const bulb=new Sculpture();bulb.beam([7.8+dx,3.5,-.4],[7.8+dx,3.12,-.4],.02,m.metal);bulb.crown([7.8+dx,3.03,-.4],[.1,.12,.1],m.lamp);layers[`lantern-${i}`]=new Float32Array(bulb.values);}
   result={layers,bounds:entrances.bounds};
+ }else if(v.place==='centralpark'||v.place==='nikko'){
+  const g=new Sculpture();ground(g);const park=v.place==='centralpark'?makeCentralParkScene():makeKaruizawaScene(v),pavilion=makeConceptPavilion(v);append(g.values,Array.from(park));append(g.values,Array.from(pavilion.base));addClouds(g,m.cloud);
+  const banner=new Sculpture();banner.beam([1.35,3.1,-.85],[2.05,3.1,-.85],.055,m.wood);banner.box([1.7,2.66,-.85],[.48,.82,.04],m.copper);
+  const layers:Record<string,Float32Array>={base:new Float32Array(g.values),banner:new Float32Array(banner.values),curtains:pavilion.curtains};
+  for(const [i,dx]of [-.9,0,.9].entries()){const lamp=new Sculpture();lamp.beam([7.8+dx,3.5,-.4],[7.8+dx,2.95,-.4],.025,m.ink);lamp.crown([7.8+dx,2.8,-.4],[.14,.2,.14],m.lamp);layers[`lantern-${i}`]=new Float32Array(lamp.values);}
+  result={layers,bounds:{portfolio:{min:[-2.4,.3,-4.2],max:[2.4,5.15,-.42]},concepts:pavilion.bounds,world:{min:[5.5,.3,-2.8],max:[10.3,3.9,-.1]}}};
  }else if(v.city==='tokyo'&&!v.place){
   const pavilion=makeConceptPavilion(v),layers=Object.fromEntries(['base','banner','lantern-0','lantern-1','lantern-2'].map(layer=>[layer,makeConceptSceneStudy(layer,v.season,false)]));
   const base=new Float32Array(layers.base.length+pavilion.base.length);base.set(layers.base);base.set(pavilion.base,layers.base.length);layers.base=base;layers.curtains=pavilion.curtains;
@@ -97,8 +103,9 @@ export function makeThreePathGeometry(v:SceneVariant):ThreePathGeometry{
   const snow=v.season==='winter'&&v.city!=='bangkok',riverfront=hasBangkokRiver(v);
   for(const [index,primitive]of source.groups.entries()){
    const b=bounds(primitive),x=(b.min[0]+b.max[0])/2,z=(b.min[2]+b.max[2])/2,material=primitive[6];
+   if(v.place==='kyoto'&&x< -7.45)continue;
    if(riverfront&&(z< -5||x< -9&&z>-.5||material===m.water))continue;
-   if(trafficScene&&b.min[1]>.32&&b.max[2]>.8&&b.min[2]<6.1&&b.max[0]>7.5&&b.min[0]<12.3)continue;
+   if(trafficScene&&(v.city==='nyc'?b.max[1]>.4:b.min[1]>.32)&&b.max[2]>.8&&b.min[2]<6.1&&b.max[0]>7.5&&b.min[0]<12.3)continue;
    const foliage=([m.leaf,m.flower] as Material[]).includes(material as Material)||material===m.evergreen&&['crown','ellipsoid','ring'].includes(source.kinds[index]);
    if(!v.place&&snow&&foliage)continue;
    const architectural=b.max[2]-b.min[2]<5.5&&b.max[0]-b.min[0]<6.5&&!foliage&&material!==m.water&&!(material===m.snow&&b.max[1]<1.2);
@@ -112,7 +119,7 @@ export function makeThreePathGeometry(v:SceneVariant):ThreePathGeometry{
    if(foliage&&z> -5.5&&Math.abs(x)<10)continue;
    if(source.kinds[index]==='beam'&&b.max[1]-b.min[1]<.2&&b.min[1]>1&&z< -3&&z> -5.8&&Math.abs(x)>2&&Math.abs(x)<8.5)continue;
    if(v.place==='hokkaido'&&material===m.snow&&source.kinds[index]==='quad'&&b.max[2]-b.min[2]>8)continue;
-   const backdropScale=v.place==='krabi'||v.place==='hokkaido'?.85:v.place==='nikko'?.8:.6;
+   const backdropScale=v.place==='krabi'||v.place==='hokkaido'?.85:.6;
    let part=move(primitive,[0,.3,0],[0,.3,0],[1,backdropScale,1]);
    if(z< -3)part=move(part,[0,0,0],[0,0,-1.2]);
    if(z>=-3&&x< -8)part=move(part,[-10,0,0],[-11,0,0],[.6,1,1]);
@@ -148,6 +155,9 @@ export function makeThreePathGeometry(v:SceneVariant):ThreePathGeometry{
   for(const [i,dx]of [-.9,0,.9].entries()){const lantern=new Sculpture();lantern.beam([7.8+dx,3.5,-.4],[7.8+dx,2.85,-.4],.025,m.ink);lantern.crown([7.8+dx,2.67,-.4],[.19,.28,.19],m.lamp);layers[`lantern-${i}`]=new Float32Array(lantern.values);}
   result={layers,bounds:{portfolio:bounds(primary),concepts:pavilion.bounds,world:bounds(adventure)}};
  }
+ if(v.place==='kyoto'){const water=makeKyotoCanal(),base=new Float32Array(result.layers.base.length+water.length);base.set(result.layers.base);base.set(water,result.layers.base.length);result.layers.base=base;}
+ const nycDetails=makeNycSceneDetails(v);
+ if(nycDetails.length){const base=new Float32Array(result.layers.base.length+nycDetails.length);base.set(result.layers.base);base.set(nycDetails,result.layers.base.length);result.layers.base=base;}
  const decorations=makeSceneDecorations(v),decorated=new Float32Array(result.layers.base.length+decorations.base.length);
  decorated.set(result.layers.base);decorated.set(decorations.base,result.layers.base.length);result.layers.base=decorated;
  const culture=makeCultureScene(v),combined=new Float32Array(result.layers.base.length+culture.base.length);combined.set(result.layers.base);combined.set(culture.base,result.layers.base.length);result.layers.base=combined;result.culture=culture.actors;

@@ -309,7 +309,7 @@
 .adventure[data-theme="A5"] .switch2 button[aria-pressed="true"] { color: var(--ink); }
 
 /* Big condensed headline above the lineup, with the rust square full stop */
-.adventure[data-theme="A5"] #gridView::before, .adventure[data-theme="A5"] #carouselView::before { content: "PICK A MACHINE"; display: block; width: fit-content; margin: -.4rem auto .1rem; padding-right: .32em;
+.adventure[data-theme="A5"] #gridView::before, .adventure[data-theme="A5"] #carouselView::before { content: "PICK A TOOL"; display: block; width: fit-content; margin: -.4rem auto .1rem; padding-right: .32em;
   font: 400 clamp(2.4rem, 5.6vw, 4.6rem)/.92 var(--display); letter-spacing: -.01em; color: var(--ink);
   background: linear-gradient(var(--rust), var(--rust)) no-repeat right .02em bottom .06em / .22em .22em; }
 
@@ -569,9 +569,11 @@
 
 
 /* React integration: preserve AD1's composition while containing its styles. */
-body:has(.adventure) > .site-header, body:has(.adventure) > .site-footer { display:none; }
-body:has(.adventure) > .main-content { margin:0; padding:0; width:100%; max-width:none; min-height:100dvh; }
-.adventure { isolation:isolate; position:relative; min-height:100dvh; --display:var(--adventure-display),Impact,sans-serif; --sans:var(--adventure-sans),Arial,sans-serif; --serif:var(--adventure-serif),Georgia,serif; }
+body:has(.adventure) > .site-header { display:block; }
+body:has(.adventure) > .site-footer { display:none; }
+body:has(.adventure) > .main-content { margin:0; padding:0; width:100%; max-width:none; min-height:calc(100dvh - var(--site-header-height,4rem)); }
+body:has(.adventure) > .main-content > .adventure-route { margin-top:calc(-1 * var(--site-header-height,4rem)); }
+.adventure { isolation:isolate; position:relative; padding-top:var(--site-header-height,4rem); min-height:100dvh; --display:var(--adventure-display),Impact,sans-serif; --sans:var(--adventure-sans),Arial,sans-serif; --serif:var(--adventure-serif),Georgia,serif; }
 .adventure[data-theme="A5"] { --display:var(--adventure-display),Impact,sans-serif; --sans:var(--adventure-sans),Arial,sans-serif; --serif:var(--adventure-serif),Georgia,serif; }
 .adventure[data-theme="A2"] { --display:var(--adventure-pixel),ui-monospace,monospace; --sans:var(--adventure-mono),ui-monospace,monospace; --serif:var(--adventure-mono),ui-monospace,monospace; }
 .adventure .adventure-main { position:relative; z-index:1; flex:1; min-height:0; display:flex; flex-direction:column; }
@@ -627,3 +629,24 @@ body:has(.adventure) > .main-content { margin:0; padding:0; width:100%; max-widt
  .adventure .pcard-actions .play { grid-column:1 / -1; width:100%; min-height:52px; }
  .adventure .pcard-actions .btn { min-width:0; white-space:normal; }
 }
+
+/* Local view/settings controls complement the shared site navigation. */
+.adventure[data-theme] .top { justify-content:flex-end; background:transparent; color:var(--ink); border:0; box-shadow:none; }
+.adventure .top nav { display:flex; align-items:center; gap:.75rem; }
+.adventure[data-theme] .top .set-btn { display:inline-flex; align-items:center; gap:.55rem; min-height:44px; padding:.6rem .85rem; border:1px solid var(--line); border-radius:.75rem; background:var(--paper); color:var(--ink); box-shadow:none; }
+.adventure[data-theme] .top .set-btn[aria-expanded="true"] { background:var(--tint); border-color:var(--ink); }
+.adventure .set-btn svg { width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; }
+.adventure[data-theme] .set-panel { width:min(19rem,calc(100vw - 2rem)); padding:1rem; border-radius:1rem; border:1px solid var(--line); box-shadow:0 14px 35px #13131320; }
+.adventure .set-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+.adventure .set-panel-heading strong { font:600 1rem/1.2 var(--sans); }
+.adventure .adventure-close { position:absolute; top:.75rem; right:.75rem; z-index:5; display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; padding:.6rem; border:1px solid var(--line); border-radius:50%; background:var(--paper); color:var(--ink); cursor:pointer; }
+.adventure .adventure-close svg { width:22px; height:22px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+.adventure .adventure-close:is(:hover,:focus-visible) { border-color:var(--ink); }
+.adventure .set-panel .adventure-close { position:static; flex:none; }
+.adventure .pcard-body { padding-top:3.25rem; }
+.adventure .reader > header { position:relative; min-height:4.5rem; padding-right:4.5rem; }
+@media(max-width:40rem) { .adventure .pcard-actions .read-btn { grid-column:1 / -1; } }
+@media(max-width:400px) { .adventure .top nav { width:auto; margin-left:auto; justify-content:flex-end; } .adventure .set-panel { right:0; } }
+
+/* Extend the scene behind transparent navigation, reserving space for its links. */
+@media(min-width:56.01rem) { .adventure[data-theme] { height:100dvh; min-height:0; } }

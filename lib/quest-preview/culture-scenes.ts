@@ -1,11 +1,15 @@
+import {makeForestActors} from './karuizawa.ts';
+import {makeKyotoLife} from './kyoto-life.ts';
+import {shorelinePoint} from './organic-water.ts';
+import {makeParkActors,makeParkCyclists} from './park-life.ts';
 import {Sculpture,MATERIAL as m} from './restored/world.ts';
 import {PlaceDetails} from './restored/place-scenes/details.ts';
 import type {SceneVariant} from './variants.ts';
 import {BROADWAY_PROGRAM} from './broadway-shows.ts';
 import {makeRoadVehicle} from './scene-traffic.ts';
 import {person,palm,sign,letters,NEON,type Limb} from './culture-geometry.ts';
-export type CultureKind='visitor'|'surfer'|'kayaker'|'paddler'|'speedboat'|'skier'|'lift'|'sky-lantern'|'taxi-queue'|'genie'|'wind-leaf';
-export type CultureActor={id:string;kind:CultureKind;mesh:Float32Array;limbs:Limb[];phase:number;side?:number};
+export type CultureKind='visitor'|'surfer'|'kayaker'|'paddler'|'speedboat'|'skier'|'lift'|'sky-lantern'|'taxi'|'genie'|'wind-leaf'|'duck-boat'|'park-dog'|'frisbee-owner'|'frisbee'|'park-cyclist'|'picnicker'|'kimono-walker'|'tea-guest'|'forest-bear'|'forest-bird'|'forest-boar';
+export type CultureActor={id:string;kind:CultureKind;mesh:Float32Array;limbs:Limb[];phase:number;side?:number;home?:[number,number,number]};
 export const COAST_ISLANDS=[[-6.8,-8.5,.55],[-4.7,-8.6,.66],[-1.6,-9.3,.48],[1.8,-9.1,.58],[5.2,-8.5,.62],[11.7,-2.9,.32],[.1,-9.5,.4]] as const;
 export const COAST_SHORE=[[-12.4,-1.1],[-10,-3.3],[-6,-4.9],[-2.8,-5.3],[2.8,-5.3],[6,-4.9],[10,-3.3],[12.4,-1.1]] as const;
 export const COAST_BACK=[[-12.4,-4],[-10,-7.1],[-6.4,-9.5],[-2.8,-10.25],[2.8,-10.25],[6.4,-9.5],[10,-7.1],[12.4,-4]] as const;
@@ -15,8 +19,8 @@ export {BROADWAY_SHOWS} from './broadway-shows.ts';
 export function isCoastal(v:SceneVariant){return v.place==='okinawa'||v.place==='krabi';}
 export function replacesCultureBackdrop(v:SceneVariant){return isCoastal(v)||v.place==='hokkaido'||v.city==='nyc'&&(!v.place||v.place==='rockefeller');}
 function coast(g:Sculpture,krabi:boolean){
- for(let i=1;i<COAST_SHORE.length;i++){
-  const a=COAST_SHORE[i-1],b=COAST_SHORE[i],c=COAST_BACK[i],d=COAST_BACK[i-1];g.quad([a[0],.36,a[1]],[b[0],.36,b[1]],[c[0],.36,c[1]],[d[0],.36,d[1]],m.water);
+ for(let i=1;i<=96;i++){
+  const a=shorelinePoint(COAST_SHORE,(i-1)/96),b=shorelinePoint(COAST_SHORE,i/96),c=shorelinePoint(COAST_BACK,i/96),d=shorelinePoint(COAST_BACK,(i-1)/96);g.quad([a[0],.36,a[1]],[b[0],.36,b[1]],[c[0],.36,c[1]],[d[0],.36,d[1]],m.water);
   g.beam([a[0],.39,a[1]],[b[0],.39,b[1]],.12,m.path);
  }
  for(const [index,[x,z,r]]of COAST_ISLANDS.entries()){
@@ -53,7 +57,7 @@ function newYork(g:Sculpture,v:SceneVariant){
    if(i%2===0){sign(g,'LIVE',x,h-.15,z+.93,1.75,.45,m.copper);g.box([x-w*.48,h*.57,z+.9],[.1,h*.8,.05],m.glass,0,NEON);}
   }
   for(const x of [-11.1,11.1]){g.box([x,3.8,-9.4],[1.6,7,1.8],m.metal);for(let row=0;row<9;row++)for(const dx of [-.42,.42])g.box([x+dx,.9+row*.7,-8.47],[.26,.34,.03],m.glass,0,v.light==='night'?3.8:1);g.beam([x,7.3,-9.4],[x,8.1,-9.4],.045,m.metal);}
-  marquee(g,-4.4,-5.9,BROADWAY_PROGRAM.marquees[0]);marquee(g,4.4,-5.9,BROADWAY_PROGRAM.marquees[1]);
+  marquee(g,-4.4,-7.35,BROADWAY_PROGRAM.marquees[0]);marquee(g,4.4,-7.35,BROADWAY_PROGRAM.marquees[1]);
   sign(g,'BROADWAY',-8.9,3.6,-6.9,2.8,.5,m.flower);
   // Original lamp silhouette beside the Aladdin sign.
   g.crown([-3.25,4.45,-7.2],[.5,.18,.2],m.gold);g.beam([-2.9,4.46,-7.2],[-2.55,4.68,-7.2],.085,m.gold);g.ring([-3.25,4.66,-7.2],.14,.14,.09,m.gold,12);g.crown([-3.25,4.76,-7.2],[.055,.07,.055],m.gold);
@@ -67,9 +71,14 @@ function newYork(g:Sculpture,v:SceneVariant){
 }
 function hakuba(g:Sculpture){
  const d=new PlaceDetails(g);
- // A connected jagged Northern Alps ridge, replacing the solitary Yotei cone.
- for(const [i,[x,h,w]]of [[-8.5,3.3,2.3],[-5.1,4.4,2.5],[-1.6,5.2,2.7],[2.2,4.8,2.4],[5.8,3.9,2.4],[9,3.0,2]].entries()){
-  const z=-8.0+(i%2)*.4;g.ring([x,.3,z],w,.1,h,m.stone,7,1,i*.5);g.ring([x,h*.45,z],w*.58,.04,h*.58,m.snow,7,1,i*.5);
+ // A broad, overlapping range mixes tall snowy summits with smaller rocky foothills.
+ const peaks=[[-9,4.6,2.5,-7.6],[-6.1,6.8,2.9,-8.1],[-2.4,8.5,3.1,-8.3],[1.1,7.3,2.9,-8.5],[4.5,8,2.8,-8.1],[7.8,5.9,2.5,-7.7],[10,3.8,1.7,-7],[-7.7,2.8,1.8,-6.4],[-4.5,3.7,1.7,-6.2],[-.8,2.7,1.5,-6.4],[2.6,4.1,1.8,-6.3],[6,3.3,1.7,-6.3],[8.7,2.5,1.5,-6.2]];
+ for(const [i,[x,h,w,z]]of peaks.entries()){
+  const sides=9,point=(level:number,j:number):[number,number,number]=>{
+   const a=j/sides*Math.PI*2+i*.4,r=w*[1,.72,.38,.025][level]*(1+.13*Math.sin(j*2.3+i)),px=x+Math.cos(a)*r,pz=z+Math.sin(a)*r*.66,fit=Math.max(1,Math.hypot(px/14,pz/11.6)/.92);
+   return [px/fit,.3+h*[0,.38,.7,1][level],pz/fit];
+  };
+  for(let level=0;level<3;level++)for(let j=0;j<sides;j++)g.quad(point(level,j),point(level+1,j),point(level+1,j+1),point(level,j+1),level>0?m.snow:i%2?m.rock:m.stone,.88+(j%3)*.07);
  }
  // A broad piste with a gentle downhill grade and an adjacent drag-lift return lane.
  g.quad([-12.1,4.18,-5.6],[-12.1,.55,3.7],[-9.5,.55,3.7],[-9.5,4.18,-5.6],m.snow);
@@ -93,7 +102,7 @@ function chiangMai(g:Sculpture,v:SceneVariant){
 function makeActor(id:string,kind:CultureKind,phase:number,side=0):CultureActor{
  const g=new Sculpture();let limbs:Limb[]=[];
  if(kind==='wind-leaf'){g.quad([-.12,0,0],[0,.035,-.07],[.14,0,0],[0,-.015,.07],id.endsWith('0')?m.gold:m.copper);g.quad([0,-.015,.07],[.14,0,0],[0,.035,-.07],[-.12,0,0],m.copper);return {id,kind,mesh:new Float32Array(g.values),limbs,phase,side};}
- if(kind==='taxi-queue')return {id,kind,mesh:makeRoadVehicle('taxi'),limbs,phase,side};
+ if(kind==='taxi')return {id,kind,mesh:makeRoadVehicle('taxi'),limbs,phase,side};
  if(kind==='genie'){
   // Original friendly blue stage genie, floating above a little brass lamp.
   g.crown([0,.15,0],[.4,.14,.22],m.gold);g.beam([.25,.17,0],[.57,.3,0],.06,m.gold);
@@ -134,10 +143,12 @@ export function makeCultureScene(v:SceneVariant){
  }else if(v.place==='hokkaido'){
   hakuba(g);actors.push(makeActor('ski-0','skier',0),makeActor('ski-1','skier',.34),makeActor('ski-2','skier',.67),makeActor('lift-0','lift',0));
  }else if(v.city==='nyc'){
-  newYork(g,v);if(isBroadway(v)){actors.push(makeActor('street-genie','genie',0));for(let i=0;i<12;i++)actors.push(makeActor(`queued-taxi-${i}`,'taxi-queue',i));}
+  if(v.place==='centralpark')actors.push(...makeParkActors());else newYork(g,v);const broadway=isBroadway(v);if(broadway)actors.push(makeActor('street-genie','genie',0));if(v.place==='highline')actors.push(...makeParkCyclists());else if(v.place!=='centralpark')for(let i=0;i<(broadway?4:6);i++)actors.push(makeActor(`street-taxi-${i}`,'taxi',i,broadway?0:1));
+ }else if(v.place==='nikko'){actors.push(...makeForestActors());
  }else if(v.place==='inthanon'){
   chiangMai(g,v);if(v.light==='night')for(let i=0;i<10;i++)actors.push(makeActor(`festival-${i}`,'sky-lantern',i/10,i%2?-1:1));
  }else if(v.city==='tokyo'){
+  if(v.place==='kyoto'){const life=makeKyotoLife();g.values.push(...life.base);actors.push(...life.actors);}
   // A few local paper lights and tiny food/tea signs enliven the garden streets.
   sign(g,v.place==='kyoto'?'TEA':'ART',-4.4,1.8,-3.8,1.2,.45,m.copper);for(const x of [-4.8,4.8]){g.beam([x,.3,-3.5],[x,2,-3.5],.04,m.wood);g.crown([x,2,-3.5],[.16,.23,.16],m.lamp);}
  }

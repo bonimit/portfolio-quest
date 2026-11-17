@@ -11,7 +11,14 @@ export function hexLinear(hex: string) {
   return hex.slice(1).match(/../g)!.map(value => Math.pow(parseInt(value, 16) / 255, 2.2));
 }
 export function worldPalette(variant: SceneVariant) {
-  if(variant.edition==='restored')return placePalette(variant,restoredPalette({...variant,edition:'restored'}));
+  if(variant.edition==='restored'){
+    const palette=placePalette(variant,restoredPalette({...variant,edition:'restored'}));
+    if(variant.place==='nikko'){
+      const autumn=variant.season==='autumn';
+      for(const [index,color]of [[1,autumn?'#8d754b':'#58794a'],[4,'#be6e3d'],[5,'#695145'],[6,autumn?'#70805a':'#719b58'],[8,'#181b1b'],[11,autumn?'#b47550':'#efb5c6'],[15,'#375b47'],[17,'#8bbdd4'],[19,autumn?'#d8ad4f':'#efd68b']] as const)palette.set(hexLinear(color),index*3);
+    }
+    return palette;
+  }
   if(variant.edition==='heritage'){const palette=originalPalette(variant);palette.set(heritagePalette(variant));return palette;}
   if(variant.edition==='classic'){const palette=originalPalette(variant);palette.set(classicPalette('meadow'));return palette;}
   if(variant.edition!=='new')return originalPalette(variant);

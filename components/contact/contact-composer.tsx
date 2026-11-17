@@ -1,6 +1,7 @@
 'use client';
 
 import {useRef,useState,type FormEvent} from 'react';
+import {Dropdown} from '@/components/ui/dropdown';
 import {contactDraftText,contactMailto,type ContactDraft} from '@/lib/contact';
 
 export function ContactComposer({recipient}:{recipient:string|null}) {
@@ -20,7 +21,7 @@ export function ContactComposer({recipient}:{recipient:string|null}) {
   return <form className="contact-form" onSubmit={prepare} aria-labelledby="contact-form-title">
     <div className="contact-form-heading"><span className="contact-kicker">A note to start</span><h2 id="contact-form-title">What’s on your mind?</h2></div>
     <div className="contact-field-row"><label>Your name <span className="contact-optional">optional</span><input name="name" autoComplete="name" maxLength={80} value={draft.name} onChange={event=>update('name',event.target.value)}/></label><label>Your email<input name="email" type="email" autoComplete="email" required maxLength={254} value={draft.email} onChange={event=>update('email',event.target.value)}/></label></div>
-    <label>I’d like to talk about<select name="topic" value={draft.topic} onChange={event=>update('topic',event.target.value)}><option>A project</option><option>A role</option><option>A collaboration</option><option>A question</option></select></label>
+    <div className="contact-topic">I’d like to talk about<Dropdown label="I’d like to talk about" name="topic" value={draft.topic} onChange={value=>update('topic',value)} options={['A project','A role','A collaboration','A question'].map(value=>({value,label:value}))}/></div>
     <label>Your message<textarea name="message" required rows={5} maxLength={3000} placeholder="A little context, what you have in mind, and anything useful to know." value={draft.message} onChange={event=>update('message',event.target.value)}/></label>
     <div className="contact-form-bottom"><button type="submit" className="contact-submit">{recipient?'Open email draft':'Copy message draft'}<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 11 18-8-8 18-2-8-8-2Zm8 2L21 3"/></svg></button><p>{recipient?'Opens your email app. You review and send.':'Draft only. Contact details are being finalized.'}</p></div>
     <p className="contact-status" role="status" aria-live="polite" aria-atomic="true">{status}</p>

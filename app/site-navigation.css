@@ -40,3 +40,12 @@ body:has(.scene-study) .scene-study:not([data-screenshot="true"]) .scene-study-s
 
 /* The chosen island is the explicit exception to shared top navigation. */
 body:not(:has(> .site-header)):has(.scene-study) { --site-header-height:0px; }
+
+/* Adventure uses the shared navigation directly over its page, without a panel. */
+.site-header--adventure > .site-header-frame { background:transparent!important; backdrop-filter:none!important; border:0; box-shadow:none; }
+body:has(.adventure[data-theme="A2"]) .site-header--adventure { color:#edf2ff; }
+
+/* One close glyph throughout the app; local wrappers retain their placement. */
+.app-close-icon { display:block; vertical-align:middle; }
+.guide-dialog .guide-close:has(.app-close-icon),.quest-icebreaker-close:has(.app-close-icon) { display:inline-grid; place-items:center; min-width:44px; min-height:44px; transform:none; }
+.guide-dialog .guide-close:has(.app-close-icon):hover { transform:none; }

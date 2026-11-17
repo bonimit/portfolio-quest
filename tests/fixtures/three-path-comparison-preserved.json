@@ -1,8 +1,8 @@
 {
-  "reason": "The owner promoted the latest island to the homepage on 2026-11-16; preserve the old comparison and its scene sources.",
+  "reason": "The owner promoted the latest island to the homepage on 2026-11-16; preserve the old comparison and its scene sources. On 2026-11-17 the owner requested custom dropdowns across the website; only the comparison UI baseline was updated for that control replacement, with all scene-source hashes retained.",
   "files": {
     "app/quest-preview/page.tsx": "ad0c06a83a06947f946cd8154f911bf39f6bf19f0bf375131d5951df5151900d",
-    "components/quest-preview/restored/experience.tsx": "95a0ada5fd4a0e2bd48a7cdbade59eee12a2eeba505611b005fd1d9e02eb904b",
+    "components/quest-preview/restored/experience.tsx": "367c5c4af8c31a5f771413ee1c70eddb5fcd99d10719ad07c104d9876a22fda7",
     "lib/quest-preview/restored/world.ts": "399e8b9656435ff4879592845643769f3a6ab94ab9ed7633c19d53949843f064",
     "lib/quest-preview/restored/places.ts": "c0bdb149aa2613e74b91e14cebfb3d1b675cc23e0ef8e61c568614a98f65d5af"
   }

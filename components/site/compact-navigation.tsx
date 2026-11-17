@@ -1,5 +1,6 @@
 "use client";
 
+import {CloseIcon} from '@/components/ui/close-icon';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -49,7 +50,7 @@ export function CompactNavigation() {
             <li key={href}><Link href={href} aria-current={getSectionCurrent(pathname, href)} onClick={() => setOpen(false)}>{label}</Link></li>
           ))}
         </ul>
-        <button ref={button} type="button" className="compact-menu-button" aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen((value) => !value)}>Menu <span aria-hidden="true">{open ? "−" : "+"}</span></button>
+        <button ref={button} type="button" className="compact-menu-button" aria-expanded={open} aria-controls="site-menu" onClick={() => setOpen((value) => !value)}>Menu {open?<CloseIcon size={16}/>:<span aria-hidden="true">+</span>}</button>
         <div className="compact-menu" id="site-menu" hidden={!open}>
           <ul>{links.map(({ href, label }) => <li key={href}><Link href={href} aria-current={getSectionCurrent(pathname, href)} onClick={() => setOpen(false)}>{label}</Link></li>)}</ul>
         </div>

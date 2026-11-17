@@ -31,7 +31,7 @@ export function HeaderFrame({ children }: { children: ReactNode }) {
   return (
     <header
       id="page-top"
-      className="site-header site-header--landing"
+      className={`site-header site-header--landing${pathname === "/world" ? " site-header--adventure" : ""}`}
       style={isLanding ? undefined : {height:"var(--site-header-height, 4rem)"}}
       tabIndex={-1}
     >

@@ -1,0 +1,16 @@
+.custom-dropdown { position:relative; min-width:0; font:inherit; --dropdown-paper:var(--q-note-bg,var(--color-paper,#f6f5f1)); --dropdown-ink:var(--q-note-ink,var(--color-ink,#131313)); --dropdown-accent:var(--q-orange,#f79a3b); color:var(--dropdown-ink); }
+.custom-dropdown .custom-dropdown-trigger { display:flex; align-items:center; justify-content:space-between; gap:1rem; width:100%; min-height:44px; padding:.65rem .85rem; border:1px solid currentColor; border-radius:.75rem; background:var(--dropdown-paper); color:inherit; font:inherit; text-align:left; cursor:pointer; transition:border-color .15s,box-shadow .15s; }
+.custom-dropdown-trigger span { min-width:0; }
+.custom-dropdown svg { flex:none; width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; }
+.custom-dropdown[data-open="true"] .custom-dropdown-trigger { box-shadow:0 0 0 1px currentColor; }
+.custom-dropdown[data-open="true"] .custom-dropdown-trigger > svg { transform:rotate(180deg); }
+.custom-dropdown-trigger:focus-visible { outline:3px solid var(--color-focus,#b84e1e); outline-offset:3px; }
+.custom-dropdown-options { position:absolute; top:calc(100% + .45rem); left:0; z-index:40; min-width:100%; width:max-content; max-width:min(24rem,calc(100vw - 3rem)); max-height:16rem; overflow:auto; overscroll-behavior:contain; padding:.35rem; border:1px solid currentColor; border-radius:.85rem; background:var(--dropdown-paper); box-shadow:3px 4px 0 var(--dropdown-accent),0 10px 24px #13131318; }
+.custom-dropdown-option { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:44px; padding:.65rem .6rem; border-radius:.5rem; font:inherit; cursor:pointer; }
+.custom-dropdown-option[aria-selected="true"] { font-weight:600; }
+.custom-dropdown-option[data-active="true"] { background:color-mix(in srgb,var(--dropdown-accent) 23%,var(--dropdown-paper)); }
+.quest-collection .custom-dropdown-options { position:relative; top:auto; width:100%; max-width:100%; margin-top:.45rem; box-shadow:2px 3px 0 var(--dropdown-accent); }
+.work-select .custom-dropdown-trigger { border-radius:999px; font-size:.8rem; font-weight:500; }
+.contact-form .custom-dropdown { width:100%; }
+
+.contact-topic { display:grid; gap:.5rem; font-size:.88rem; line-height:1.5; }

@@ -1,4 +1,5 @@
 "use client";
+import {CloseIcon} from '@/components/ui/close-icon';
 import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type FormEvent, type RefObject } from "react";
 import { GUIDE_INPUT_LIMIT, guidePrompts, localGuideProvider, resolveGuideAction, type GuideAnswer } from "@/lib/guide/local-guide";
@@ -78,7 +79,7 @@ export function LocalGuide({ onClose, animationPaused, onSuggest, anchorRef }: {
     if (dismissesCompanion(event.nativeEvent, !!panel.current?.contains(event.target as Node))) { event.preventDefault(); close(); }
   }}>
     <div className="guide-paper-edge" aria-hidden="true" />
-    <header><div className="guide-identity"><GuidePortrait paused={animationPaused} activity={activity} /><div><p className="guide-eyebrow">A little direction</p><h2 id="guide-title">Wayfinder<span aria-hidden="true">.</span></h2></div></div><button className="guide-close" type="button" onClick={close} aria-label="Close guide"><span aria-hidden="true">×</span></button></header>
+    <header><div className="guide-identity"><GuidePortrait paused={animationPaused} activity={activity} /><div><p className="guide-eyebrow">A little direction</p><h2 id="guide-title">Wayfinder<span aria-hidden="true">.</span></h2></div></div><button className="guide-close" type="button" onClick={close} aria-label="Close guide"><CloseIcon/></button></header>
     <p id="guide-disclosure">Scripted guide · Not AI</p>
     <div className="guide-history" ref={history} role="log" aria-label="Conversation history" aria-live="off" tabIndex={0}>
       {!messages.length ? <div className="guide-welcome"><span className="guide-chapter" aria-hidden="true">01 / A fork in the road</span><p>Every good quest<br />starts with a choice.</p><span>Portfolio opens Selected Work. Adventure opens three playable prototype demos.</span><nav aria-label="Choose a destination"><Link href="/work">Portfolio ↗</Link><Link href="/world">Adventure ↗</Link></nav></div> : messages.map((message) => <div className="guide-exchange" key={message.number}><p><strong>You ask</strong> {message.question}</p>{message.answer ? <><p><strong>Wayfinder</strong> {message.answer.text}</p><nav aria-label={`Destinations for reply ${message.number}`}>{message.answer.actions.map((id) => { const action = resolveGuideAction(id); return action ? <Link key={id} href={action.href}>{action.label} ↗</Link> : null; })}</nav></> : message.error ? <p>{message.error}</p> : <p>Preparing local reply…</p>}</div>)}

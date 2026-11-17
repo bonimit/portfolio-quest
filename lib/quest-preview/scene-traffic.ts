@@ -66,3 +66,34 @@ export function placeTraffic(target:Float32Array,start:number,mesh:Float32Array,
  const c=Math.cos(pose.angle),s=Math.sin(pose.angle);
  for(let i=0;i<mesh.length;i+=8){const o=start+i,x=mesh[i]*scale,z=mesh[i+2]*scale,nx=mesh[i+3],nz=mesh[i+5];target[o]=pose.x+x*c-z*s;target[o+1]=water?.4+(mesh[i+1]-.4)*scale:.35+(mesh[i+1]-.3)*scale;target[o+2]=pose.z+x*s+z*c;target[o+3]=nx*c-nz*s;target[o+5]=nx*s+nz*c;}
 }
+
+/** NYC roads use opposing straight lanes; vehicles leave and re-enter at street ends. */
+export const NYC_STREETS={
+ broadway:{min:-10.7,max:10.7,lanes:[-4.3,-5.35],carsPerLane:2,speed:1},
+ side:{min:1.2,max:5.8,lanes:[9.5,10.3],carsPerLane:3,speed:.48},
+} as const;
+export function nycTaxiPose(time:number,index:number,broadway=true){
+ const road=broadway?NYC_STREETS.broadway:NYC_STREETS.side,length=road.max-road.min,lane=Math.floor(index/road.carsPerLane)%2;
+ const distance=((time*road.speed+(index%road.carsPerLane)*length/road.carsPerLane+(broadway&&lane===1?length*.25:0))%length+length)%length;
+ const position=lane===0?road.min+distance:road.max-distance;
+ const visibility=Math.min(1,distance/.45,(length-distance)/.45);
+ return {x:broadway?position:road.lanes[lane],z:broadway?road.lanes[lane]:position,angle:broadway?(lane?Math.PI:0):(lane?-Math.PI/2:Math.PI/2),scale:broadway?.72:.55*Math.max(0,visibility)};
+}
+export function addNycStreet(g:Sculpture,broadway:boolean){
+ if(broadway){
+  // Rear traffic stays behind the three entrance buildings, with covered street exits.
+  g.box([0,.32,-4.85],[23.6,.025,2.3],m.ink);
+  for(let x=-11;x<=11;x+=1.5)g.box([x,.34,-4.85],[.65,.012,.035],m.gold);
+  for(const side of [-1,1]){
+   const x=side*10.4;
+   g.box([x,1.85,-4.85],[2.8,.3,2.55],m.metal);
+   g.box([x,1,-3.65],[2.8,1.7,.18],m.brick);
+   g.box([x,1,-6.05],[2.8,1.7,.18],m.brick);
+   for(let dx=-1;dx<=1;dx+=.5)g.box([x+dx,2.08,-3.65],[.23,.16,.2],m.stone);
+  }
+ }else{
+  g.box([9.9,.32,3.5],[1.65,.025,5.4],m.ink);
+  for(const x of [9.08,10.72])g.box([x,.34,3.5],[.055,.025,5.4],m.stone);
+  for(let z=1;z<6;z+=.8)g.box([9.9,.34,z],[.025,.012,.35],m.gold);
+ }
+}

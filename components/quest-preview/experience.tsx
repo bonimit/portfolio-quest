@@ -1,6 +1,7 @@
 'use client';
 import {sceneConfig} from '@/lib/quest-preview/scene-config';
 import Link from 'next/link';
+import {Dropdown} from '@/components/ui/dropdown';
 import {useCallback,useEffect,useRef,useState,useSyncExternalStore,type MouseEvent} from 'react';
 import {useRouter} from 'next/navigation';
 import {QuestGuide} from './guide';
@@ -121,7 +122,7 @@ export function QuestPreviewExperience() {
     <footer className="quest-tools" inert={!!leaving}>
       <QuestSceneTour variant={variant} holdReason={paused?'World paused':guideOpen?'Chat open':leaving?'Entering a path':focus?'Choosing a path':settingsOpen?'Settings open':null} automatic={automatic} reduced={reduced} onAutomatic={()=>setAutomatic(value=>!value)} onStep={direction=>{if(leaving)cancelNavigation(false);setVariant(current=>stepScene(current,direction));}}/>
       <div className="quest-tool-actions">{!reduced?<button className="quest-pause" type="button" onClick={()=>{if(leaving)cancelNavigation(false);setPaused(value=>!value);}}>{paused?'Resume world':'Pause world'}</button>:null}<details onToggle={event=>setSettingsOpen(event.currentTarget.open)}><summary>Scene settings <span aria-hidden="true">+</span></summary><div className="quest-settings">
-        <label className="quest-collection">Scene collection<select value={variant.edition==='heritage'?'classic':variant.edition??'original'} onChange={event=>{if(!leaving){const edition=event.target.value as SceneEdition;setVariant(current=>({...current,edition}));}}}><option value="classic">Original island &amp; city scenes</option><option value="original">Original island scenes</option><option value="new">New city islands</option></select></label>
+        <div className="quest-collection">Scene collection<Dropdown label="Scene collection" value={variant.edition==='heritage'?'classic':variant.edition??'original'} onChange={value=>{if(!leaving){const edition=value as SceneEdition;setVariant(current=>({...current,edition}));}}} options={[{value:'classic',label:'Original island & city scenes'},{value:'original',label:'Original island scenes'},{value:'new',label:'New city islands'}]}/></div>
         <label className="quest-checkbox"><input type="checkbox" checked={illustrated} onChange={event=>{if(leaving)cancelNavigation(false);setIllustrated(event.target.checked);}}/> Use illustrated view</label>
         <p className="quest-setting-note">{sceneConfig(variant).title}: {sceneConfig(variant).description} Stylized scenery.</p>
       </div></details></div>

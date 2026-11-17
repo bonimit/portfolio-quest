@@ -13,7 +13,7 @@ export function sign(g:Sculpture,text:string,x:number,y:number,z:number,w:number
  g.box([x,y,z],[w+.14,h+.14,.15],m.ink);g.box([x,y,z+.09],[w,h,.035],color,0,NEON);
  letters(textGeometry??g,text,x,y,z+.13,Math.min(h*.6,w/(text.length*4)*5*.86),m.ink,1);
 }
-export function person(g:Sculpture,shirt:Material,pose:'walk'|'stand'|'sit'|'surf'|'ski'='walk'){
+export function person(g:Sculpture,shirt:Material,pose:'walk'|'stand'|'sit'|'surf'|'ski'|'throw'='walk'){
  const limbs:Limb[]=[],seated=pose==='sit',hip=seated?.35:.53,shoulder=seated?.67:.86,head=seated?.92:1.12;
  g.crown([.04,head,0],[.13,.15,.125],m.path);g.crown([.015,head+.075,-.01],[.135,.095,.13],m.ink);
  g.box([.165,head,0],[.035,.045,.055],m.ink);g.beam([0,hip,0],[0,shoulder,0],.26,shirt);
@@ -24,7 +24,7 @@ export function person(g:Sculpture,shirt:Material,pose:'walk'|'stand'|'sit'|'sur
   g.box([.07,.035,z],[.19,.065,.09],m.ink);
   if(pose==='walk')limbs.push({start,end:g.values.length,pivot:[0,hip,z],axis:'z',amount:.29,phase:side<0?0:Math.PI});
   const arm=g.values.length;g.beam([0,shoulder,z*1.6],[pose==='surf'?-.24:.15,pose==='surf'?.8:shoulder-.2,z*2.1],.055,m.path);
-  if(pose==='walk')limbs.push({start:arm,end:g.values.length,pivot:[0,shoulder,z*1.6],axis:'z',amount:.18,phase:side<0?Math.PI:0});
+  if(pose==='walk'||pose==='throw'&&side>0)limbs.push({start:arm,end:g.values.length,pivot:[0,shoulder,z*1.6],axis:'z',amount:pose==='throw'?.8:.18,phase:side<0?Math.PI:0});
  }
  return limbs;
 }

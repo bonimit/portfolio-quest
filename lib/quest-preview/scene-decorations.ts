@@ -5,7 +5,7 @@ import {threePathId} from './three-path-catalog.ts';
 import {BROADWAY_PROGRAM} from './broadway-shows.ts';
 import {isBroadway} from './culture-scenes.ts';
 import {sign} from './culture-geometry.ts';
-import {addTrafficRoad,makeRoadVehicle} from './scene-traffic.ts';
+import {addTrafficRoad,addNycStreet,makeRoadVehicle} from './scene-traffic.ts';
 
 type Tree='birch'|'willow'|'blossom'|'ginkgo'|'cedar'|'bamboo'|'banana'|'citrus';
 type Street='taxi'|'tuktuk'|'bicycle'|'surf'|'ski'|'sculpture';
@@ -24,11 +24,11 @@ const gardens:Record<string,Garden>={
  'bangkok-winter':{trees:['bamboo','citrus'],street:'tuktuk',fruit:m.copper,flowers:m.flower,pond:true,market:true},
  'place-centralpark':{trees:['blossom','willow'],street:'bicycle',fruit:m.vermilion,flowers:m.flower,pond:true,market:false},
  'place-coney':{trees:['birch','willow'],street:'taxi',fruit:m.gold,flowers:m.gold,pond:true,market:true},
- 'place-highline':{trees:['ginkgo','birch'],street:'taxi',fruit:m.copper,flowers:m.vermilion,pond:true,market:false},
+ 'place-highline':{trees:['ginkgo','birch'],street:'bicycle',fruit:m.copper,flowers:m.vermilion,pond:true,market:false},
  'place-rockefeller':{trees:['cedar','birch'],street:'taxi',fruit:m.vermilion,flowers:m.evergreen,pond:false,market:true},
  'place-kyoto':{trees:['blossom','bamboo'],street:'bicycle',fruit:m.vermilion,flowers:m.flower,pond:true,market:true},
  'place-okinawa':{trees:['banana','citrus'],street:'surf',fruit:m.gold,flowers:m.vermilion,pond:true,market:true},
- 'place-nikko':{trees:['ginkgo','cedar'],street:'bicycle',fruit:m.copper,flowers:m.gold,pond:true,market:false},
+ 'place-karuizawa':{trees:['cedar','birch'],street:'bicycle',fruit:m.copper,flowers:m.gold,pond:true,market:false},
  'place-hakuba':{trees:['cedar','birch'],street:'ski',fruit:m.vermilion,flowers:m.evergreen,pond:false,market:false},
  'place-canalmarket':{trees:['banana','citrus'],street:'tuktuk',fruit:m.gold,flowers:m.flower,pond:true,market:true},
  'place-krabi':{trees:['banana','bamboo'],street:'surf',fruit:m.gold,flowers:m.vermilion,pond:true,market:true},
@@ -91,6 +91,7 @@ export function frogPose(time:number,staticMotion=false){
 }
 export function makeSceneDecorations(v:SceneVariant){
  const plan=decorationPlan(v),g=new Sculpture(),frog=new Sculpture(),broadway=isBroadway(v),winter=v.season==='winter'&&v.city!=='bangkok';
+ if(v.place==='centralpark'||v.place==='nikko'){return {base:new Float32Array(g.values),frog:new Float32Array(),vehicle:new Float32Array(),plan};}
  if(broadway){
   // Paved sidewalks, ticket kiosk and illuminated show posters replace garden props.
   for(const [x,z,w,d]of [[0,0,23,14],[0,-8,18,2],[0,8,19,2]])g.box([x,.302,z],[w,.008,d],m.metal);
@@ -98,11 +99,11 @@ export function makeSceneDecorations(v:SceneVariant){
   g.box([-9.4,1.05,3.65],[1.7,1.4,.85],m.brick);g.box([-9.4,1.43,4.09],[1.3,.56,.025],m.glass);sign(g,'TICKETS',-9.4,1.98,4.14,1.9,.35,m.vermilion);
   for(const [i,[x,z]]of [[-4.8,4.7],[4.8,4.65]].entries()){g.box([x,1.28,z],[1.12,1.9,.24],m.ink);sign(g,BROADWAY_PROGRAM.posters[i],x,1.55,z+.17,1.04,.56,i?m.gold:m.glass);sign(g,'TONIGHT',x,.86,z+.17,1.04,.24,m.flower);}
   for(const x of [-1.75,1.75]){g.box([x,.65,4.6],[.24,.65,.24],m.metal);g.box([x,1.01,4.6],[.28,.08,.28],m.lamp);}
-  addTrafficRoad(g,false);
+  addNycStreet(g,true);
  }else{
  if(v.place!=='hokkaido')tree(g,-11.65,-.35,plan.trees[0],winter);tree(g,11.65,-.3,plan.trees[1],winter);
  flowers(g,-1.75,4.6,plan.flowers,winter);flowers(g,1.75,4.6,plan.flowers,winter);
- fruitStall(g,plan.fruit,plan.market,winter);bench(g);streetProp(g,plan.street);
+ if(v.place!=='kyoto')fruitStall(g,plan.fruit,plan.market,winter);bench(g);if(v.city==='nyc')addNycStreet(g,false);else streetProp(g,plan.street);
  const x=-9.4,z=3.65;
  // A shallow, stone-edged garden pond; winter scenes retain an icy basin without frogs.
  if(v.place!=='hokkaido'){g.ring([x,.29,z],1.19,1.19,.12,m.stone,24);g.ring([x,.415,z],1.05,1.05,.025,winter?m.glass:m.water,24);}
@@ -113,5 +114,5 @@ export function makeSceneDecorations(v:SceneVariant){
   for(const dx of [-.11,.11]){frog.crown([fx+dx,fy+.31,fz+.13],[.075,.075,.065],m.plaster);frog.crown([fx+dx,fy+.32,fz+.18],[.028,.037,.018],m.ink);frog.crown([fx+dx*1.9,fy+.045,fz-.06],[.12,.055,.12],m.evergreen);frog.beam([fx+dx,fy+.12,fz+.12],[fx+dx*1.7,fy+.025,fz+.26],.045,m.leaf);}
  }
  }
- return {base:new Float32Array(g.values),frog:new Float32Array(frog.values),vehicle:plan.street==='taxi'||plan.street==='tuktuk'?makeRoadVehicle(plan.street):new Float32Array(),plan};
+ return {base:new Float32Array(g.values),frog:new Float32Array(frog.values),vehicle:v.city!=='nyc'&&(plan.street==='taxi'||plan.street==='tuktuk')?makeRoadVehicle(plan.street):new Float32Array(),plan};
 }

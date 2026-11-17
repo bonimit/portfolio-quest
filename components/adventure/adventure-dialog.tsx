@@ -1,5 +1,6 @@
 'use client';
 
+import {CloseIcon} from '@/components/ui/close-icon';
 import {useEffect,useRef,type ReactNode} from 'react';
 
 /** Native modal supplies inert background, focus containment and platform Escape support. */
@@ -24,4 +25,9 @@ export function AdventureDialog({children,onClose,className,labelledBy,returnFoc
     onClick={event=>{if(event.target===event.currentTarget){const r=event.currentTarget.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)close.current();}}}>
     {children}
   </dialog>;
+}
+
+/** One consistent, keyboard-accessible close control for Adventure overlays. */
+export function AdventureCloseButton({onClose,label="Close dialog"}:{onClose:()=>void;label?:string}){
+ return <button type="button" className="adventure-close" onClick={onClose} aria-label={label}><CloseIcon/></button>;
 }

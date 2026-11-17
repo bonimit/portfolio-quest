@@ -11,6 +11,6 @@ export const metadata:Metadata={
 };
 export default async function ConceptSceneStudy({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){
  const query=await searchParams,one=(value:string|string[]|undefined)=>Array.isArray(value)?value[0]:value;
- const variant=threePathFromQuery(one(query.scene),one(query.light));
- return <SceneStudyExperience key={`${one(query.scene)}-${one(query.light)}-${one(query.capture)}-review-2`} initialVariant={variant} screenshot={one(query.capture)==='1'}/>;
+ const variant=threePathFromQuery(one(query.scene),one(query.light),one(query.season));
+ return <SceneStudyExperience key={`${one(query.scene)}-${one(query.light)}-${one(query.season)}-${one(query.capture)}-review-2`} initialVariant={variant} screenshot={one(query.capture)==='1'}/>;
 }

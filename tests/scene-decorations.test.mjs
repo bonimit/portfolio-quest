@@ -12,8 +12,8 @@ import {makeBangkokRiverfront,makeBangkokBoats} from '../lib/quest-preview/bangk
 function distance(a,b,p){const dx=b[0]-a[0],dz=b[1]-a[1],t=Math.max(0,Math.min(1,((p[0]-a[0])*dx+(p[1]-a[1])*dz)/(dx*dx+dz*dz)));return Math.hypot(a[0]+dx*t-p[0],a[1]+dz*t-p[1]);}
 test('every scene has themed plants and street props, with no winter frogs or Bangkok snow',()=>{
  const species=new Set(),street=new Set();
- for(const v of THREE_PATH_STOPS){const d=makeSceneDecorations(v),plan=decorationPlan(v);assert.ok(d.base.length>0,threePathId(v));assert.equal(d.base.length%24,0);assert.ok(d.base.every(Number.isFinite));plan.trees.forEach(t=>species.add(t));street.add(plan.street);
-  const cold=v.season==='winter'&&v.city!=='bangkok';assert.equal(d.frog.length>0,!cold&&!isBroadway(v),threePathId(v));
+ for(const v of THREE_PATH_STOPS){const d=makeSceneDecorations(v),plan=decorationPlan(v);if(v.place==='centralpark'||v.place==='nikko')assert.equal(d.base.length,0,'The custom park and forest own their scenery');else assert.ok(d.base.length>0,threePathId(v));assert.equal(d.base.length%24,0);assert.ok(d.base.every(Number.isFinite));plan.trees.forEach(t=>species.add(t));street.add(plan.street);
+  const cold=v.season==='winter'&&v.city!=='bangkok';assert.equal(d.frog.length>0,!cold&&!isBroadway(v)&&v.place!=='centralpark'&&v.place!=='nikko',threePathId(v));
   if(v.city==='nyc'&&!v.place)assert.equal(plan.street,'taxi');if(v.city==='bangkok'&&!v.place)assert.equal(plan.street,'tuktuk');
   if(v.city==='bangkok')assert.equal([...d.base].some((value,i)=>i%8===6&&value===18),false);
  }assert.ok(species.size>=8);assert.equal(street.size,6);
@@ -71,12 +71,21 @@ test('boats pass one another and keep clear of the temple quay and landing pier'
 });
 
 test('old scene props and snow banks do not obstruct the new driving surface',()=>{
- for(const variant of THREE_PATH_STOPS){const kind=decorationPlan(variant).street;if(kind!=='taxi'&&kind!=='tuktuk')continue;const base=makeThreePathGeometry(variant).layers.base;
+ for(const variant of THREE_PATH_STOPS){const kind=decorationPlan(variant).street;if(variant.city==='nyc'||kind!=='taxi'&&kind!=='tuktuk')continue;const base=makeThreePathGeometry(variant).layers.base;
   for(let i=0;i<base.length;i+=8){if(base[i+1]<.75||base[i+6]===7)continue; // Rain streaks are weather, not solid obstacles.
   const r=Math.hypot(base[i]-9.9,base[i+2]-3.8);assert.ok(Math.abs(r-1.4)>ROAD_HALF_WIDTH,`${threePathId(variant)} contains an old prop on the road at ${base[i]}, ${base[i+2]}`);}
  }
 });
 
 test('Broadway street decorations contain no garden plants, flowers, fruit stalls or ponds',()=>{
- for(const v of THREE_PATH_STOPS.filter(isBroadway)){const d=makeSceneDecorations(v);assert.equal(d.frog.length,0);const materials=new Set(Array.from(d.base).filter((_,i)=>i%8===6));for(const material of [1,6,7,15])assert.equal(materials.has(material),false);assert.ok(d.vehicle.length>0);}
+ for(const v of THREE_PATH_STOPS.filter(isBroadway)){const d=makeSceneDecorations(v);assert.equal(d.frog.length,0);const materials=new Set(Array.from(d.base).filter((_,i)=>i%8===6));for(const material of [1,6,7,15])assert.equal(materials.has(material),false);assert.equal(d.vehicle.length,0);}
+});
+
+test('NYC uses a street fleet instead of a vehicle on the old roundabout, with clear side lanes',()=>{
+ for(const v of THREE_PATH_STOPS.filter(v=>v.city==='nyc')){
+  assert.equal(makeSceneDecorations(v).vehicle.length,0);
+  if(isBroadway(v))continue;
+  const base=makeThreePathGeometry(v).layers.base;
+  for(let i=0;i<base.length;i+=8){if(base[i+1]<.4||base[i+1]>1.6||base[i+6]===10)continue;assert.ok(base[i]<=9.13||base[i]>=10.67||base[i+2]<=.8||base[i+2]>=6.2,`${threePathId(v)} has an obstacle in its side street`);}
+ }
 });

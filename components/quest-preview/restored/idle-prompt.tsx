@@ -1,4 +1,5 @@
 'use client';
+import {CloseIcon} from '@/components/ui/close-icon';
 import {useEffect,useRef,useState,type RefObject} from 'react';
 import {mayPrompt,IDLE_PROMPT_MS} from '@/lib/quest-preview/restored/actors';
 export function QuestIdlePrompt({busy,sceneRef,onTalk,onPrompt}:{busy:boolean;sceneRef:RefObject<HTMLDivElement|null>;onTalk:(button:HTMLButtonElement)=>void;onPrompt:()=>void}) {
@@ -25,6 +26,6 @@ export function QuestIdlePrompt({busy,sceneRef,onTalk,onPrompt}:{busy:boolean;sc
   return <aside className="quest-icebreaker" aria-label="A suggestion from Wayfinder">
     <p><strong>Which path would you like to try?</strong> Portfolio opens the editorial website and professional sections. Adventure is a coming-soon world preview.</p>
     <button type="button" onClick={event=>{setVisible(false);onTalk(event.currentTarget);}}>Ask Wayfinder</button>
-    <button className="quest-icebreaker-close" type="button" aria-label="Dismiss Wayfinder's suggestion" onClick={()=>setVisible(false)}>×</button>
+    <button className="quest-icebreaker-close" type="button" aria-label="Dismiss Wayfinder's suggestion" onClick={()=>setVisible(false)}><CloseIcon/></button>
   </aside>;
 }

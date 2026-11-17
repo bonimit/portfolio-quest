@@ -4,6 +4,7 @@ import {cameraPreview} from '@/lib/quest-preview/camera-preview';
 import {PLACES,PLACE_IDS,type Place} from '@/lib/quest-preview/restored/places';
 import {sceneConfig} from '@/lib/quest-preview/scene-config';
 import Link from 'next/link';
+import {Dropdown} from '@/components/ui/dropdown';
 import {useCallback,useEffect,useRef,useState,useSyncExternalStore,type MouseEvent} from 'react';
 import {useRouter} from 'next/navigation';
 import {QuestGuide} from './guide';
@@ -161,8 +162,8 @@ export function QuestPreviewExperience({preview=true}:{preview?:boolean}) {
       <QuestSceneTour variant={variant} holdReason={paused?'World paused':guideOpen?'Chat open':leaving?'Entering a path':focus?'Choosing a path':settingsOpen?'Settings open':null} automatic={automatic} reduced={reduced} onStep={direction=>{if(leaving)cancelNavigation(false);setVariant(current=>stepScene(current,direction));}}/>
           </div>
           <div className="quest-controls-section quest-controls-options">
-        <label className="quest-collection">Scene set<select value={variant.place?'places':'current'} onChange={event=>{if(!leaving)setVariant(current=>event.target.value==='places'?{...PLACES.highline,place:'highline',edition:'restored',light:current.light}:{...DEFAULT_VARIANT,city:'tokyo',season:'autumn',edition:'restored',light:current.light});}}><option value="current">Current city &amp; season scenes</option><option value="places">New destination scenes</option></select></label>
-        {variant.place?<label className="quest-collection">Place<select value={variant.place} onChange={event=>{const place=event.target.value as Place;if(!leaving)setVariant(current=>({...PLACES[place],place,edition:'restored',light:current.light}));}}>{PLACE_IDS.map(place=><option value={place} key={place}>{PLACES[place].title}</option>)}</select></label>:null}
+        <div className="quest-collection">Scene set<Dropdown label="Scene set" value={variant.place?'places':'current'} onChange={value=>{if(!leaving)setVariant(current=>value==='places'?{...PLACES.highline,place:'highline',edition:'restored',light:current.light}:{...DEFAULT_VARIANT,city:'tokyo',season:'autumn',edition:'restored',light:current.light});}} options={[{value:'current',label:'Current city & season scenes'},{value:'places',label:'New destination scenes'}]}/></div>
+        {variant.place?<div className="quest-collection">Place<Dropdown label="Place" value={variant.place} onChange={value=>{const place=value as Place;if(!leaving)setVariant(current=>({...PLACES[place],place,edition:'restored',light:current.light}));}} options={PLACE_IDS.map(place=>({value:place,label:PLACES[place].title}))}/></div>:null}
         <p className="quest-setting-note">{sceneConfig(variant).title}: {sceneConfig(variant).description} Stylized scenery.</p>
           </div>
       </IslandSettingsPanel>

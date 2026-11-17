@@ -1,4 +1,6 @@
 "use client";
+import {CloseIcon} from '@/components/ui/close-icon';
+import {Dropdown} from '@/components/ui/dropdown';
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
@@ -221,13 +223,7 @@ export function WorkExplorer({ projects, initial, sample }: Props) {
             ))}
           </FilterPanel>
 
-          <label className="work-select">
-            <span className="work-visually-hidden">Sort projects</span>
-            <select value={query.sort} onChange={(e) => update({ ...query, sort: e.target.value as SortKey })}>
-              {SORTS.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
-            </select>
-            <svg aria-hidden="true" viewBox="0 0 12 12" className="work-caret"><path d="m3 4.5 3 3 3-3" /></svg>
-          </label>
+          <div className="work-select"><Dropdown label="Sort projects" value={query.sort} onChange={value=>update({...query,sort:value as SortKey})} options={SORTS.map(s=>({value:s.key,label:s.label}))}/></div>
 
           <span className="work-seg work-seg--icons" role="group" aria-label="Layout">
             <button
@@ -258,13 +254,13 @@ export function WorkExplorer({ projects, initial, sample }: Props) {
         <div className="work-active" aria-label="Active filters">
           {query.q.trim() && (
             <button type="button" className="work-tag-chip" onClick={() => update({ ...query, q: "" })} aria-label={`Remove search “${query.q.trim()}”`}>
-              “{query.q.trim()}” <span aria-hidden="true">×</span>
+              “{query.q.trim()}” <CloseIcon size={12}/>
             </button>
           )}
           {DIMENSIONS.flatMap((dim) =>
             query.filters[dim.key].map((tag) => (
               <button type="button" className="work-tag-chip" key={`${dim.key}-${tag}`} onClick={() => toggle(dim.key, tag)} aria-label={`Remove ${dim.label}: ${tag}`}>
-                <span className="work-tag-dim">{dim.label}</span> {tag} <span aria-hidden="true">×</span>
+                <span className="work-tag-dim">{dim.label}</span> {tag} <CloseIcon size={12}/>
               </button>
             )),
           )}

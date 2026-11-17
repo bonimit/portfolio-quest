@@ -302,7 +302,7 @@ body:has(.quest-preview) > :is(.site-header,.site-footer) { display: none; }
 .quest-controls > summary { display:flex; min-height:44px; padding:.35rem .6rem; border:1px solid transparent; border-radius:999px; font-size:.75rem; gap:.5rem; white-space:nowrap; transition:background 160ms ease,border-color 160ms ease; }
 .quest-controls > summary:is(:hover,:focus-visible),.quest-controls[open] > summary { background:var(--q-note-bg); color:var(--q-note-ink); border-color:var(--q-control-border); }
 .quest-controls > summary svg { width:18px; height:18px; fill:var(--q-note-bg); stroke:currentColor; stroke-width:1.5; }
-.quest-controls-panel { right:clamp(.75rem,3vw,3rem); bottom:calc(100% + .5rem); width:min(23rem,calc(100vw - 1.5rem)); max-height:min(32rem,calc(100dvh - 6rem)); overflow:auto; overscroll-behavior:contain; padding:.85rem 1rem; border-radius:1rem; background:var(--q-note-bg); color:var(--q-note-ink); border-color:var(--q-control-border); box-shadow:3px 4px 0 var(--q-orange),0 12px 32px #10202a20; }
+.quest-controls-panel { right:clamp(.75rem,3vw,3rem); bottom:calc(100% + .5rem); width:min(23rem,calc(100vw - 1.5rem)); max-height:min(32rem,calc(100dvh - 6rem)); overflow:auto; overscroll-behavior:contain; padding:.85rem 1rem; border-radius:1rem; background:var(--q-note-bg); color:var(--q-note-ink); border-color:var(--q-control-border); box-shadow:0 12px 32px #0003; }
 .quest-controls-section + .quest-controls-section { border-top:1px solid var(--q-control-border); padding-top:.75rem; margin-top:.5rem; }
 .quest-controls-panel .quest-scene-tour { display:block; }
 .quest-controls-panel .quest-tour-location { display:none; }
@@ -387,3 +387,98 @@ body:has(.quest-preview) > :is(.site-header,.site-footer) { display: none; }
 }
 /* Keep the close control larger than the shared conversation text sizing. */
 .quest-preview .quest-conversation.guide-dialog .guide-close { font-size:2.25rem; line-height:1; min-width:48px; min-height:48px; }
+
+/* A single settings surface, with direct choices and persistent actions. */
+.quest-controls-panel { display:flex; flex-direction:column; width:min(26rem,calc(100vw - 1.5rem)); height:min(40rem,calc(100dvh - 7rem)); max-height:min(43rem,calc(100dvh - 6rem)); padding:0; overflow:hidden; }
+.island-settings-heading { display:flex; flex:none; align-items:center; justify-content:space-between; gap:1rem; padding:1rem 1rem .85rem; border-bottom:1px solid var(--q-note-line); }
+.island-settings-heading strong { font-size:1rem; font-weight:600; }
+.island-settings-heading p { margin:.25rem 0 0; font-size:.75rem; opacity:.75; }
+.quest-controls-panel .island-settings-close { display:grid; place-items:center; flex:none; width:44px; height:44px; min-height:44px; padding:.65rem; border:1px solid var(--q-control-border); border-radius:50%; background:transparent; color:inherit; cursor:pointer; }
+.island-settings-close svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; }
+.island-settings-content { min-height:0; overflow:auto; overscroll-behavior:contain; padding:1rem; }
+.island-scene-picker { display:grid; gap:1.1rem; }
+.island-settings-field { min-width:0; padding:0; margin:0; border:0; }
+.island-settings-field legend { padding:0; margin-bottom:.5rem; font-size:.68rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; opacity:.75; }
+.island-collection-switch { display:flex; gap:0; padding:.25rem; border:1px solid var(--q-control-border); border-radius:999px; background:color-mix(in srgb,var(--q-note-ink) 6%,var(--q-note-bg)); }
+.quest-controls-panel :is(.island-choice-row,.island-season-choices,.island-place-choices) button { min-width:0; min-height:44px; padding:.35rem .85rem; border:1px solid var(--q-note-ink); border-radius:999px; background:transparent; color:inherit; font:inherit; font-size:.78rem; line-height:1.4; cursor:pointer; transition:background 160ms ease,transform 160ms ease; }
+.quest-controls-panel .island-collection-switch button { flex:1; min-width:0; min-height:44px; padding:.45rem .65rem; border:0; border-radius:999px; font:inherit; font-size:.78rem; font-weight:500; color:inherit; background:transparent; cursor:pointer; }
+.quest-controls-panel .island-collection-switch button[aria-selected="true"] { background:var(--q-note-ink); color:var(--q-note-bg); box-shadow:0 2px 3px #13131318; }
+.quest-controls-panel .island-collection-switch button:not([aria-selected="true"]):hover { background:color-mix(in srgb,var(--q-note-ink) 9%,var(--q-note-bg)); }
+.quest-controls-panel .island-collection-switch button:focus-visible { outline-offset:-4px; }
+.island-collection-content { display:grid; gap:1rem; }
+.island-collection-help { margin:0; font-size:.75rem; line-height:1.5; opacity:.8; }
+.island-scene-navigation { border-top:1px solid var(--q-note-line); padding-top:.85rem; }
+.quest-controls-panel :is(.island-choice-row,.island-season-choices,.island-place-choices) button[aria-pressed="true"] { background:var(--q-note-ink); color:var(--q-note-bg); border-color:var(--q-note-ink); font-weight:500; }
+.island-choice-row { display:flex; flex-wrap:wrap; gap:.4rem; }
+.island-season-choices,.island-place-choices { display:flex; flex-wrap:wrap; gap:.4rem; }
+.quest-controls-panel .island-place-choices button { display:inline-flex; align-items:center; max-width:100%; text-align:left; min-height:44px; }
+.quest-controls-panel :is(.island-choice-row,.island-season-choices,.island-place-choices) button:not([aria-pressed="true"]):hover { background:var(--landing-lime,#cfe86b); color:var(--q-ink); border-color:var(--q-note-ink); }
+.quest-preview[data-light] .quest-controls-panel :is(button,a):focus-visible { outline:2px solid var(--q-note-ink); outline-offset:2px; }
+.quest-controls-panel .quest-tour-buttons button { flex:1; min-height:44px; padding:.4rem .85rem; border:1px solid var(--q-note-ink); border-radius:999px; background:transparent; color:inherit; font:inherit; font-size:.78rem; cursor:pointer; }
+.island-settings-links { display:grid; grid-template-columns:1fr 1fr; gap:.5rem; border-top:1px solid var(--q-note-line); padding-top:.85rem; }
+.quest-controls-panel .island-settings-links a { display:flex; justify-content:space-between; align-items:center; gap:.5rem; min-height:44px; padding:.4rem .85rem; border:1px solid var(--q-note-ink); border-radius:999px; font-size:.75rem; text-decoration:none; background:transparent; color:inherit; }
+.island-settings-links a:first-child { grid-column:1 / -1; }
+.quest-controls-panel :is(.island-settings-links a,.quest-tour-buttons button,.quest-controls-actions button,.island-settings-close):hover { background:var(--landing-lime,#cfe86b); color:var(--q-ink); }
+.quest-controls-panel .quest-controls-actions { flex:none; padding:.85rem 1rem; margin:0; border-top:1px solid var(--q-control-border); background:color-mix(in srgb,var(--q-note-bg) 94%,var(--q-control-border)); }
+.quest-controls-panel .quest-controls-actions :is(.quest-pause,.quest-fullscreen) { border:1px solid var(--q-note-ink); border-radius:999px; background:var(--q-note-bg); box-shadow:none; color:inherit; }
+@media(max-height:34rem) { .quest-controls-panel { max-height:calc(100dvh - 4.5rem); } .island-settings-heading { padding:.5rem .85rem; } }
+
+/* Playback and display stay accessible beside Settings, outside its panel. */
+.island-settings-tools { position:relative; display:flex; flex:none; align-items:center; gap:.6rem; }
+.island-playback-controls { display:flex; align-items:center; gap:.5rem; }
+.island-playback-controls :is(.quest-pause,.quest-fullscreen) { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:.35rem .75rem; border:1px solid currentColor; border-radius:999px; background:transparent; color:inherit; font:inherit; font-size:.75rem; white-space:nowrap; cursor:pointer; }
+.island-playback-controls button:focus-visible { outline:2px solid var(--q-orange); outline-offset:3px; }
+.island-settings-tools .quest-controls-panel { right:0; }
+@media(max-width:64rem) {
+ .scene-study .scene-study-tools { display:grid; grid-template-columns:auto auto; gap:.25rem .5rem; align-items:center; }
+ .scene-study-tools .island-settings-tools { justify-self:end; grid-column:2; grid-row:1; }
+ .scene-study-tools .scene-study-caption { grid-column:1 / -1; grid-row:2; justify-self:center; }
+ .scene-study-tools .scene-study-caption .quest-scene-caption { max-width:85vw; }
+ .scene-study .scene-study-orbit-help { bottom:6rem; }
+}
+@media(max-width:25rem) {
+ .island-settings-tools { gap:.3rem; }
+ .island-playback-controls { gap:.3rem; }
+ .island-playback-controls :is(.quest-pause,.quest-fullscreen) { padding-inline:.55rem; font-size:.7rem; }
+}
+
+/* Conversation direction stays clear at every size: visitor right, guide left. */
+.quest-preview .guide-exchange { display:flex; flex-direction:column; align-items:flex-start; gap:.55rem; padding:.7rem 0; }
+.quest-preview .guide-exchange .quest-message-user { align-self:flex-end; max-width:88%; margin:0; padding:.7rem .85rem; border:0; border-radius:1rem 1rem .25rem 1rem; background:#f79a3b30; white-space:pre-wrap; overflow-wrap:anywhere; }
+.quest-preview .guide-exchange .quest-message-guide { align-self:flex-start; max-width:90%; margin:0; padding:.7rem .85rem; border:1px solid var(--q-note-line); border-radius:1rem 1rem 1rem .25rem; background:color-mix(in srgb,var(--q-note-bg) 75%,transparent); overflow-wrap:anywhere; }
+.quest-preview .guide-exchange > nav { align-self:flex-start; max-width:100%; }
+@media(max-width:64rem) {
+ .quest-preview .quest-conversation.guide-dialog { position:fixed; inset:var(--guide-viewport-top,0px) 0 auto auto; width:min(28rem,55vw); height:var(--guide-viewport-height,100dvh); max-height:none; min-height:0; box-sizing:border-box; padding:max(1rem,env(safe-area-inset-top)) max(1rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) 1rem; border:0; border-left:1px solid var(--q-control-border); border-radius:0; background:var(--q-note-bg); color:var(--q-note-ink); box-shadow:-12px 0 36px #10202a20; z-index:40; overflow:hidden; gap:.85rem; }
+ .quest-preview .quest-conversation.guide-dialog > header { padding-bottom:.75rem; border-bottom:1px solid var(--q-note-line); }
+ .quest-preview .quest-conversation .guide-history { flex:1 1 0; max-height:none; min-height:0; padding:.1rem .15rem .75rem; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; }
+ .quest-preview .quest-conversation .quest-chat-composer { flex:none; padding-top:.25rem; }
+ .quest-preview .quest-conversation .guide-input-row { background:var(--q-note-bg); }
+}
+@media(max-width:40rem), (max-width:64rem) and (max-height:30rem) {
+ .quest-preview .quest-conversation.guide-dialog { left:0; right:0; width:100%; max-width:none; padding-left:max(1rem,env(safe-area-inset-left)); border-left:0; box-shadow:none; }
+}
+
+/* Reply attribution is quieter than the dialogue itself. */
+.quest-preview .quest-conversation.guide-dialog .quest-message-guide > strong { font-size:12px; line-height:1.4; font-weight:500; letter-spacing:.04em; text-transform:none; margin-bottom:.3rem; }
+
+/* Neutral night surfaces and explicit light copy, independent of the scene palette. */
+.quest-preview[data-light="night"] { --q-note-bg:#505050; --q-note-ink:#f5f5f5; --q-note-line:#ffffff1a; --q-control-border:#ffffff26; --q-muted:#e4e4e4; }
+.quest-preview[data-light="night"] :is(.quest-controls-panel,.quest-conversation,.island-bottom-panel,.quest-icebreaker) { --guide-ink:#f5f5f5; --guide-muted:#e4e4e4; color:var(--q-note-ink); }
+.quest-preview[data-light="night"] :is(.quest-controls-panel,.quest-conversation,.island-bottom-panel) :is(p,h2,strong,legend,label,a,textarea) { color:var(--q-note-ink); }
+.quest-preview[data-light="night"] .quest-conversation textarea::placeholder { color:var(--q-muted); }
+.quest-preview[data-light="night"] .quest-conversation .guide-history { scrollbar-color:#8a8a8a #505050; }
+.quest-preview[data-light="night"] .quest-conversation.guide-dialog { background:var(--q-note-bg); color:var(--q-note-ink); padding:1rem; border:1px solid var(--q-control-border); border-radius:1rem; box-shadow:0 12px 32px #0004; }
+.quest-preview[data-light="night"] .quest-controls-panel :is(.island-choice-row,.island-season-choices,.island-place-choices) button:not([aria-pressed="true"]):hover,
+.quest-preview[data-light="night"] .quest-controls-panel :is(.island-settings-links a,.quest-tour-buttons button,.quest-controls-actions button,.island-settings-close):hover { background:#ffffff14; color:var(--q-note-ink); }
+@media(max-width:64rem) {
+ .quest-preview[data-light="night"] .quest-conversation.guide-dialog { border-radius:0; border:0; border-left:1px solid var(--q-control-border); padding:max(1rem,env(safe-area-inset-top)) max(1rem,env(safe-area-inset-right)) max(1rem,env(safe-area-inset-bottom)) 1rem; }
+}
+@media(max-width:40rem), (max-width:64rem) and (max-height:30rem) {
+ .quest-preview[data-light="night"] .quest-conversation.guide-dialog { border-left:0; padding-left:max(1rem,env(safe-area-inset-left)); }
+}
+
+/* Quiet outlines keep night settings readable without a bright ring around every choice. */
+.quest-preview[data-light="night"] .quest-controls-panel :is(.island-choice-row button,.island-season-choices button,.island-place-choices button,.quest-tour-buttons button,.island-settings-links a) { border-color:var(--q-control-border); }
+.quest-preview[data-light="night"] .quest-controls-panel :is(button[aria-pressed="true"],button[aria-selected="true"]) { background:#dedede; color:#242424; border-color:transparent; box-shadow:none; }
+
+.island-destination-seasons { margin-top:.85rem; }
