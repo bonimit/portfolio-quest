@@ -22,7 +22,10 @@
     "test:browser": "node scripts/serve-companion-checks.mjs",
     "test:adventure:http": "node --test tests/adventure-http.test.mjs",
     "test:adventure:dev": "node scripts/check-adventure-dev.mjs",
-    "test:work:preview": "node --test tests/work-preview-http.test.mjs"
+    "test:work:preview": "node --test tests/work-preview-http.test.mjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test:storybook": "vitest run --project=storybook"
   },
   "engines": {
     "node": ">=20.9.0"
@@ -41,6 +44,19 @@
     "eslint-config-next": "16.4.5",
     "postcss": "8.5.32",
     "tailwindcss": "4.3.4",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "storybook": "^10.6.7",
+    "@storybook/nextjs-vite": "^10.6.7",
+    "@chromatic-com/storybook": "latest",
+    "@storybook/addon-vitest": "^10.6.7",
+    "@storybook/addon-a11y": "^10.6.7",
+    "@storybook/addon-docs": "^10.6.7",
+    "@storybook/addon-mcp": "^10.6.7",
+    "vite": "latest",
+    "eslint-plugin-storybook": "^10.6.7",
+    "vitest": "latest",
+    "@vitest/browser-playwright": "latest",
+    "@vitest/coverage-v8": "latest",
+    "playwright": "latest"
   }
 }

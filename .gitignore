@@ -33,3 +33,6 @@ automation/reports/
 
 # Rebuildable screenshot download archives exceed GitHub file limits
 /public/quest-preview/scene-review/all-scenes*.zip
+
+*storybook.log
+storybook-static
