@@ -1,0 +1,46 @@
+/*
+ * Typography — SPECIMEN styles (proposal only; never imported by production).
+ * All sizes come from --pqt-* custom properties injected by React from material-typography.json (see typography-model.ts).
+ * Families come from --pqt-f-* (read from production CSS / next/font). Colors are CSS system colors.
+ * No numbers are defined here except 1px hairlines; text is rem-based so 200% text-size tests are meaningful.
+ */
+.pqt { background: Canvas; color: CanvasText; font: .875rem/1.5 system-ui, sans-serif; padding: 1rem; display: grid; gap: 1rem; min-width: 0; }
+.pqt *, .pqt *::before, .pqt *::after { box-sizing: border-box; }
+.pqt h2, .pqt h3, .pqt h4, .pqt p { margin: 0; overflow-wrap: anywhere; }
+.pqt h2 { font-size: 1.25rem; line-height: 1.25; }
+.pqt h3 { font-size: 1rem; line-height: 1.25; }
+.pqt code { font: .8em ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.pqt-muted { color: GrayText; }
+.pqt-box { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; min-width: 0; }
+.pqt-tag { display: inline-block; font-size: .7rem; font-weight: 700; padding: 0 .4rem; margin-right: .3rem; border: 2px solid currentColor; border-radius: .25rem; vertical-align: middle; }
+.pqt-tag[data-kind="official"] { border-style: solid; }
+.pqt-tag[data-kind="local"] { border-style: dashed; }
+.pqt-tag[data-kind="current"] { border-style: dotted; }
+.pqt-tag[data-kind="preserved"] { border-style: double; border-width: 4px; }
+.pqt-tag[data-kind="issue"] { background: Mark; color: MarkText; }
+.pqt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
+.pqt-scroll { overflow-x: auto; max-width: 100%; }
+.pqt table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.pqt th, .pqt td { border: 1px solid GrayText; padding: .35rem .5rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.pqt th { background: color-mix(in srgb, CanvasText 8%, Canvas); }
+.pqt-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+
+/* family specimens */
+.pqt-fam-name { font-size: var(--pqt-title-large-size); line-height: 1.2; font-family: var(--pqt-f); }
+.pqt-fam-sample { font-family: var(--pqt-f); font-size: var(--pqt-body-large-size); line-height: 1.5; overflow-wrap: anywhere; }
+.pqt-fam-weights { display: grid; gap: .15rem; font-family: var(--pqt-f); font-size: var(--pqt-body-large-size); }
+.pqt-fam-weights span { overflow-wrap: anywhere; }
+
+/* role specimens: size and family from tokens, line height is the EXISTING leading (read live), never Material's */
+.pqt-role { font-family: var(--pqt-f); font-size: var(--pqt-size); line-height: var(--pqt-leading); overflow-wrap: anywhere; margin: 0; }
+.pqt-role[data-caps="true"] { text-transform: uppercase; }
+
+/* responsive frames: fixed-width containers (media queries would follow the iframe, not the frame) */
+.pqt-frames { display: grid; gap: 1rem; }
+.pqt-frame { border: 1px solid GrayText; border-radius: .5rem; padding: 1rem; width: var(--pqt-frame); max-width: none; overflow: hidden; display: grid; gap: .75rem; background: Canvas; }
+.pqt-frame-label { font-size: .75rem; color: GrayText; }
+.pqt-theme { border: 1px solid GrayText; border-radius: .5rem; padding: 1rem; display: grid; gap: .6rem; background: var(--pqt-bg, Canvas); color: var(--pqt-fg, CanvasText); min-width: 0; }
+.pqt-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; align-items: start; }
+@media (max-width: 52rem) { .pqt-pair { grid-template-columns: 1fr; } }
+.pqt-delta[data-flag="true"] { font-weight: 700; }
+.pqt-sw { display: inline-block; font-weight: 700; }

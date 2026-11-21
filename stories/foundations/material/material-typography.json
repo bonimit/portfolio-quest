@@ -1,0 +1,212 @@
+{
+ "provenance": {
+  "generatedOn": "2026-11-21",
+  "packages": {
+   "@material/web": "2.5.0"
+  },
+  "sources": [
+   "https://m3.material.io/styles/typography/type-scale-tokens (expanded folders, rendered with Playwright)",
+   "https://m3.material.io/styles/typography/overview",
+   "@material/web 2.5.0 tokens/versions/latest/sass/_md-sys-typescale.scss"
+  ],
+  "note": "Size and line height agree between the package and the rendered official page for all 15 baseline roles. 1sp = 1px = 1/16 rem on web (official conversion). Font, weight and tracking are reference only and are NOT adopted. Material publishes no per-window-class type sizes: every responsive value in the proposal is a local adaptation.",
+  "unitConversion": "Web browsers calculate the REM (the root em size) based on the root element size. The default for modern web browsers is 16px, so the conversion is SP_SIZE/16 = rem."
+ },
+ "roles": [
+  {
+   "role": "display-large",
+   "group": "display",
+   "step": "large",
+   "sizePx": 57,
+   "lineHeightPx": 64,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "-0.015625rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "display-medium",
+   "group": "display",
+   "step": "medium",
+   "sizePx": 45,
+   "lineHeightPx": 52,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "display-small",
+   "group": "display",
+   "step": "small",
+   "sizePx": 36,
+   "lineHeightPx": 44,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "headline-large",
+   "group": "headline",
+   "step": "large",
+   "sizePx": 32,
+   "lineHeightPx": 40,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "headline-medium",
+   "group": "headline",
+   "step": "medium",
+   "sizePx": 28,
+   "lineHeightPx": 36,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "headline-small",
+   "group": "headline",
+   "step": "small",
+   "sizePx": 24,
+   "lineHeightPx": 32,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "title-large",
+   "group": "title",
+   "step": "large",
+   "sizePx": 22,
+   "lineHeightPx": 28,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0rem",
+    "font": "md-ref-typeface.$brand"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "title-medium",
+   "group": "title",
+   "step": "medium",
+   "sizePx": 16,
+   "lineHeightPx": 24,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-medium",
+    "tracking": "0.009375rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "title-small",
+   "group": "title",
+   "step": "small",
+   "sizePx": 14,
+   "lineHeightPx": 20,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-medium",
+    "tracking": "0.00625rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "body-large",
+   "group": "body",
+   "step": "large",
+   "sizePx": 16,
+   "lineHeightPx": 24,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0.03125rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "body-medium",
+   "group": "body",
+   "step": "medium",
+   "sizePx": 14,
+   "lineHeightPx": 20,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0.015625rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "body-small",
+   "group": "body",
+   "step": "small",
+   "sizePx": 12,
+   "lineHeightPx": 16,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-regular",
+    "tracking": "0.025rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "label-large",
+   "group": "label",
+   "step": "large",
+   "sizePx": 14,
+   "lineHeightPx": 20,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-medium",
+    "tracking": "0.00625rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "label-medium",
+   "group": "label",
+   "step": "medium",
+   "sizePx": 12,
+   "lineHeightPx": 16,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-medium",
+    "tracking": "0.03125rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  },
+  {
+   "role": "label-small",
+   "group": "label",
+   "step": "small",
+   "sizePx": 11,
+   "lineHeightPx": 16,
+   "referenceOnly": {
+    "weight": "md-ref-typeface.$weight-medium",
+    "tracking": "0.03125rem",
+    "font": "md-ref-typeface.$plain"
+   },
+   "pageVerified": true
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "provenance": {
+  "generatedOn": "2026-11-20",
+  "packages": {
+   "@carbon/themes": "11.86.0",
+   "@carbon/styles": "1.120.0"
+  },
+  "sources": [
+   "packages/styles/scss/utilities/_box-shadow.scss",
+   "packages/styles/scss/components/popover/_popover.scss",
+   "packages/styles/scss/utilities/_z-index.scss",
+   "packages/themes (token \"shadow\")"
+  ],
+  "note": "Carbon defines no modal-dialog box-shadow: modal depth comes from the overlay scrim token. Reference data only."
+ },
+ "shadowToken": {
+  "light": "rgba(0, 0, 0, 0.3)",
+  "dark": "rgba(0, 0, 0, 0.8)"
+ },
+ "floating": {
+  "mixin": "0 2px 6px theme.$shadow",
+  "geometry": "0 2px 6px"
+ },
+ "popoverDropShadow": {
+  "color": "rgb(0, 0, 0, 0.2)",
+  "offsetY": "0.125rem",
+  "blur": "0.125rem"
+ },
+ "zIndexes": {
+  "dropdown": 9100,
+  "modal": 9000,
+  "header": 8000,
+  "overlay": 6000,
+  "floating": 6000,
+  "footer": 5000,
+  "hidden": -1,
+  "overflowHidden": -1
+ }
+}

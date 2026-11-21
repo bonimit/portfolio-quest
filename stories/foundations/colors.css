@@ -1,0 +1,98 @@
+/*
+ * Foundations / Colors — documentation chrome ONLY.
+ * Uses CSS system colors so this file contains no palette of its own.
+ * Every project color on screen comes from production CSS at build time
+ * (see color-source.ts) or from the real production stylesheet in previews.
+ */
+.fx { color-scheme: light; background: Canvas; color: CanvasText; font: 14px/1.5 system-ui, sans-serif; padding: 1.5rem; max-width: 84rem; margin: 0 auto; }
+.fx *, .fx *::before, .fx *::after { box-sizing: border-box; }
+.fx h1 { font-size: 1.75rem; margin: 0 0 .25rem; }
+.fx h2 { font-size: 1.25rem; margin: 2.25rem 0 .5rem; padding-top: 1rem; border-top: 1px solid color-mix(in srgb, CanvasText 25%, Canvas); }
+.fx h3 { font-size: 1rem; margin: 1.5rem 0 .5rem; }
+.fx h4 { margin: 0; font-size: .85rem; word-break: break-all; }
+.fx p, .fx li { max-width: 62rem; }
+.fx code { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.fx-muted { color: color-mix(in srgb, CanvasText 72%, Canvas); }
+.fx-banner { border: 2px solid CanvasText; padding: .75rem 1rem; margin: 1rem 0; background: color-mix(in srgb, Mark 30%, Canvas); }
+.fx-banner strong { display: block; }
+
+/* swatches */
+.fx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15.5rem, 1fr)); gap: 1rem; }
+.fx-swatch { border: 1px solid color-mix(in srgb, CanvasText 30%, Canvas); border-radius: 8px; overflow: hidden; background: Canvas; display: flex; flex-direction: column; }
+.fx-chip {
+  height: 4.5rem;
+  background:
+    linear-gradient(var(--fx-chip), var(--fx-chip)),
+    repeating-conic-gradient(color-mix(in srgb, CanvasText 18%, Canvas) 0 25%, Canvas 0 50%) 0 0 / 12px 12px;
+  border-bottom: 1px solid color-mix(in srgb, CanvasText 30%, Canvas);
+}
+.fx-swatch-body { padding: .6rem .75rem .75rem; display: grid; gap: .3rem; }
+.fx-swatch dl { margin: 0; display: grid; grid-template-columns: 3.1rem 1fr; gap: .1rem .5rem; font-size: 12px; }
+.fx-swatch dt { color: color-mix(in srgb, CanvasText 72%, Canvas); }
+.fx-swatch dd { margin: 0; overflow-wrap: anywhere; }
+.fx-tag { display: inline-block; font-size: 11px; padding: 0 .4rem; border: 1px solid currentColor; border-radius: 99px; margin-right: .25rem; white-space: nowrap; }
+.fx-remap { font-size: 12px; border-top: 1px dashed color-mix(in srgb, CanvasText 40%, Canvas); padding-top: .3rem; }
+.fx-remap-chip { display: inline-block; width: .9rem; height: .9rem; vertical-align: -.15rem; margin-right: .3rem; border: 1px solid CanvasText; background: var(--fx-chip); }
+
+/* tables */
+.fx-scroll { overflow-x: auto; }
+.fx table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+.fx caption { text-align: left; font-weight: 600; padding: .25rem 0; }
+.fx th, .fx td { border: 1px solid color-mix(in srgb, CanvasText 25%, Canvas); padding: .35rem .5rem; text-align: left; vertical-align: top; }
+.fx thead th { background: color-mix(in srgb, CanvasText 8%, Canvas); }
+.fx tbody th { font-weight: 500; min-width: 15rem; }
+
+/* contrast cells */
+.fx-cell { display: grid; gap: .25rem; min-width: 8.5rem; }
+.fx-sample { display: inline-block; padding: .15rem .6rem; font-weight: 700; border: 1px solid color-mix(in srgb, CanvasText 30%, Canvas); background: var(--fx-bg); color: var(--fx-fg); }
+.fx-grade { font-weight: 600; border: 2px solid CanvasText; padding: 0 .35rem; width: fit-content; }
+.fx-grade[data-grade="pass"] { border-style: solid; }
+.fx-grade[data-grade="large-only"] { border-style: dashed; background: color-mix(in srgb, Mark 40%, Canvas); }
+.fx-grade[data-grade="fail"] { border-width: 3px; background: Mark; color: MarkText; }
+.fx-grade[data-grade="info"], .fx-grade[data-grade="n/a"] { border-style: dotted; font-weight: 400; }
+.fx-flagrow th, .fx-flagrow td { background: color-mix(in srgb, Mark 18%, Canvas); }
+
+/* theme switcher */
+.fx-switcher { display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: flex-start; margin: .5rem 0 1rem; }
+.fx-switcher fieldset { border: 1px solid color-mix(in srgb, CanvasText 30%, Canvas); border-radius: 8px; margin: 0; padding: .4rem .75rem .6rem; }
+.fx-switcher legend { font-weight: 600; padding: 0 .25rem; }
+.fx-switcher label { display: inline-flex; align-items: center; gap: .3rem; margin-right: .9rem; min-height: 2rem; cursor: pointer; }
+.fx-switcher input { accent-color: CanvasText; }
+.fx-switcher input:focus-visible { outline: 3px solid CanvasText; outline-offset: 2px; }
+
+/* previews */
+.fx-preview-note { margin: .25rem 0 .5rem; }
+/* The transform makes this the containing block for position:fixed pseudo-elements in the real Adventure CSS (Neon scanlines, Island clouds). */
+.fx-adv-scope { position: relative; transform: translateZ(0); overflow: hidden; isolation: isolate; border: 1px solid color-mix(in srgb, CanvasText 40%, Canvas); border-radius: 8px; }
+.fx-adv-scope .adventure { min-height: 0; padding-top: 0; overflow: hidden; }
+.fx-adv-scope .adventure[data-theme] .lineup { height: auto; min-height: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: none; padding: 1rem 1.5rem 1.5rem; }
+.fx-adv-scope .adventure[data-theme] .tile { height: auto; min-height: 0; }
+.fx-adv-scope .adventure[data-theme] .tile .prev { display: block; flex: none; height: 6rem; min-height: 0; background: var(--c); }
+.fx-adv-scope .adventure[data-theme] .hint { padding: 0 1.5rem 1rem; display: flex; gap: .75rem; align-items: center; }
+@media (max-width: 40rem) { .fx-adv-scope .adventure[data-theme] .lineup { grid-template-columns: 1fr; } }
+
+.fx-ed { background: var(--color-paper); color: var(--color-ink); border: 1px solid var(--color-border); font-family: var(--font-body); }
+.fx-ed > * { padding: 1.25rem; }
+.fx-ed-hero { background: var(--color-accent); border-bottom: 1px solid var(--color-ink); }
+.fx-ed-hero h3, .fx-ed-alt h3 { margin: 0 0 .4rem; font-size: 1.5rem; }
+.fx-ed-alt { background: var(--color-secondary-paper); }
+.fx-ed-muted { color: var(--color-muted); }
+.fx-ed button { font: inherit; min-height: 2.75rem; padding: 0 1rem; border: 2px solid var(--color-ink); background: var(--color-ink); color: var(--color-paper); }
+.fx-ed button.fx-ed-secondary { background: transparent; color: var(--color-ink); }
+.fx-ed button:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 4px; }
+.fx-ed-chips { display: flex; flex-wrap: wrap; gap: .5rem; }
+.fx-ed-chips span { padding: .2rem .7rem; border-radius: 99px; color: var(--color-ink); background: var(--fx-pastel); }
+.fx-ed-footer { background: var(--color-ink); color: var(--color-paper); }
+.fx-ed-footer small { color: var(--landing-footer-muted); }
+.fx-ed-footer b { color: var(--color-accent); }
+
+.fx-isl { background: linear-gradient(165deg, var(--sky-top), var(--sky-bottom)); color: var(--q-ink); padding: 1.5rem; display: grid; gap: 1rem; border-radius: 8px; }
+.fx-isl[data-light="night"] { color: var(--q-paper); }
+.fx-isl-panel { background: var(--q-note-bg); color: var(--q-note-ink); border: 1px solid var(--q-control-border); border-radius: 12px; padding: 1rem; display: grid; gap: .6rem; max-width: 26rem; }
+.fx-isl-panel p { margin: 0; }
+.fx-isl-panel .fx-isl-hint { color: var(--q-muted); }
+.fx-isl-panel hr { width: 100%; border: 0; border-top: 1px solid var(--q-note-line); margin: 0; }
+.fx-isl-controls { display: flex; gap: .5rem; flex-wrap: wrap; }
+.fx-isl-controls button { font: inherit; min-height: 2.5rem; padding: 0 .9rem; background: transparent; color: var(--q-note-ink); border: 1px solid var(--q-control-border); border-radius: 99px; }
+.fx-isl-controls button[aria-pressed="true"] { background: var(--q-note-ink); color: var(--q-note-bg); }
+.fx-isl-orange { color: var(--q-orange); font-weight: 700; }

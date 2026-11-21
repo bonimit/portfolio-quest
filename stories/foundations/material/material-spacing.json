@@ -1,0 +1,237 @@
+{
+ "provenance": {
+  "retrievedOn": "2026-11-20",
+  "pages": {
+   "tokens": "https://m3.material.io/styles/spacing/tokens",
+   "overview": "https://m3.material.io/styles/spacing/overview",
+   "applying": "https://m3.material.io/styles/spacing/applying-spacing",
+   "breakpoints": "https://m3.material.io/foundations/layout/breakpoints",
+   "compact": "https://m3.material.io/foundations/layout/breakpoints/compact",
+   "medium": "https://m3.material.io/foundations/layout/breakpoints/medium",
+   "expanded": "https://m3.material.io/foundations/layout/breakpoints/expanded",
+   "largeXl": "https://m3.material.io/foundations/layout/breakpoints/large-extra-large",
+   "density": "https://m3.material.io/foundations/layout/grids-spacing/density"
+  },
+  "package": "@material/web 2.5.0",
+  "note": "System spacing tokens are published for Jetpack Compose (Web listed \"Unavailable\"). Component values come from the Material Web package and use the legacy \"-space\" token naming; Material states new tokens will use padding/margin/gap. Every web mapping (1dp = 1px, rem output, semantic names) is a local adaptation."
+ },
+ "quotes": {
+  "composeOnly": "The spacing system tokens are only used on Jetpack Compose.",
+  "webUnavailable": "Web Unavailable",
+  "nested": "Values other than multiples of 8 are also used in layouts and Material components, like 2dp, 4dp, 6dp, and 10dp.",
+  "textScale": "When text is scaled up to 200%, the same spacing should be preserved by default.",
+  "multiplier": "Follow the multiplier pattern for new space tokens, so space225 = 18dp (8dp x 2.25).",
+  "adaptive": "Adaptive layout: Map the spacing to different system tokens for each device type, such as mobile or desktop Density: Adapt vertical padding to different spacing values for each setting link Copy link pause Components can be customized to adapt spacing to each form factor pause Components can be customized to adapt spacing to density settings arrow_left_alt Previous Spacing: Overview Up next arrow_right_alt Spacing: Tokens material_design Material Design is an adaptable system of guidelines, components, and tools that support the best practices of user interface design.",
+  "lineLength": "keep text between 40–60 characters per line.",
+  "density": "Higher density is typically applied by decreasing the top and bottom padding or overall height by 4dp.",
+  "buttonTarget": "Button with height of 36dp and interaction target of 48dp."
+ },
+ "baseUnit": 8,
+ "scale": [
+  {
+   "token": "space0",
+   "label": "Space 0",
+   "dp": 0
+  },
+  {
+   "token": "space25",
+   "label": "Space 25",
+   "dp": 2
+  },
+  {
+   "token": "space50",
+   "label": "Space 50",
+   "dp": 4
+  },
+  {
+   "token": "space75",
+   "label": "Space 75",
+   "dp": 6
+  },
+  {
+   "token": "space100",
+   "label": "Space 100",
+   "dp": 8
+  },
+  {
+   "token": "space125",
+   "label": "Space 125",
+   "dp": 10
+  },
+  {
+   "token": "space150",
+   "label": "Space 150",
+   "dp": 12
+  },
+  {
+   "token": "space175",
+   "label": "Space 175",
+   "dp": 14
+  },
+  {
+   "token": "space200",
+   "label": "Space 200",
+   "dp": 16
+  },
+  {
+   "token": "space250",
+   "label": "Space 250",
+   "dp": 20
+  },
+  {
+   "token": "space300",
+   "label": "Space 300",
+   "dp": 24
+  },
+  {
+   "token": "space400",
+   "label": "Space 400",
+   "dp": 32
+  },
+  {
+   "token": "space450",
+   "label": "Space 450",
+   "dp": 36
+  },
+  {
+   "token": "space500",
+   "label": "Space 500",
+   "dp": 40
+  },
+  {
+   "token": "space600",
+   "label": "Space 600",
+   "dp": 48
+  },
+  {
+   "token": "space700",
+   "label": "Space 700",
+   "dp": 56
+  },
+  {
+   "token": "space800",
+   "label": "Space 800",
+   "dp": 64
+  },
+  {
+   "token": "space900",
+   "label": "Space 900",
+   "dp": 72
+  }
+ ],
+ "breakpoints": {
+  "compact": {
+   "min": 0,
+   "max": 599
+  },
+  "medium": {
+   "min": 600,
+   "max": 839
+  },
+  "expanded": {
+   "min": 840,
+   "max": 1199
+  },
+  "large": {
+   "min": 1200,
+   "max": 1599
+  },
+  "extraLarge": {
+   "min": 1600,
+   "max": null
+  }
+ },
+ "layout": {
+  "compact": {
+   "margin": 16
+  },
+  "medium": {
+   "margin": 24,
+   "spacer": 24
+  },
+  "expanded": {
+   "margin": 24,
+   "spacer": 24,
+   "fixedPane": 360
+  },
+  "large": {
+   "margin": 24,
+   "spacer": 24,
+   "fixedPane": 412
+  },
+  "extraLarge": {
+   "margin": 24,
+   "spacer": 24,
+   "fixedPane": 412
+  }
+ },
+ "panes": {
+  "compact": "1",
+  "medium": "1 (recommended) or 2",
+  "expanded": "1 or 2 (recommended)",
+  "large": "1 or 2 (recommended)",
+  "extraLarge": "1 to 3 (recommended)"
+ },
+ "components": {
+  "filled-button": {
+   "leading-space": 24,
+   "trailing-space": 24,
+   "with-leading-icon-leading-space": 16,
+   "with-leading-icon-trailing-space": 24,
+   "icon-size": null,
+   "container-height": 40
+  },
+  "outlined-button": {
+   "leading-space": 24,
+   "trailing-space": 24
+  },
+  "text-button": {
+   "leading-space": 12,
+   "trailing-space": 12
+  },
+  "assist-chip": {
+   "leading-space": 16,
+   "trailing-space": 16,
+   "icon-label-space": 8,
+   "with-leading-icon-leading-space": 8,
+   "container-height": 32
+  },
+  "filter-chip": {
+   "leading-space": 16,
+   "trailing-space": 16,
+   "icon-label-space": 8,
+   "container-height": 32
+  },
+  "filled-text-field": {
+   "leading-space": 16,
+   "trailing-space": 16,
+   "top-space": 16,
+   "bottom-space": 16,
+   "icon-input-space": 16,
+   "with-label-top-space": 8,
+   "with-label-bottom-space": 8
+  },
+  "outlined-text-field": {
+   "leading-space": 16,
+   "trailing-space": 16,
+   "top-space": 16,
+   "bottom-space": 16,
+   "icon-input-space": 16
+  },
+  "menu": {
+   "top-space": 8,
+   "bottom-space": 8
+  },
+  "list-item": {
+   "top-space": 12,
+   "bottom-space": 12
+  }
+ },
+ "dialog": {
+  "headerPadding": "24px 24px 0",
+  "contentPadding": "24px",
+  "actionsPadding": "16px 24px 24px",
+  "gap": 8
+ },
+ "touchTarget": 48
+}

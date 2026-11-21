@@ -2,9 +2,11 @@ import type { StorybookConfig } from '@storybook/nextjs-vite';
 
 const config: StorybookConfig = {
   core: { disableTelemetry: true },
-  "stories": [
-    "../stories/**/*.mdx",
-    "../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)"
+  // Catalog cleared at the owner's request. Source files are retained.
+  // Foundations / Colors is the only section listed; Example and Review stories stay out of the catalog.
+  stories: [
+    "./empty/**/*.stories.@(js|jsx|mjs|ts|tsx)",
+    "../stories/foundations/**/*.stories.@(ts|tsx)"
   ],
   "addons": [
     "@chromatic-com/storybook",
