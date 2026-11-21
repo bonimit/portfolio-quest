@@ -1,0 +1,93 @@
+/*
+ * Icons & Illustrations — SPECIMEN styles (proposal only; never imported by production).
+ * Icon size, fill and optical size are set by the Icon wrapper through --pqi-* custom properties (values come from icons-model.ts).
+ * Colors are Carbon --pqc-* tokens injected by ModeFrame, or CSS system colors outside a ModeFrame. No numbers here except 1px
+ * hairlines. The glyph is a ligature: the text inside .pqi-g is the icon NAME, hidden from assistive tech and from selection.
+ */
+.pqi-page { background: Canvas; color: CanvasText; font: .875rem/1.5 system-ui, sans-serif; padding: 1rem; display: grid; gap: 1rem; min-width: 0; }
+.pqi-page *, .pqi-page *::before, .pqi-page *::after { box-sizing: border-box; }
+.pqi-page h1, .pqi-page h2, .pqi-page h3, .pqi-page p { margin: 0; overflow-wrap: anywhere; }
+.pqi-page h2 { font-size: 1.25rem; line-height: 1.25; }
+.pqi-page h3 { font-size: 1rem; line-height: 1.25; }
+.pqi-page code, .pqi-page pre { font: .8em ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.pqi-page pre { white-space: pre-wrap; margin: 0; }
+.pqi-muted { color: GrayText; }
+.pqi-box { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; min-width: 0; }
+.pqi-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.pqi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; }
+.pqi-scroll { overflow-x: auto; max-width: 100%; }
+.pqi-page table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.pqi-page th, .pqi-page td { border: 1px solid GrayText; padding: .35rem .5rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.pqi-page th { background: color-mix(in srgb, CanvasText 8%, Canvas); }
+.pqi-tag { display: inline-block; font-size: .7rem; font-weight: 700; padding: 0 .4rem; margin-right: .3rem; border: 2px solid currentColor; border-radius: .25rem; vertical-align: middle; }
+.pqi-tag[data-kind="official"] { border-style: solid; }
+.pqi-tag[data-kind="local"] { border-style: dashed; }
+.pqi-tag[data-kind="current"] { border-style: dotted; border-width: 3px; }
+.pqi-tag[data-kind="preserved"] { border-style: double; border-width: 4px; }
+.pqi-tag[data-kind="issue"] { background: Mark; color: MarkText; }
+.pqi-tag[data-kind="owner"] { border-style: solid; border-width: 3px; }
+.pqi-btn { font: inherit; min-height: 2.75rem; padding: 0 1rem; border: 1px solid CanvasText; border-radius: 999px; background: Canvas; color: CanvasText; cursor: pointer; }
+.pqi-btn:focus-visible { outline: 3px solid Highlight; outline-offset: 3px; }
+
+/* the Icon wrapper */
+.pqi { display: inline-grid; place-items: center; width: var(--pqi-size); height: var(--pqi-size); flex: none; overflow: hidden; color: var(--pqi-color, CanvasText); line-height: 1; }
+.pqi-g { font-family: "Material Symbols Rounded"; font-weight: 400; font-style: normal; font-size: var(--pqi-size); line-height: 1; letter-spacing: normal; text-transform: none; display: block; white-space: nowrap; direction: ltr;
+  user-select: none; -webkit-user-select: none; font-feature-settings: "liga"; -webkit-font-smoothing: antialiased; font-variation-settings: "FILL" var(--pqi-fill), "wght" 400, "GRAD" 0, "opsz" var(--pqi-opsz); }
+@media (prefers-reduced-motion: no-preference) { .pqi-g { transition: font-variation-settings var(--pqi-ms, 200ms) var(--pqi-ease, ease); } }
+.pqi[data-missing="true"] { width: auto; height: auto; padding: 0 .25rem; border: 1px dashed currentColor; font: 11px/1.2 ui-monospace, monospace; }
+
+/* icon-only button: hit area is independent of the glyph; selection changes FILL, hover only changes the state layer */
+.pqi-btn-icon { display: inline-grid; place-items: center; min-width: var(--pqi-target); min-height: var(--pqi-target); padding: 0; border: 0; border-radius: 999px; background: transparent; color: var(--pqc-icon-primary, CanvasText); cursor: pointer; }
+.pqi-btn-icon:hover, .pqi-btn-icon.is-hover { background: var(--pqc-layer-hover, color-mix(in srgb, CanvasText 8%, transparent)); }
+.pqi-btn-icon:focus-visible { outline: 3px solid var(--pqc-focus, Highlight); outline-offset: 2px; }
+.pqi-btn-icon[aria-pressed="true"] { color: var(--pqc-interactive-primary, CanvasText); }
+.pqi-btn-icon:disabled { color: var(--pqc-icon-disabled, GrayText); cursor: not-allowed; }
+
+/* component specimens (Carbon surfaces from ModeFrame) */
+.pqi-stack { display: grid; gap: 1rem; min-width: 0; }
+.pqi-sbtn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font: 600 .9rem/1 system-ui, sans-serif; min-height: 2.75rem; padding: 0 1.25rem; border-radius: 999px; border: 1px solid transparent; cursor: pointer;
+  background: var(--pqc-interactive-primary); color: var(--pqc-on-interactive-primary); }
+.pqi-sbtn--text { background: transparent; color: var(--pqc-text-primary); border-color: var(--pqc-border-strong); }
+.pqi-chip { display: inline-flex; align-items: center; gap: .35rem; font: 500 .85rem/1 system-ui, sans-serif; min-height: 2.75rem; padding: 0 .75rem; border-radius: 999px; background: transparent; color: var(--pqc-text-primary); border: 1px solid var(--pqc-border-strong); cursor: pointer; }
+.pqi-chip[aria-pressed="true"] { background: var(--pqc-chip-selected); color: var(--pqc-on-chip-selected); border-color: var(--pqc-chip-selected); }
+.pqi-chip .pqi { color: inherit; }
+.pqi-field { display: flex; align-items: center; gap: .5rem; min-height: 2.75rem; border: 1px solid var(--pqc-border-strong); border-radius: .5rem; background: var(--pqc-field); padding: 0 .25rem 0 .75rem; color: var(--pqc-text-primary); }
+.pqi-field input { flex: 1; min-width: 0; border: 0; background: transparent; color: inherit; font: inherit; min-height: 2.5rem; outline: none; }
+.pqi-field:focus-within { outline: 3px solid var(--pqc-focus); outline-offset: 3px; }
+.pqi-nav { display: flex; gap: .25rem; flex-wrap: wrap; border-bottom: 1px solid var(--pqc-border-subtle-00); padding-bottom: .5rem; }
+.pqi-nav-item { display: inline-flex; flex-direction: column; align-items: center; gap: .25rem; min-width: var(--pqi-target); min-height: var(--pqi-target); padding: .25rem .75rem; border-radius: .5rem; color: var(--pqc-text-secondary); text-decoration: underline; text-underline-offset: .2em; background: transparent; border: 0; font: .75rem/1.2 system-ui, sans-serif; cursor: pointer; }
+.pqi-nav-item .pqi { color: var(--pqc-icon-secondary); padding: .25rem 1rem; width: auto; }
+.pqi-nav-item[aria-current="page"] { color: var(--pqc-text-primary); text-decoration-thickness: .2em; font-weight: 700; }
+.pqi-nav-item[aria-current="page"] .pqi { color: var(--pqc-icon-primary); }
+.pqi-pill { display: grid; place-items: center; border-radius: 999px; padding: .25rem 1rem; }
+.pqi-nav-item[aria-current="page"] .pqi-pill { background: var(--pqc-layer-selected-01); }
+.pqi-dialog { display: grid; gap: .75rem; background: var(--pqc-layer); border: 1px solid var(--pqc-border-subtle); border-radius: 1.75rem; padding: 1.25rem; max-width: 26rem; box-shadow: var(--pqs-shadow-modal, none); }
+.pqi-dialog header { display: flex; align-items: center; gap: .75rem; }
+.pqi-dialog header h3 { flex: 1; }
+.pqi-swatch { display: inline-block; width: 1.1rem; height: 1.1rem; vertical-align: -.25rem; margin-right: .35rem; border: 1px solid CanvasText; }
+
+/* gallery */
+.pqi-cell { display: grid; justify-items: center; gap: .35rem; padding: .5rem; border: 1px solid GrayText; border-radius: .5rem; background: Canvas; color: CanvasText; font: .7rem/1.2 ui-monospace, monospace; cursor: pointer; text-align: center; min-height: 5.5rem; overflow-wrap: anywhere; }
+.pqi-cell[aria-pressed="true"] { outline: 3px solid Highlight; }
+.pqi-cell:focus-visible { outline: 3px solid Highlight; outline-offset: 2px; }
+.pqi-cells { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: .5rem; }
+.pqi-copy { font: inherit; min-height: 2.75rem; padding: 0 .75rem; border: 1px solid CanvasText; border-radius: .5rem; background: Canvas; color: CanvasText; cursor: pointer; }
+.pqi-snippet { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .5rem; align-items: start; }
+.pqi-checker { background: repeating-conic-gradient(color-mix(in srgb, CanvasText 12%, Canvas) 0 25%, Canvas 0 50%) 0 0 / 1rem 1rem; }
+
+/* 3D illustration system: guideline diagrams and PLANNED slots (no finished artwork) */
+.pqi-slot { display: inline-block; vertical-align: middle; position: relative; width: var(--pqi-slot); height: var(--pqi-slot); flex: none; border: 1px dashed GrayText; border-radius: .25rem; background: Canvas; color: GrayText; }
+.pqi-slot::after { content: ""; position: absolute; inset: 10%; border: 1px dashed color-mix(in srgb, GrayText 60%, Canvas); }
+.pqi-slot[data-planned="true"] { border-style: solid; }
+.pqi-slot svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pqi-diagram { width: 100%; max-width: 20rem; aspect-ratio: 1; border: 1px solid GrayText; border-radius: .5rem; background: Canvas; display: block; }
+.pqi-diagram text { font: 3.5px system-ui, sans-serif; fill: CanvasText; }
+.pqi-diagram .guide { fill: none; stroke: GrayText; stroke-width: .35; stroke-dasharray: 1.2 1.2; }
+.pqi-diagram .safe { fill: color-mix(in srgb, Highlight 10%, transparent); stroke: Highlight; stroke-width: .5; stroke-dasharray: 2 1; }
+.pqi-diagram .edge { stroke-linejoin: round; stroke-width: 1.6; }
+.pqi-rampsw { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .25rem; }
+.pqi-rampsw > div { height: 3rem; border: 1px solid CanvasText; display: grid; place-items: end start; padding: .15rem; font-size: .65rem; color: CanvasText; }
+.pqi-frame { border: 1px solid GrayText; border-radius: .5rem; padding: 1rem; width: var(--pqi-frame); overflow: hidden; display: grid; gap: 1rem; background: Canvas; }
+.pqi-frame-label { font-size: .75rem; color: GrayText; }
+.pqi-ctx { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+.pqi-card { display: grid; gap: .5rem; justify-items: start; border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; min-width: 0; }

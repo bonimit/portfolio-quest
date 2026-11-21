@@ -1,0 +1,1346 @@
+{
+ "generatedOn": "2026-11-21",
+ "excluded": [
+  "public/quest-preview/scene-review/**"
+ ],
+ "count": 191,
+ "files": [
+  {
+   "path": "guide/assistant-atlas.webp",
+   "dir": "guide",
+   "bytes": 196594,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "guide/assistant-idle.webp",
+   "dir": "guide",
+   "bytes": 11366,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 52406,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/autumn-dusk.webp",
+   "dir": "quest-preview",
+   "bytes": 51534,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/bangkok-raining-day.webp",
+   "dir": "quest-preview",
+   "bytes": 31518,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/bangkok-raining-night.webp",
+   "dir": "quest-preview",
+   "bytes": 27216,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/bangkok-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 52296,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/bangkok-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 38758,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/bangkok-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 33996,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/bangkok-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 26598,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/classic-day.webp",
+   "dir": "quest-preview",
+   "bytes": 49950,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/classic-night.webp",
+   "dir": "quest-preview",
+   "bytes": 48876,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/banner.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 2968,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/base.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 61122,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/curtains.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 2862,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/lantern-0.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 2926,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/lantern-1.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 2942,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/lantern-2.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 2938,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/concept-study/tokyo-autumn-day.webp",
+   "dir": "quest-preview/concept-study",
+   "bytes": 61722,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/frost-day.webp",
+   "dir": "quest-preview",
+   "bytes": 47612,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/frost-dusk.webp",
+   "dir": "quest-preview",
+   "bytes": 50548,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/guide/poses.png",
+   "dir": "quest-preview/guide",
+   "bytes": 296674,
+   "w": 712,
+   "h": 1500
+  },
+  {
+   "path": "quest-preview/heritage-bangkok-raining-day.webp",
+   "dir": "quest-preview",
+   "bytes": 39646,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-bangkok-raining-night.webp",
+   "dir": "quest-preview",
+   "bytes": 41644,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-bangkok-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 43138,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-bangkok-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 40380,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-bangkok-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44678,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-bangkok-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 41666,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 47356,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-autumn-night.webp",
+   "dir": "quest-preview",
+   "bytes": 43730,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-spring-day.webp",
+   "dir": "quest-preview",
+   "bytes": 45228,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-spring-night.webp",
+   "dir": "quest-preview",
+   "bytes": 42576,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 43580,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 40840,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44446,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-nyc-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 47098,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44964,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-autumn-night.webp",
+   "dir": "quest-preview",
+   "bytes": 41482,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-spring-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44946,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-spring-night.webp",
+   "dir": "quest-preview",
+   "bytes": 42130,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 42658,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 39368,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 43970,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/heritage-tokyo-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 45706,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/meadow-day.webp",
+   "dir": "quest-preview",
+   "bytes": 49950,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/meadow-dusk.webp",
+   "dir": "quest-preview",
+   "bytes": 48876,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-bangkok-raining-day.webp",
+   "dir": "quest-preview",
+   "bytes": 45934,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-bangkok-raining-night.webp",
+   "dir": "quest-preview",
+   "bytes": 41382,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-bangkok-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 48760,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-bangkok-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 41326,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-bangkok-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 53032,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-bangkok-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 46026,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 47432,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-autumn-night.webp",
+   "dir": "quest-preview",
+   "bytes": 38554,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-spring-day.webp",
+   "dir": "quest-preview",
+   "bytes": 45244,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-spring-night.webp",
+   "dir": "quest-preview",
+   "bytes": 37852,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44424,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 37008,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 45022,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-nyc-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 38056,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 41876,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-autumn-night.webp",
+   "dir": "quest-preview",
+   "bytes": 34440,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-spring-day.webp",
+   "dir": "quest-preview",
+   "bytes": 41180,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-spring-night.webp",
+   "dir": "quest-preview",
+   "bytes": 34438,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44488,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 38140,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 42492,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/new-tokyo-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 37730,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 41436,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-autumn-night.webp",
+   "dir": "quest-preview",
+   "bytes": 32392,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-spring-day.webp",
+   "dir": "quest-preview",
+   "bytes": 42356,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-spring-night.webp",
+   "dir": "quest-preview",
+   "bytes": 35264,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 40706,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 34730,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 34556,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/nyc-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 32072,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/pets/capybara.webp",
+   "dir": "quest-preview/pets",
+   "bytes": 122574,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/pets/cat.webp",
+   "dir": "quest-preview/pets",
+   "bytes": 158898,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/pets/frenchie.webp",
+   "dir": "quest-preview/pets",
+   "bytes": 117604,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/pets/kitsune.webp",
+   "dir": "quest-preview/pets",
+   "bytes": 183226,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/pets/sloth.webp",
+   "dir": "quest-preview/pets",
+   "bytes": 117272,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/autumn-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 52406,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/autumn-dusk.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 51534,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/bangkok-raining-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 44594,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/bangkok-raining-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 35874,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/bangkok-summer-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 48968,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/bangkok-summer-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 36902,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/bangkok-winter-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 51976,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/bangkok-winter-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 39526,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/frost-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 47612,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/frost-dusk.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 50548,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/meadow-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 49950,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/meadow-dusk.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 48876,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-autumn-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 67280,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-autumn-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 52372,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-spring-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 65474,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-spring-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 52736,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-summer-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 65580,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-summer-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 52914,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-winter-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 68408,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/nyc-winter-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 59960,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/pets/capybara.webp",
+   "dir": "quest-preview/restored/pets",
+   "bytes": 122574,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/pets/cat.webp",
+   "dir": "quest-preview/restored/pets",
+   "bytes": 158898,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-canalmarket-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 43768,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-canalmarket-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 35734,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-centralpark-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 57978,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-centralpark-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 44944,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-coney-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 40244,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-coney-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 33698,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-highline-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 54144,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-highline-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 41956,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-hokkaido-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 42834,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-hokkaido-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 41576,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-inthanon-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 50692,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-inthanon-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 39348,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-krabi-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 70168,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-krabi-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 52432,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-kyoto-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 41026,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-kyoto-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 33222,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-nikko-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 42350,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-nikko-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 32688,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-okinawa-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 62370,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-okinawa-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 51590,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-rockefeller-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 50770,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/place-rockefeller-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 46600,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-autumn-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 55342,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-autumn-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 42964,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-spring-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 55174,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-spring-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 43852,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-summer-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 50116,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-summer-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 41968,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-winter-day.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 59114,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/restored/tokyo-winter-night.webp",
+   "dir": "quest-preview/restored",
+   "bytes": 56408,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/bangkok-raining-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 55412,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/bangkok-raining-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 47156,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/bangkok-summer-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 60012,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/bangkok-summer-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 48570,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/bangkok-winter-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 63280,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/bangkok-winter-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 48716,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-autumn-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 71322,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-autumn-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 64320,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-spring-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 69814,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-spring-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 63642,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-summer-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 68408,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-summer-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 62140,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-winter-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 68126,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/nyc-winter-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 66204,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-canalmarket-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 56744,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-canalmarket-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 45720,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-centralpark-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 61770,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-centralpark-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 51808,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-coney-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 51896,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-coney-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 45482,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-hakuba-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 52558,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-hakuba-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 51516,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-highline-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 64538,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-highline-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 49906,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-hokkaido-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 51470,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-hokkaido-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 49270,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-inthanon-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 62290,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-inthanon-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 54268,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-karuizawa-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 105290,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-karuizawa-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 78264,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-karuizawa-spring-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 105716,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-karuizawa-spring-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 85676,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-krabi-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 68538,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-krabi-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 52372,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-kyoto-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 51496,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-kyoto-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 40980,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-nikko-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 54314,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-nikko-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 42986,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-okinawa-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 67920,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-okinawa-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 53486,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-rockefeller-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 69348,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/place-rockefeller-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 67904,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-autumn-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 64150,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-autumn-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 47634,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-spring-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 61542,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-spring-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 46970,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-summer-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 59044,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-summer-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 45202,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-winter-day.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 63706,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/three-path/tokyo-winter-night.webp",
+   "dir": "quest-preview/three-path",
+   "bytes": 59284,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-autumn-day.webp",
+   "dir": "quest-preview",
+   "bytes": 37806,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-autumn-night.webp",
+   "dir": "quest-preview",
+   "bytes": 30306,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-spring-day.webp",
+   "dir": "quest-preview",
+   "bytes": 42102,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-spring-night.webp",
+   "dir": "quest-preview",
+   "bytes": 34218,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-summer-day.webp",
+   "dir": "quest-preview",
+   "bytes": 44650,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-summer-night.webp",
+   "dir": "quest-preview",
+   "bytes": 37142,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-winter-day.webp",
+   "dir": "quest-preview",
+   "bytes": 33184,
+   "w": null,
+   "h": null
+  },
+  {
+   "path": "quest-preview/tokyo-winter-night.webp",
+   "dir": "quest-preview",
+   "bytes": 30828,
+   "w": null,
+   "h": null
+  }
+ ]
+}

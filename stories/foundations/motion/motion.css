@@ -1,0 +1,76 @@
+/*
+ * Motion & Animation — SPECIMEN styles (proposal only; never imported by production).
+ * Durations and easings come from --pqm-* custom properties injected by React from material-motion.json (typed in motion-model.ts).
+ * Colors are CSS system colors or the Carbon --pqc-* variables injected by ModeFrame. No numbers are defined here except 1px
+ * hairlines; the few geometry values use rem so 200% text-size tests are meaningful.
+ */
+.pqm { background: Canvas; color: CanvasText; font: .875rem/1.5 system-ui, sans-serif; padding: 1rem; display: grid; gap: 1rem; min-width: 0; }
+.pqm *, .pqm *::before, .pqm *::after { box-sizing: border-box; }
+.pqm h1, .pqm h2, .pqm h3, .pqm p { margin: 0; overflow-wrap: anywhere; }
+.pqm h2 { font-size: 1.25rem; line-height: 1.25; }
+.pqm h3 { font-size: 1rem; line-height: 1.25; }
+.pqm code { font: .8em ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.pqm-muted { color: GrayText; }
+.pqm-box { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; min-width: 0; }
+.pqm-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.pqm-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 1rem; }
+.pqm-scroll { overflow-x: auto; max-width: 100%; }
+.pqm table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.pqm th, .pqm td { border: 1px solid GrayText; padding: .35rem .5rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.pqm th { background: color-mix(in srgb, CanvasText 8%, Canvas); }
+.pqm-tag { display: inline-block; font-size: .7rem; font-weight: 700; padding: 0 .4rem; margin-right: .3rem; border: 2px solid currentColor; border-radius: .25rem; vertical-align: middle; }
+.pqm-tag[data-kind="official"] { border-style: solid; }
+.pqm-tag[data-kind="official-pair"] { border-style: solid; border-width: 3px; }
+.pqm-tag[data-kind="package"] { border-style: dotted; }
+.pqm-tag[data-kind="local"] { border-style: dashed; }
+.pqm-tag[data-kind="current"] { border-style: dotted; border-width: 3px; }
+.pqm-tag[data-kind="preserved"] { border-style: double; border-width: 4px; }
+.pqm-tag[data-kind="issue"] { background: Mark; color: MarkText; }
+.pqm-btn { font: inherit; min-height: 2.75rem; padding: 0 1rem; border: 1px solid CanvasText; border-radius: 999px; background: Canvas; color: CanvasText; cursor: pointer; }
+.pqm-btn:focus-visible, .pqm-chip:focus-visible, .pqm-menuitem:focus-visible { outline: 3px solid Highlight; outline-offset: 3px; }
+
+/* three-state motion control */
+.pqm-pref { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.pqm-pref label { display: inline-flex; gap: .35rem; align-items: center; min-height: 2.75rem; }
+
+/* easing curves */
+.pqm-curve { width: 100%; max-width: 12rem; aspect-ratio: 1; border: 1px solid GrayText; display: block; }
+.pqm-curve path.c { fill: none; stroke: CanvasText; stroke-width: 2; }
+.pqm-curve line { stroke: GrayText; stroke-width: 1; stroke-dasharray: 3 3; }
+.pqm-track { position: relative; height: 1.5rem; border-bottom: 1px solid GrayText; }
+.pqm-dot { position: absolute; left: 0; top: 0; width: 1.25rem; height: 1.25rem; border-radius: 50%; background: CanvasText; }
+.pqm-dur-row { display: grid; grid-template-columns: 10rem 4.5rem minmax(0, 1fr); gap: .5rem; align-items: center; }
+@media (max-width: 40rem) { .pqm-dur-row { grid-template-columns: 7rem 3.5rem minmax(0, 1fr); } }
+.pqm-bar { height: 1rem; background: repeating-linear-gradient(135deg, GrayText 0 .25rem, transparent .25rem .5rem); outline: 1px solid GrayText; width: var(--pqm-bar); max-width: 100%; }
+
+/* transition lab */
+.pqm-stage { position: relative; height: 8rem; border: 1px solid GrayText; border-radius: .5rem; overflow: hidden; display: grid; place-items: center; }
+.pqm-item { width: 5rem; height: 3rem; border-radius: .5rem; background: Highlight; color: HighlightText; display: grid; place-items: center; font-weight: 700; }
+.pqm-expand { width: 10rem; height: 4rem; border-radius: .5rem; background: Highlight; color: HighlightText; display: grid; place-items: center; }
+
+/* components: state layer is a colour transition driven by tokens, never movement, so it is kept under Reduce */
+.pqm-surface { background: var(--pqc-background); color: var(--pqc-text-primary); border: 1px solid var(--pqc-border-subtle-00); border-radius: .5rem; padding: var(--pqx-spacing-component-gap, 1rem); display: grid; gap: 1rem; min-width: 0; }
+.pqm-sbtn { font: 600 .9rem/1 system-ui, sans-serif; min-height: 2.75rem; padding: 0 1.25rem; border-radius: 999px; border: 1px solid transparent; cursor: pointer; position: relative; overflow: hidden;
+  background: var(--pqc-interactive-primary); color: var(--pqc-on-interactive-primary); transition: background-color var(--pqm-state-ms) var(--pqm-state-ease); }
+.pqm-sbtn:hover, .pqm-sbtn.is-hover { background: var(--pqc-interactive-primary-hover); }
+.pqm-sbtn:active, .pqm-sbtn.is-pressed { background: var(--pqc-interactive-primary-active); }
+.pqm-chip { font: 500 .85rem/1 system-ui, sans-serif; min-height: 2.75rem; padding: 0 .9rem; border-radius: 999px; background: transparent; color: var(--pqc-text-primary); border: 1px solid var(--pqc-border-strong); cursor: pointer; transition: background-color var(--pqm-state-ms) var(--pqm-state-ease), border-color var(--pqm-state-ms) var(--pqm-state-ease); }
+.pqm-chip:hover { background: var(--pqc-layer-hover); }
+.pqm-chip[aria-pressed="true"] { background: var(--pqc-chip-selected); color: var(--pqc-on-chip-selected); border-color: var(--pqc-chip-selected); }
+.pqm-anchor { position: relative; display: inline-block; }
+.pqm-menu { position: absolute; top: calc(100% + .25rem); left: 0; min-width: 11rem; background: var(--pqc-layer); border: var(--pqs-floating-border-w, 1px) solid var(--pqs-floating-border, var(--pqc-border-subtle)); border-radius: .5rem; box-shadow: var(--pqs-shadow-floating); padding: .25rem; display: grid; z-index: 2; }
+.pqm-menu[hidden] { display: none; }
+.pqm-menuitem { font: inherit; text-align: left; min-height: 2.75rem; padding: 0 .75rem; border: 0; border-radius: .25rem; background: transparent; color: var(--pqc-text-primary); cursor: pointer; }
+.pqm-menuitem:hover { background: var(--pqc-layer-hover); }
+.pqm-device { position: relative; border: 1px solid GrayText; border-radius: .5rem; overflow: hidden; width: var(--pqm-frame); max-width: none; min-height: 18rem; background: var(--pqc-background); color: var(--pqc-text-primary); display: grid; align-content: start; justify-items: start; gap: .75rem; padding: 1rem; }
+.pqm-scrim { position: absolute; inset: 0; background: var(--pqc-overlay); }
+.pqm-scrim[hidden], .pqm-dialog[hidden] { display: none; }
+.pqm-dialog { position: absolute; background: var(--pqc-layer); color: var(--pqc-text-primary); border: 1px solid var(--pqc-border-subtle); box-shadow: var(--pqs-shadow-modal); display: grid; gap: .75rem; padding: var(--pqx-dialog-padding, 1.5rem); }
+.pqm-dialog[data-kind="dialog"] { left: 50%; top: 50%; translate: -50% -50%; width: min(24rem, calc(100% - 2rem)); border-radius: 1.75rem; }
+.pqm-dialog[data-kind="sheet"] { left: 0; right: 0; bottom: 0; border-radius: 1.75rem 1.75rem 0 0; }
+.pqm-note { font-size: .75rem; color: GrayText; }
+
+/* preserved CSS-only keyframe previews: keyframes are injected verbatim (renamed pqm-*); timing is read live from production */
+.pqm-pv { position: relative; height: 5rem; border: 1px solid GrayText; border-radius: .5rem; display: grid; place-items: center; overflow: hidden; }
+.pqm-pv > i { display: block; width: 2.5rem; height: 2.5rem; border-radius: .5rem; background: Highlight; animation-play-state: paused; }
+.pqm-pv[data-run="true"] > i { animation-play-state: running; }
