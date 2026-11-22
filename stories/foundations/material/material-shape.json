@@ -1,0 +1,537 @@
+{
+ "provenance": {
+  "generatedOn": "2026-11-21",
+  "packages": {
+   "@material/web": "2.5.0"
+  },
+  "pages": {
+   "scale": {
+    "requested": "/styles/shape/corner-radius-scale",
+    "landedOn": "/styles/shape/corner-radius-scale",
+    "h1": "Shape"
+   },
+   "principles": {
+    "requested": "/styles/shape/overview",
+    "landedOn": "/styles/shape/overview-principles",
+    "h1": "Shape"
+   },
+   "morph": {
+    "requested": "/styles/shape/shape-morph",
+    "landedOn": "/styles/shape/shape-morph",
+    "h1": "Shape"
+   }
+  },
+  "note": "The nine numeric steps agree between the package and the rendered corner-radius-scale page. `full` (9999px) and the asymmetric tokens are package-only. Component shapes come from @material/web component tokens (package-only). Several shape URLs redirect to one overview-principles page. The pages contain no per-window-class shape guidance, so every responsive statement in the proposal is local."
+ },
+ "scale": [
+  {
+   "token": "md.sys.shape.corner.none",
+   "name": "none",
+   "px": 0,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.extra-small",
+   "name": "extra-small",
+   "px": 4,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.small",
+   "name": "small",
+   "px": 8,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.medium",
+   "name": "medium",
+   "px": 12,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.large",
+   "name": "large",
+   "px": 16,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.large-increased",
+   "name": "large-increased",
+   "px": 20,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.extra-large",
+   "name": "extra-large",
+   "px": 28,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.extra-large-increased",
+   "name": "extra-large-increased",
+   "px": 32,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.extra-extra-large",
+   "name": "extra-extra-large",
+   "px": 48,
+   "pageVerified": true
+  },
+  {
+   "token": "md.sys.shape.corner.full",
+   "name": "full",
+   "px": 9999,
+   "note": "The page says only \"fully rounded corners\". 9999px is the package value."
+  }
+ ],
+ "asymmetric": [
+  {
+   "token": "md.sys.shape.corner.extra-small-top",
+   "name": "extra-small-top",
+   "corners": {
+    "tl": 4,
+    "tr": 4,
+    "br": 0,
+    "bl": 0
+   }
+  },
+  {
+   "token": "md.sys.shape.corner.large-top",
+   "name": "large-top",
+   "corners": {
+    "tl": 16,
+    "tr": 16,
+    "br": 0,
+    "bl": 0
+   }
+  },
+  {
+   "token": "md.sys.shape.corner.large-start",
+   "name": "large-start",
+   "corners": {
+    "tl": 16,
+    "tr": 0,
+    "br": 0,
+    "bl": 16
+   }
+  },
+  {
+   "token": "md.sys.shape.corner.large-end",
+   "name": "large-end",
+   "corners": {
+    "tl": 0,
+    "tr": 16,
+    "br": 16,
+    "bl": 0
+   }
+  },
+  {
+   "token": "md.sys.shape.corner.extra-large-top",
+   "name": "extra-large-top",
+   "corners": {
+    "tl": 28,
+    "tr": 28,
+    "br": 0,
+    "bl": 0
+   }
+  }
+ ],
+ "components": [
+  {
+   "id": "button",
+   "label": "Button (round)",
+   "file": "_md-comp-button.scss",
+   "tokens": [
+    {
+     "name": "container-shape-round",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    },
+    {
+     "name": "container-shape-square",
+     "ref": "md.sys.shape.corner.medium",
+     "css": "12px"
+    },
+    {
+     "name": "pressed-container-shape",
+     "ref": "md.sys.shape.corner.small",
+     "css": "8px"
+    },
+    {
+     "name": "selected-container-shape-round",
+     "ref": "md.sys.shape.corner.medium",
+     "css": "12px"
+    }
+   ]
+  },
+  {
+   "id": "filled-button-legacy",
+   "label": "Filled button (legacy web component)",
+   "file": "_md-comp-filled-button.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    }
+   ]
+  },
+  {
+   "id": "assist-chip",
+   "label": "Assist chip",
+   "file": "_md-comp-assist-chip.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.small",
+     "css": "8px"
+    }
+   ]
+  },
+  {
+   "id": "filter-chip",
+   "label": "Filter chip",
+   "file": "_md-comp-filter-chip.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.small",
+     "css": "8px"
+    }
+   ]
+  },
+  {
+   "id": "input-chip",
+   "label": "Input chip",
+   "file": "_md-comp-input-chip.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.small",
+     "css": "8px"
+    }
+   ]
+  },
+  {
+   "id": "suggestion-chip",
+   "label": "Suggestion chip",
+   "file": "_md-comp-suggestion-chip.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.small",
+     "css": "8px"
+    }
+   ]
+  },
+  {
+   "id": "outlined-text-field",
+   "label": "Outlined text field",
+   "file": "_md-comp-outlined-text-field.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-small",
+     "css": "4px"
+    }
+   ]
+  },
+  {
+   "id": "filled-text-field",
+   "label": "Filled text field",
+   "file": "_md-comp-filled-text-field.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-small-top",
+     "css": "4px 4px 0px 0px"
+    }
+   ]
+  },
+  {
+   "id": "menu",
+   "label": "Menu (md-menu, baseline)",
+   "file": "_md-comp-menu.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-small",
+     "css": "4px"
+    }
+   ]
+  },
+  {
+   "id": "menus",
+   "label": "Menus (expressive)",
+   "file": "_md-comp-menus.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.large",
+     "css": "16px"
+    },
+    {
+     "name": "group-shape",
+     "ref": "md.sys.shape.corner.small",
+     "css": "8px"
+    }
+   ]
+  },
+  {
+   "id": "dialog",
+   "label": "Dialog",
+   "file": "_md-comp-dialog.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-large",
+     "css": "28px"
+    }
+   ]
+  },
+  {
+   "id": "full-screen-dialog",
+   "label": "Full-screen dialog",
+   "file": "_md-comp-full-screen-dialog.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.none",
+     "css": "0px"
+    }
+   ]
+  },
+  {
+   "id": "sheet-bottom",
+   "label": "Bottom sheet",
+   "file": "_md-comp-sheet-bottom.scss",
+   "tokens": [
+    {
+     "name": "docked-container-shape",
+     "ref": "md.sys.shape.corner.extra-large-top",
+     "css": "28px 28px 0px 0px"
+    },
+    {
+     "name": "docked-minimized-container-shape",
+     "ref": "md.sys.shape.corner.none",
+     "css": "0px"
+    }
+   ]
+  },
+  {
+   "id": "sheet-floating",
+   "label": "Floating sheet",
+   "file": "_md-comp-sheet-floating.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-large",
+     "css": "28px"
+    }
+   ]
+  },
+  {
+   "id": "sheet-side",
+   "label": "Side sheet",
+   "file": "_md-comp-sheet-side.scss",
+   "tokens": [
+    {
+     "name": "detached-container-shape",
+     "ref": "md.sys.shape.corner.large",
+     "css": "16px"
+    },
+    {
+     "name": "docked-container-shape",
+     "ref": "md.sys.shape.corner.none",
+     "css": "0px"
+    },
+    {
+     "name": "docked-modal-container-shape",
+     "ref": "md.sys.shape.corner.large-start",
+     "css": "16px 0px 0px 16px"
+    }
+   ]
+  },
+  {
+   "id": "elevated-card",
+   "label": "Elevated card",
+   "file": "_md-comp-elevated-card.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.medium",
+     "css": "12px"
+    }
+   ]
+  },
+  {
+   "id": "filled-card",
+   "label": "Filled card",
+   "file": "_md-comp-filled-card.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.medium",
+     "css": "12px"
+    }
+   ]
+  },
+  {
+   "id": "outlined-card",
+   "label": "Outlined card",
+   "file": "_md-comp-outlined-card.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.medium",
+     "css": "12px"
+    }
+   ]
+  },
+  {
+   "id": "fab",
+   "label": "Floating action button",
+   "file": "_md-comp-fab.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.large",
+     "css": "16px"
+    }
+   ]
+  },
+  {
+   "id": "snackbar",
+   "label": "Snackbar",
+   "file": "_md-comp-snackbar.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-small",
+     "css": "4px"
+    }
+   ]
+  },
+  {
+   "id": "plain-tooltip",
+   "label": "Plain tooltip",
+   "file": "_md-comp-plain-tooltip.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.extra-small",
+     "css": "4px"
+    }
+   ]
+  },
+  {
+   "id": "rich-tooltip",
+   "label": "Rich tooltip",
+   "file": "_md-comp-rich-tooltip.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.medium",
+     "css": "12px"
+    }
+   ]
+  },
+  {
+   "id": "search-bar",
+   "label": "Search bar",
+   "file": "_md-comp-search-bar.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    }
+   ]
+  },
+  {
+   "id": "checkbox",
+   "label": "Checkbox",
+   "file": "_md-comp-checkbox.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": null,
+     "css": "2px",
+     "literal": true
+    }
+   ]
+  },
+  {
+   "id": "switch",
+   "label": "Switch",
+   "file": "_md-comp-switch.scss",
+   "tokens": [
+    {
+     "name": "track-shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    },
+    {
+     "name": "handle-shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    }
+   ]
+  },
+  {
+   "id": "navigation-bar",
+   "label": "Navigation bar",
+   "file": "_md-comp-navigation-bar.scss",
+   "tokens": [
+    {
+     "name": "container-shape",
+     "ref": "md.sys.shape.corner.none",
+     "css": "0px"
+    },
+    {
+     "name": "active-indicator-shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    }
+   ]
+  },
+  {
+   "id": "segmented-button",
+   "label": "Segmented button",
+   "file": "_md-comp-outlined-segmented-button.scss",
+   "tokens": [
+    {
+     "name": "shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    }
+   ]
+  },
+  {
+   "id": "badge",
+   "label": "Badge",
+   "file": "_md-comp-badge.scss",
+   "tokens": [
+    {
+     "name": "shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    },
+    {
+     "name": "large-shape",
+     "ref": "md.sys.shape.corner.full",
+     "css": "9999px"
+    }
+   ]
+  }
+ ],
+ "quotes": {
+  "tenStyles": "The Material 3 shape system uses a size-based scale with ten styles.",
+  "assigned": "Styles are assigned to components based on the desired amount of roundedness.",
+  "asymmetric": "Asymmetrical shapes are used in M3 components with closely-grouped items, such as menus and split buttons.",
+  "customize": "Generally, products should consistently use the Material 3 shape styles. However, customization is sometimes necessary, and even encouraged, for hero moments or custom components.",
+  "fullWas50": "Updated fully rounded corners to use full. Previously, this was defined using 50% of the component size.",
+  "defaultRounded": "Rectangular shapes are fully rounded in all corners by default"
+ }
+}
