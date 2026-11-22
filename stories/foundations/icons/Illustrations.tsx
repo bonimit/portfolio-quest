@@ -3,7 +3,7 @@ import type {CSSProperties, ReactNode} from 'react';
 import './icons.css';
 import {
   CAMERA, CANVAS, DEFAULT_ILL, DENSITIES, FRAMES, HUES, ILL_SIZES, LIGHT, MASTER_PX, MATERIALS, NAMING, OPTICAL, PLANNED, RAMP, RASTER_MIN_DENSITY, RESPONSIVE, SHADOW, SPEC,
-  cubeFaces, deliveredPx, hueRgb, illPx, inkRgb, lightVector, margin, plannedName, rampCss, sizeFor, specJson, type Hue, type IllKey, type Planned,
+  ACCEPTANCE, BRIEFS, PRODUCTION_ROUTES, cubeFaces, deliveredPx, hueRgb, illPx, inkRgb, lightVector, margin, plannedName, rampCss, sizeFor, specJson, type Hue, type IllKey, type Planned,
 } from './illustration-model';
 import {Tag, CopyButton, Snippet} from './Icons';
 import {assetDirs} from './icons-census';
@@ -327,6 +327,29 @@ export function IllExceptions() {
           {/* eslint-disable-next-line @next/next/no-img-element -- read-only previews of production files by URL */}
           <div className="pqi-row">{d.sample.map(f => <img key={f} src={`/${f}`} alt="" width={64} height={64} loading="lazy" style={{objectFit: 'contain', imageRendering: /pets|guide/.test(d.dir) ? 'pixelated' : 'auto'}} className="pqi-checker" />)}</div></article>
       ))}</div>
+    </section>
+  );
+}
+
+export function ProductionBrief() {
+  return (
+    <section style={brandStyle()}>
+      <p data-testid="brief-note"><Tag kind="issue">Not produced</Tag> These are briefs for whoever makes the art. They are assembled from the spec constants, so they cannot drift from it. No asset was generated and nothing was sent to any service.</p>
+      <h2>How the assets could be made (owner decision)</h2>
+      <div className="pqi-scroll"><table data-testid="routes-table"><thead><tr><th>Route</th><th>Strength</th><th>Risk</th></tr></thead>
+        <tbody>{PRODUCTION_ROUTES.map(r => <tr key={r.id}><td>{r.label}</td><td>{r.fit}</td><td>{r.risk}</td></tr>)}</tbody></table></div>
+      <h2>Per-asset briefs</h2>
+      <div className="pqi-grid" data-testid="brief-grid">
+        {BRIEFS.map(b => (
+          <article key={b.subject} className="pqi-card" data-testid={`brief-${b.subject}`}>
+            <h3>{b.label}</h3>
+            <Snippet label={`Brief: ${b.label}`} code={b.text} />
+            <div className="pqi-row"><CopyButton text={b.text} label={`Copy ${b.label} brief`} /></div>
+          </article>
+        ))}
+      </div>
+      <h2>Acceptance checklist</h2>
+      <ul data-testid="acceptance">{ACCEPTANCE.map(a => <li key={a}>{a}</li>)}</ul>
     </section>
   );
 }

@@ -180,3 +180,31 @@ export const PLANNED: Planned[] = [
 ];
 export const plannedName = (p: Planned, k: IllKey) => `pq-ill-${p.subject}${k === 'xs' || k === 's' ? '-sm' : ''}@2x.webp`;
 export const specJson = () => ({naming: NAMING, sizes: ILL_SIZES.map(s => ({key: s.key, px: s.px, delivered: {'2x': deliveredPx(s.key, 2), '3x': deliveredPx(s.key, 3)}})), canvas: CANVAS, camera: CAMERA, light: LIGHT, shadow: SHADOW, ramp: RAMP, spec: SPEC, planned: PLANNED.map(p => ({subject: p.subject, destination: p.destination, hue: p.hue, status: p.status}))});
+
+/* ------------------------------------------------------- production brief */
+
+/** Ways the real assets could be made. LOCAL comparison for owner decision; nothing here has been run or sent anywhere. */
+export const PRODUCTION_ROUTES = [
+  {id: 'illustrator', label: 'Commissioned 3D illustrator', fit: 'Best control of silhouette, material and set consistency.', risk: 'Cost and lead time; needs this brief and the review checklist.'},
+  {id: 'dcc', label: 'In-house 3D tool (Blender or similar)', fit: 'Camera, light and shadow values in this spec map directly to scene settings, so the set stays identical.', risk: 'Needs 3D modelling skill; six subjects is a small set.'},
+  {id: 'generative', label: 'AI image generation, then curated', fit: 'Fast exploration of motifs.', risk: 'Hard to hold one camera, light and palette across a set; needs licence and originality review; the prompt would leave this machine, so it needs owner approval first.'},
+] as const;
+
+export type Brief = {subject: string; label: string; destination: string; hue: Hue; motif: string; text: string};
+/** One production brief per planned subject, assembled only from the constants above so it cannot drift from the spec. */
+export function briefFor(p: Planned): Brief {
+  const text = [
+    `Subject: ${p.label} (${p.destination}). Motif: ${p.motif.replace(/ \(.*\)$/, '')}. One simple object, readable as a silhouette at ${illPx('xs')}px.`,
+    `Canvas: ${MASTER_PX}x${MASTER_PX} square, transparent background, artwork inside the central ${CANVAS.safeArea * 100}% safe area.`,
+    `Camera: ${CAMERA.name}, yaw ${CAMERA.yawDeg} degrees, pitch ${CAMERA.pitchDeg} degrees, looking slightly down.`,
+    `Light: one soft key from upper left (azimuth ${LIGHT.azimuthDeg}, elevation ${LIGHT.elevationDeg}), weak fill at ${LIGHT.fillIntensity}.`,
+    `Material: ${MATERIALS[0].name} by default. Rounded forms, no sharp edges, no glints.`,
+    `Color: base ${p.hue} from the Portfolio Quest palette, at most 3 hues, ${RAMP.map(r => `${r.step} ${r.pct ? `${r.mix} ${r.pct}%` : 'base'}`).join(', ')}.`,
+    `Shadow: soft contact ellipse on the ground line, baked in, down-right.`,
+    `Do not include: text, logos, characters, copies of any third-party artwork.`,
+    `Deliver: ${plannedName(p, 'm')} and 3x, plus the PNG master; add a simplified small variant only if the squint test fails.`,
+  ].join('\n');
+  return {subject: p.subject, label: p.label, destination: p.destination, hue: p.hue, motif: p.motif, text};
+}
+export const BRIEFS = PLANNED.map(briefFor);
+export const ACCEPTANCE = [...SPEC.review, 'Matches the shared camera, light and shadow of the other assets in the set.', 'Exports meet the naming, density and size-budget rules.'];

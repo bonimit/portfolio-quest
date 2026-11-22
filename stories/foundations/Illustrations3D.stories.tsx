@@ -1,8 +1,8 @@
 import type {Meta, StoryObj} from '@storybook/nextjs-vite';
 import {expect, within} from 'storybook/test';
-import {AssetGallery, AssetSpec, CanvasGrid, ColorMaterial, IllBanner, IllExceptions, PerspectiveLighting, ResponsiveComparison, SizeScaleIll, UsageExamples} from './icons/Illustrations';
+import {AssetGallery, AssetSpec, CanvasGrid, ColorMaterial, IllBanner, IllExceptions, PerspectiveLighting, ProductionBrief, ResponsiveComparison, SizeScaleIll, UsageExamples} from './icons/Illustrations';
 import {Page, Tag} from './icons/Icons';
-import {CANVAS, DEFAULT_ILL, DENSITIES, HUES, ILL_SIZES, MASTER_PX, PLANNED, RASTER_MIN_DENSITY, RESPONSIVE, SHADOW, cubeFaces, deliveredPx, illPx, sizeFor, specJson} from './icons/illustration-model';
+import {BRIEFS, CANVAS, DEFAULT_ILL, DENSITIES, HUES, ILL_SIZES, MASTER_PX, PLANNED, RASTER_MIN_DENSITY, RESPONSIVE, SHADOW, cubeFaces, deliveredPx, illPx, sizeFor, specJson} from './icons/illustration-model';
 
 /*
  * Foundations / Icons & Illustrations / 3D Illustrations — a DESIGN SYSTEM AND ASSET SPECIFICATION. No finished illustration exists:
@@ -170,5 +170,22 @@ export const IllustrationExceptions: Story = {
     await expect(c.getByTestId('ill-exceptions')).toHaveTextContent(/Preserved/);
     await expect(c.getByTestId('ill-dir-guide')).toBeVisible();
     await expect(c.getByTestId('ill-exceptions')).toHaveTextContent('destination-art.tsx');
+  },
+};
+
+export const ProductionBriefStory: Story = {
+  name: 'Production Brief',
+  render: () => <Page title="Production brief (no artwork produced)" testId="ill-page"><IllBanner /><ProductionBrief /></Page>,
+  play: async ({canvasElement}) => {
+    const c = within(canvasElement);
+    await expect(c.getByTestId('brief-note')).toHaveTextContent(/nothing was sent/);
+    await expect(c.getByTestId('brief-grid').children.length).toBe(PLANNED.length);
+    await expect(c.getByTestId('brief-grid').querySelectorAll('img').length).toBe(0);
+    for (const b of BRIEFS) {
+      await expect(b.text).toContain(`${CANVAS.safeArea * 100}%`);
+      await expect(b.text).toContain(`${MASTER_PX}x${MASTER_PX}`);
+      await expect(b.text).toMatch(/Do not include: text, logos/);
+    }
+    await expect(c.getByTestId('acceptance').children.length).toBeGreaterThanOrEqual(5);
   },
 };
