@@ -12,7 +12,7 @@ import {
 import {ThemePreview, useAudit} from './ColorFoundations';
 
 /*
- * Colors v2 · Carbon proposal. A NEW, separately named version: the existing "Foundations/Colors" stories are untouched.
+ * Colors · Carbon. The CANONICAL color foundation (owner decision: Option A, ink / paper primary). The original Colors stories are kept under Archive / Colors (original).
  * Proposal only. Carbon data: carbon/carbon-tokens.json (generated). Brand colors: read live from production CSS.
  */
 type Args = {mode: Mode | 'both'; opt: PrimaryOption};
@@ -26,7 +26,7 @@ const Page = ({title, children}: {title: string; children: ReactNode}) => (
 const specimenA11y = {test: 'todo', config: {rules: [{id: 'color-contrast', enabled: false}]}} as const;
 
 const meta = {
-  title: 'Foundations/Colors v2 (Carbon proposal)',
+  title: 'Foundations/Colors',
   parameters: {layout: 'fullscreen', a11y: specimenA11y},
   argTypes: {mode: {control: 'inline-radio', options: ['light', 'dark', 'both']}, opt: {control: 'inline-radio', options: ['A', 'B']}},
   args: {mode: 'both', opt: 'A'},
@@ -38,9 +38,9 @@ const norm = (css: string) => { const c = parseColor(css.trim()); return c ? toH
 
 export const StartHere: Story = {
   render: () => (
-    <Page title="Colors v2 · Carbon proposal — start here">
+    <Page title="Colors · Carbon (canonical) — start here">
       <h2>Direction chosen by the owner</h2>
-      <p><strong>Colors v2 is the chosen direction. Primary action: {PRIMARY_OPTIONS.A.name}.</strong> The other open decisions below use the suggested defaults and are not yet confirmed. Colors v1 stays as the current-state reference. No production CSS has changed and no migration has started.</p>
+      <p><strong>This is the canonical color foundation (owner decision). Primary action: {PRIMARY_OPTIONS.A.name}.</strong> The other open decisions below use the suggested defaults and are not yet confirmed. The original Colors section is kept in Archive / Colors (original). No production CSS has changed and no migration has started.</p>
       <h2>What this proposes</h2>
       <ul>
         <li><Badge kind="proposed" />Neutrals, layering, semantic tokens and support colors from IBM Carbon: <strong>Light = White theme</strong>, <strong>Dark = Gray 100</strong>.</li>

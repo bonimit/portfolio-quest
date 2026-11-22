@@ -3,7 +3,7 @@ import type {CSSProperties, ReactNode} from 'react';
 import './icons.css';
 import {
   CAMERA, CANVAS, DEFAULT_ILL, DENSITIES, FRAMES, HUES, ILL_SIZES, LIGHT, MASTER_PX, MATERIALS, NAMING, OPTICAL, PLANNED, RAMP, RASTER_MIN_DENSITY, RESPONSIVE, SHADOW, SPEC,
-  ACCEPTANCE, BRIEFS, PRODUCTION_ROUTES, cubeFaces, deliveredPx, hueRgb, illPx, inkRgb, lightVector, margin, plannedName, rampCss, sizeFor, specJson, type Hue, type IllKey, type Planned,
+  ACCEPTANCE, AI_GATES, BRIEFS, PRODUCTION_ROUTES, cubeFaces, deliveredPx, hueRgb, illPx, inkRgb, lightVector, margin, plannedName, rampCss, sizeFor, specJson, type Hue, type IllKey, type Planned,
 } from './illustration-model';
 import {Tag, CopyButton, Snippet} from './Icons';
 import {assetDirs} from './icons-census';
@@ -335,9 +335,12 @@ export function ProductionBrief() {
   return (
     <section style={brandStyle()}>
       <p data-testid="brief-note"><Tag kind="issue">Not produced</Tag> These are briefs for whoever makes the art. They are assembled from the spec constants, so they cannot drift from it. No asset was generated and nothing was sent to any service.</p>
-      <h2>How the assets could be made (owner decision)</h2>
+      <h2>How the assets will be made</h2>
+      <p data-testid="route-decided"><Tag kind="owner" /> The owner selected <strong>AI-generated artwork, then human-curated</strong> as the future production approach. <strong>Nothing has been generated</strong> and no prompt has been sent; every gate below must pass first.</p>
       <div className="pqi-scroll"><table data-testid="routes-table"><thead><tr><th>Route</th><th>Strength</th><th>Risk</th></tr></thead>
         <tbody>{PRODUCTION_ROUTES.map(r => <tr key={r.id}><td>{r.label}</td><td>{r.fit}</td><td>{r.risk}</td></tr>)}</tbody></table></div>
+      <h2>Gates before the first prompt</h2>
+      <ol data-testid="ai-gates">{AI_GATES.map(g => <li key={g}>{g}</li>)}</ol>
       <h2>Per-asset briefs</h2>
       <div className="pqi-grid" data-testid="brief-grid">
         {BRIEFS.map(b => (

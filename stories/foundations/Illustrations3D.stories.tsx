@@ -5,12 +5,12 @@ import {Page, Tag} from './icons/Icons';
 import {BRIEFS, CANVAS, DEFAULT_ILL, DENSITIES, HUES, ILL_SIZES, MASTER_PX, PLANNED, RASTER_MIN_DENSITY, RESPONSIVE, SHADOW, cubeFaces, deliveredPx, illPx, sizeFor, specJson} from './icons/illustration-model';
 
 /*
- * Foundations / Icons & Illustrations / 3D Illustrations — a DESIGN SYSTEM AND ASSET SPECIFICATION. No finished illustration exists:
+ * Foundations / Illustrations / 3D Spot Illustrations — a DESIGN SYSTEM AND ASSET SPECIFICATION. No finished illustration exists:
  * diagrams use neutral primitives drawn from the shared constants, and slots are empty placeholders. The five sizes and the 64px default
  * are owner-specified; every other number is a local proposal. The style is a proposal, not an approved replacement for any existing art.
  */
 const specimenA11y = {test: 'todo', config: {rules: [{id: 'color-contrast', enabled: false}]}} as const;
-const meta = {title: 'Foundations/Icons & Illustrations/3D Illustrations', parameters: {layout: 'fullscreen', a11y: specimenA11y}} satisfies Meta;
+const meta = {title: 'Foundations/Illustrations/3D Spot Illustrations', parameters: {layout: 'fullscreen', a11y: specimenA11y}} satisfies Meta;
 export default meta;
 type Story = StoryObj;
 
@@ -20,7 +20,7 @@ const lum = (css: string) => { const n = (css.match(/[\d.]+/g) ?? []).map(Number
 
 export const Overview: Story = {
   render: () => (
-    <Page title="Foundations / Icons & Illustrations · 3D Illustrations" testId="ill-page">
+    <Page title="Foundations / Illustrations · 3D Spot Illustrations" testId="ill-page">
       <IllBanner />
       <h2>Direction</h2>
       <ul>
@@ -30,9 +30,9 @@ export const Overview: Story = {
       </ul>
       <h2>Sections</h2>
       <ol><li>Size Scale</li><li>Canvas Grid &amp; Safe Area</li><li>Perspective &amp; Lighting</li><li>Color &amp; Material</li><li>Responsive Size Comparison</li><li>Asset Gallery (planned, none produced)</li><li>Usage Examples</li><li>Asset Specification</li><li>Custom Illustration Exceptions</li></ol>
-      <h2>Open decisions (none are decided)</h2>
+      <h2>Open decisions</h2>
       <ol>
-        <li><strong>How the real assets get produced.</strong> A vector approximation is not rendered 3D. Believable dimensional lighting normally comes from a 3D tool or a skilled illustrator; this system specifies the result and does not fake it.</li>
+        <li><strong>How the real assets get produced (decided).</strong> The owner selected AI-generated artwork, human-curated, as the future approach, behind the gates on the Production Brief page. Nothing is generated yet, and a vector approximation is not rendered 3D.</li>
         <li>The camera (yaw {30}°, pitch {25}°), light direction and contact-shadow values.</li>
         <li>The responsive mapping per context (Responsive Size Comparison).</li>
         <li>Whether the contact shadow is baked into the asset (proposed) or rendered separately.</li>
@@ -42,7 +42,7 @@ export const Overview: Story = {
     </Page>
   ),
   play: async ({canvasElement}) => {
-    await expect(within(canvasElement).getByText(/Open decisions/)).toBeVisible();
+    await expect(within(canvasElement).getByText('Open decisions')).toBeVisible();
     await expect(ILL_SIZES.map(s => s.px)).toEqual([32, 48, 64, 96, 128]);
     await expect(illPx(DEFAULT_ILL)).toBe(64);
     await expect(CANVAS.safeArea).toBe(0.8);
@@ -179,6 +179,8 @@ export const ProductionBriefStory: Story = {
   play: async ({canvasElement}) => {
     const c = within(canvasElement);
     await expect(c.getByTestId('brief-note')).toHaveTextContent(/nothing was sent/);
+    await expect(c.getByTestId('route-decided')).toHaveTextContent(/Nothing has been generated/);
+    await expect(c.getByTestId('ai-gates').children.length).toBeGreaterThanOrEqual(6);
     await expect(c.getByTestId('brief-grid').children.length).toBe(PLANNED.length);
     await expect(c.getByTestId('brief-grid').querySelectorAll('img').length).toBe(0);
     for (const b of BRIEFS) {

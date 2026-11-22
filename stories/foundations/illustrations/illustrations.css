@@ -1,0 +1,70 @@
+/*
+ * Illustrations — SPECIMEN styles (documentation only; never imported by production).
+ * Existing artwork is shown read-only by URL. Proposed specimens are plain shapes drawn here and are always labelled.
+ * Colors are Carbon --pqc-* variables injected by ModeFrame, or CSS system colors outside it. Only 1px hairlines and rem/px for art boxes
+ * whose size IS the documented value (set through custom properties by React).
+ */
+.pqn-page { background: Canvas; color: CanvasText; font: .875rem/1.5 system-ui, sans-serif; padding: 1rem; display: grid; gap: 1rem; min-width: 0; }
+.pqn-page *, .pqn-page *::before, .pqn-page *::after { box-sizing: border-box; }
+.pqn-page h1, .pqn-page h2, .pqn-page h3, .pqn-page p { margin: 0; overflow-wrap: anywhere; }
+.pqn-page h2 { font-size: 1.25rem; line-height: 1.25; }
+.pqn-page h3 { font-size: 1rem; line-height: 1.25; }
+.pqn-page code { font: .8em ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.pqn-muted { color: GrayText; }
+.pqn-box { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; min-width: 0; }
+.pqn-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: flex-end; }
+.pqn-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+.pqn-scroll { overflow-x: auto; max-width: 100%; }
+.pqn-page table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.pqn-page th, .pqn-page td { border: 1px solid GrayText; padding: .35rem .5rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.pqn-page th { background: color-mix(in srgb, CanvasText 8%, Canvas); }
+.pqn-card { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; display: grid; gap: .5rem; align-content: start; min-width: 0; }
+/* Basis tags: shape and border style, never color alone */
+.pqn-tag { display: inline-block; font-size: .7rem; font-weight: 700; padding: 0 .4rem; margin-right: .3rem; border: 2px solid currentColor; border-radius: .25rem; vertical-align: middle; }
+.pqn-tag[data-kind="measured"] { border-style: dotted; border-width: 3px; }
+.pqn-tag[data-kind="owner"] { border-style: solid; border-width: 3px; }
+.pqn-tag[data-kind="local"] { border-style: dashed; }
+.pqn-tag[data-kind="open"] { background: Mark; color: MarkText; }
+.pqn-tag[data-kind="existing"] { border-style: double; border-width: 4px; }
+.pqn-tag[data-kind="proposed"] { border-style: dashed; border-width: 3px; }
+.pqn-tag[data-kind="preserved"] { border-style: double; border-width: 4px; }
+.pqn-tag[data-kind="do"] { border-style: solid; }
+.pqn-tag[data-kind="dont"] { background: Mark; color: MarkText; }
+.pqn-btn { font: inherit; min-height: 2.75rem; padding: 0 1rem; border: 1px solid CanvasText; border-radius: 999px; background: Canvas; color: CanvasText; cursor: pointer; }
+.pqn-btn[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+.pqn-btn:focus-visible { outline: 3px solid Highlight; outline-offset: 3px; }
+.pqn-cell > div + div { margin-top: .35rem; }
+
+/* existing artwork, read-only */
+.pqn-checker { background: repeating-conic-gradient(color-mix(in srgb, CanvasText 12%, Canvas) 0 25%, Canvas 0 50%) 0 0 / 1rem 1rem; }
+.pqn-img { display: block; max-width: 100%; height: auto; border: 1px solid GrayText; }
+.pqn-sprite { background-repeat: no-repeat; flex: none; }
+.pqn-sprite[data-pixel="true"] { image-rendering: pixelated; }
+.pqn-thumb { width: 100%; height: auto; aspect-ratio: 1440 / 980; object-fit: cover; border: 1px solid GrayText; border-radius: .25rem; background: Canvas; }
+
+/* proposed ratio frames: plain outlines with a diagonal, size set by React */
+.pqn-ratio { width: var(--pqn-w); aspect-ratio: var(--pqn-rw) / var(--pqn-rh); max-width: 100%; border: 2px dashed CanvasText; display: grid; place-items: center; font-size: .75rem; position: relative; background: linear-gradient(to top right, transparent calc(50% - 1px), color-mix(in srgb, CanvasText 35%, Canvas) 50%, transparent calc(50% + 1px)); }
+.pqn-ratio > span { background: Canvas; padding: 0 .35rem; }
+.pqn-frame { border: 1px solid GrayText; border-radius: .25rem; overflow: hidden; width: var(--pqn-frame); max-width: 100%; padding: var(--pqn-pad, 1rem); display: grid; gap: .5rem; }
+.pqn-frame-wrap { overflow-x: auto; max-width: 100%; padding-bottom: .25rem; }
+.pqn-frame-wrap > .pqn-frame { max-width: none; }
+
+/* 3D specimen box and safe area */
+.pqn-canvas { position: relative; width: var(--pqn-s); height: var(--pqn-s); flex: none; border: 1px dashed GrayText; }
+.pqn-canvas::after { content: ""; position: absolute; inset: 10%; border: 1px dashed color-mix(in srgb, GrayText 60%, Canvas); }
+.pqn-canvas > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.pqn-bad::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+/* existing code-drawn editorial art (stroke styling mirrors how production CSS draws it) */
+.pqn-art { aspect-ratio: var(--pqn-rw, 1) / var(--pqn-rh, 1); width: var(--pqn-w, 100%); max-width: 100%; border: 1px solid GrayText; display: grid; place-items: center; overflow: hidden; color: CanvasText; }
+.pqn-art svg { width: 100%; height: 100%; }
+.pqn-art svg :is(path, rect, circle, ellipse, line, polyline, polygon):not([fill]) { fill: none; }
+.pqn-art svg :is(path, rect, circle, ellipse, line, polyline, polygon) { stroke: currentColor; stroke-width: 1.6; }
+
+/* theme-aware layer inside ModeFrame */
+.pqn-theme { background: var(--pqc-layer-01, Canvas); color: var(--pqc-text-primary, CanvasText); padding: .75rem; border-radius: .25rem; display: grid; gap: .75rem; }
+.pqn-theme .pqn-muted { color: var(--pqc-text-secondary, GrayText); }
+.pqn-do { border-left: .35rem solid CanvasText; }
+.pqn-dont { border-left: .35rem dotted CanvasText; }
+.pqn-pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: 1rem; }
+.pqn-mark { position: absolute; inset: 0; border: 2px solid currentColor; pointer-events: none; }

@@ -1,5 +1,5 @@
 /*
- * Icons & Illustrations — SPECIMEN styles (proposal only; never imported by production).
+ * Icons and 3D illustration — SPECIMEN styles (proposal only; never imported by production).
  * Icon size, fill and optical size are set by the Icon wrapper through --pqi-* custom properties (values come from icons-model.ts).
  * Colors are Carbon --pqc-* tokens injected by ModeFrame, or CSS system colors outside a ModeFrame. No numbers here except 1px
  * hairlines. The glyph is a ligature: the text inside .pqi-g is the icon NAME, hidden from assistive tech and from selection.

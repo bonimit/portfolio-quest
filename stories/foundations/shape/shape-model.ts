@@ -6,8 +6,8 @@
  * production CSS (shape-census.ts). Hand-written data here = token names, which primitive each component decision points at, and
  * the two named options.
  *
- *   Option M · Material:  follows Material component shapes (chip small 8, outlined input extra-small 4, menu extra-small 4).
- *   Option C · Current direction: keeps the pill chips and 8px fields already shown in the committed Colors v2 specimens.
+ *   Option M · Material (OWNER DECISION):  follows Material component shapes (chip small 8, outlined input extra-small 4, menu extra-small 4).
+ *   Option C · Current direction (NOT ADOPTED, kept as the comparison): keeps the pill chips and 8px fields already shown in the committed Colors specimens.
  * Buttons are pill-shaped (full) in BOTH, per the brief. Cards, panels, navigation and creative themes are preserved, never mapped.
  */
 import data from '../material/material-shape.json';
@@ -49,8 +49,8 @@ export const fmtNearest = (n: ReturnType<typeof nearestStep>) =>
 
 export type Option = 'M' | 'C';
 export const OPTIONS: Record<Option, {name: string; summary: string}> = {
-  M: {name: 'Option M · Material shapes', summary: 'Chips use Material’s small (8px) and outlined inputs extra-small (4px); menus extra-small (4px). Buttons stay pill-shaped.'},
-  C: {name: 'Option C · Current direction', summary: 'Keeps the pill chips and 8px fields already shown in the committed Colors v2, Icons and Motion specimens. Buttons stay pill-shaped.'},
+  M: {name: 'Option M · Material shapes (owner decision)', summary: 'Chips use Material’s small (8px) and outlined inputs extra-small (4px); menus extra-small (4px). Buttons stay pill-shaped.'},
+  C: {name: 'Option C · Current direction (not adopted)', summary: 'Keeps the pill chips and 8px fields already shown in the committed Colors, Icons and Motion specimens. Buttons stay pill-shaped.'},
 };
 export type Shape = PrimKey | `asym:${string}` | `literal:${number}`;
 export type Decision = {id: string; label: string; m: Shape; c: Shape; official: string; basis: 'official' | 'package-literal' | 'local'; note: string};
@@ -59,7 +59,7 @@ export const DECISIONS: Decision[] = [
   {id: 'button', label: 'Button (filled, outlined, tonal, text)', m: 'full', c: 'full', official: 'button.container-shape-round', basis: 'official', note: 'Brief: every standard button stays pill-shaped. Material ships round (full) and square (medium) shapes; round is used.'},
   {id: 'icon-button', label: 'Icon button', m: 'full', c: 'full', official: 'icon-button (round)', basis: 'local', note: 'Follows the pill rule for buttons.'},
   {id: 'chip', label: 'Chip (filter, assist, input, suggestion)', m: 'sm', c: 'full', official: 'filter-chip.container-shape', basis: 'official', note: 'Material chips are small (8px). Production chips are pills today, so Option M is a visible change.'},
-  {id: 'input-outlined', label: 'Text field (outlined)', m: 'xs', c: 'sm', official: 'outlined-text-field.container-shape', basis: 'official', note: 'Material outlined fields are extra-small (4px). The committed Colors v2 and Icons specimens use 8px.'},
+  {id: 'input-outlined', label: 'Text field (outlined)', m: 'xs', c: 'sm', official: 'outlined-text-field.container-shape', basis: 'official', note: 'Material outlined fields are extra-small (4px). The committed Colors and Icons specimens use 8px.'},
   {id: 'input-filled', label: 'Text field (filled)', m: 'asym:extra-small-top', c: 'asym:extra-small-top', official: 'filled-text-field.container-shape', basis: 'official', note: 'Top corners only (an asymmetric Material token).'},
   {id: 'menu', label: 'Menu / dropdown', m: 'xs', c: 'sm', official: 'menu.container-shape', basis: 'official', note: 'Baseline md-menu is extra-small (4px). The expressive `menus` tokens are 16px / 8px groups (see Tokens).'},
   {id: 'dialog', label: 'Dialog', m: 'xl', c: 'xl', official: 'dialog.container-shape', basis: 'official', note: 'Extra-large (28px). The committed dialog specimens already use 1.75rem (28px).'},
@@ -125,7 +125,7 @@ export const EXISTING: Existing[] = [
 /* committed Storybook specimens that already show shapes (read live; never edited) */
 export type Committed = {section: string; file: string; selector: string; comp: string; css: string};
 const COMMITTED_DEFS = [
-  ['Colors v2', carbonCss, 'carbon/carbon.css', '.pqc-btn', 'button'], ['Colors v2', carbonCss, 'carbon/carbon.css', '.pqc-chip', 'chip'], ['Colors v2', carbonCss, 'carbon/carbon.css', '.pqc-input', 'input-outlined'],
+  ['Colors', carbonCss, 'carbon/carbon.css', '.pqc-btn', 'button'], ['Colors', carbonCss, 'carbon/carbon.css', '.pqc-chip', 'chip'], ['Colors', carbonCss, 'carbon/carbon.css', '.pqc-input', 'input-outlined'],
   ['Icons', iconsCss, 'icons/icons.css', '.pqi-sbtn', 'button'], ['Icons', iconsCss, 'icons/icons.css', '.pqi-chip', 'chip'], ['Icons', iconsCss, 'icons/icons.css', '.pqi-field', 'input-outlined'], ['Icons', iconsCss, 'icons/icons.css', '.pqi-dialog', 'dialog'],
   ['Motion', motionCss, 'motion/motion.css', '.pqm-sbtn', 'button'], ['Motion', motionCss, 'motion/motion.css', '.pqm-chip', 'chip'], ['Motion', motionCss, 'motion/motion.css', '.pqm-menu', 'menu'], ['Motion', motionCss, 'motion/motion.css', '.pqm-dialog[data-kind="dialog"]', 'dialog'],
 ] as const;

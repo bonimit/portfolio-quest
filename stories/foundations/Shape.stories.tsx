@@ -33,14 +33,16 @@ export const Overview: Story = {
       </ul>
       <h2>Findings you should know first</h2>
       <ol>
-        <li><strong>Two named options</strong> for chips, outlined inputs and menus (Option M follows Material; Option C keeps the direction already shown in the committed Colors v2, Icons and Motion specimens). Existing vs Proposed lists exactly which committed sections differ.</li>
-        <li><strong>Production chips are pills; Material’s chip is 8px.</strong> Option M is a visible change for chips.</li>
-        <li><strong>Production buttons are mixed:</strong> some are 2px-sharp, some are pills. “All standard buttons are pills” is a visible change for the sharp ones.</li>
+        <li><strong>Owner decision: Option M.</strong> Chips, outlined inputs and standard menus follow Material (chip 8px, outlined input 4px, menu 4px). Option C (pill chips, 8px fields) is kept only as the comparison and is not adopted.</li>
+        <li><strong>The committed specimens now disagree with the decided system:</strong> the Colors, Icons and Motion specimens draw pill chips and 8px fields. Existing vs Proposed lists exactly which differ; they are specimens, not production, and are not edited here.</li>
+        <li><strong>Owner decision: all standard buttons are pills</strong>, including the existing sharp 2px editorial buttons. That is a visible change for those buttons in the proposed system.</li>
         <li><strong>Material’s own pages give no responsive shape rules</strong>, so every Responsive statement is local.</li>
         <li>Some Material values are package-only: <code>full</code> (9999px), the asymmetric tokens and each component’s shape. The nine numeric steps are page-verified.</li>
       </ol>
-      <h2>Open decisions (none are decided)</h2>
-      <ol><li>Option M or Option C for chips, outlined inputs and menus.</li><li>Whether sharp 2px buttons become pills (the brief says yes).</li><li>Whether the expressive menu shapes (16px) are wanted instead of the baseline 4px menu.</li><li>The compact-window pattern: bottom sheet (proposed) or full-screen dialog.</li><li>Which “requires review” production shapes are standard UI.</li></ol>
+      <h2>Decided by the owner</h2>
+      <ul data-testid="shape-decided"><li>Option M for chips, outlined inputs and standard menus (baseline 4px menu).</li><li>All standard buttons, including sharp editorial ones, are pills.</li><li>The compact dialog pattern is chosen by content and purpose, not one universal treatment.</li><li>Custom card, panel, navigation and game shapes are preserved.</li></ul>
+      <h2>Still open (not approved)</h2>
+      <ol data-testid="shape-open"><li>The mapping from dialog content type to pattern (proposal on the Responsive page).</li><li>Which “requires review” production shapes are standard UI.</li><li>Whether the expressive 16px menu is ever wanted (not part of the baseline decision).</li></ol>
       <h2>Provenance</h2>
       <p>Generated {M3.provenance.generatedOn}. {M3.provenance.note}</p>
     </P>
@@ -138,6 +140,11 @@ export const ResponsiveStory: Story = {
     await expect(sameOrder(radius(c.getByTestId('frame-sheet-mobile')))).toBe('28px 28px 0px 0px');
     await expect(radius(c.getByTestId('frame-dialog-desktop'))).toBe('28px');
     await expect(c.getByTestId('resp-table')).toHaveTextContent(/corner none/);
+    // Owner decision: the compact pattern depends on content and purpose, so three different content types map to three treatments.
+    await expect(c.getByTestId('pattern-confirm')).toHaveTextContent('Dialog');
+    await expect(c.getByTestId('pattern-choice')).toHaveTextContent('Bottom sheet');
+    await expect(c.getByTestId('pattern-task')).toHaveTextContent('Full-screen dialog');
+    await expect(c.getByTestId('resp-note')).toHaveTextContent('content and purpose');
   },
 };
 

@@ -232,12 +232,14 @@ export function Responsive({opt}: {opt: Option}) {
   const vars = useMemo(() => radiusVars(opt) as CSSProperties, [opt]);
   return (
     <section>
-      <p className="pqr-muted" data-testid="resp-note">Material’s shape pages give no per-window-class guidance, so this is a local statement: corner values are constant across window classes. What changes is the PATTERN: a dialog on Medium and larger, a bottom sheet on Compact, and a full-screen dialog (corner none, a Material component token) when a task needs the whole screen.</p>
+      <p className="pqr-muted" data-testid="resp-note">Material’s shape pages give no per-window-class guidance, so every statement here is local: corner values are constant across window classes. <Tag kind="local" /> Owner decision (principle): the dialog pattern on small windows is chosen by <strong>content and purpose</strong>, not one universal mobile treatment. The mapping below is a proposal, not yet approved.</p>
       <div className="pqr-scroll"><table data-testid="resp-table">
         <thead><tr><th>Component</th>{FRAMES.map(f => <th key={f.key}>{f.label} ({f.cls}, {classRange(f.key).min}px{classRange(f.key).max ? `–${classRange(f.key).max}px` : '+'})</th>)}</tr></thead>
         <tbody>{['button', 'chip', 'input-outlined', 'menu'].map(id => <tr key={id}><td>{decision(id).label}</td>{FRAMES.map(f => <td key={f.key} data-testid={`resp-${id}-${f.key}`}>{shapeFor(id, opt).label}</td>)}</tr>)}
-          <tr><td>Dialog pattern</td><td>Bottom sheet · {shapeFor('sheet', opt).label}</td><td>Dialog · {shapeFor('dialog', opt).label}</td><td>Dialog · {shapeFor('dialog', opt).label}</td></tr>
-          <tr><td>Full-screen task dialog</td><td colSpan={3}>{FULLSCREEN.label} (Material <code>full-screen-dialog.container-shape</code>, corner none), any window class</td></tr>
+          <tr data-testid="pattern-confirm"><td>Confirmation or alert (one short decision)</td><td colSpan={3}>Dialog · {shapeFor('dialog', opt).label}, at every window class</td></tr>
+          <tr data-testid="pattern-choice"><td>Short choice or action list</td><td>Bottom sheet · {shapeFor('sheet', opt).label}</td><td>Dialog · {shapeFor('dialog', opt).label}</td><td>Dialog · {shapeFor('dialog', opt).label}</td></tr>
+          <tr data-testid="pattern-task"><td>Long form or multi-step task</td><td>Full-screen dialog · {FULLSCREEN.label}</td><td>Dialog · {shapeFor('dialog', opt).label}</td><td>Dialog · {shapeFor('dialog', opt).label}</td></tr>
+          <tr><td colSpan={4}>Full-screen dialog uses Material <code>full-screen-dialog.container-shape</code> (corner none).</td></tr>
         </tbody>
       </table></div>
       <ModeFrame mode="light" title="Fixed-width frames (media queries would follow the preview, not the frame)">
@@ -249,8 +251,8 @@ export function Responsive({opt}: {opt: Option}) {
                 <div className="pqr-row"><button type="button" className="pqr-btnf" data-decision="button" data-testid={`frame-button-${f.key}`}>Primary</button><button type="button" className="pqr-chip" aria-pressed="true" data-decision="chip" data-testid={`frame-chip-${f.key}`}>Chip</button></div>
                 <input className="pqr-field" placeholder="Outlined field" aria-label={`Field ${f.label}`} data-testid={`frame-input-${f.key}`} data-decision="input-outlined" />
                 {f.key === 'mobile'
-                  ? <div className="pqr-sheet" data-decision="sheet" data-testid="frame-sheet-mobile"><strong>Bottom sheet</strong><span>Compact windows use a sheet.</span></div>
-                  : <div className="pqr-dialog" data-decision="dialog" data-testid={`frame-dialog-${f.key}`}><strong>Dialog</strong><span>Medium and larger use a dialog.</span></div>}
+                  ? <div className="pqr-sheet" data-decision="sheet" data-testid="frame-sheet-mobile"><strong>Bottom sheet</strong><span>A short choice on a Compact window.</span></div>
+                  : <div className="pqr-dialog" data-decision="dialog" data-testid={`frame-dialog-${f.key}`}><strong>Dialog</strong><span>Confirmations, and choices on Medium and larger.</span></div>}
               </div>
             </div>
           ))}

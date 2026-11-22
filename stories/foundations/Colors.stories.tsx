@@ -8,7 +8,7 @@ import {parseColor, toHex} from './color-math';
 import {THEMES, resolveTheme, resolveThemeView, themeById, type ThemeId} from './color-source';
 
 /*
- * Foundations / Colors
+ * Archive / Colors (original). Superseded by Foundations / Colors; kept as the historical record.
  * All values are read from production CSS at build time (see color-source.ts).
  * Documentation only: no production color, CSS or protected file is changed here.
  */
@@ -27,8 +27,9 @@ const Page = ({title, children}: {title: string; children: React.ReactNode}) => 
 const specimenA11y = {test: 'todo', config: {rules: [{id: 'color-contrast', enabled: false}]}} as const;
 
 const meta = {
-  title: 'Foundations/Colors',
+  title: 'Archive/Colors (original)',
   parameters: {layout: 'fullscreen', a11y: {test: 'error'}},
+  decorators: [(Story: React.ComponentType) => <><div role="note" style={{padding: '.75rem 1rem', border: '2px dashed currentColor', margin: '1rem'}}><strong>Archived.</strong> Superseded by Foundations / Colors (Carbon). Kept unchanged as the historical current-state record; do not build new work from it.</div><Story /></>],
   argTypes: {
     theme: {control: 'select', options: SWITCHABLE.map(t => t.id)},
     view: {control: 'inline-radio', options: ['grid', 'carousel']},

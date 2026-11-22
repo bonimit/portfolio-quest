@@ -13,7 +13,7 @@ import {useAudit} from './ColorFoundations';
 
 /*
  * Foundations / Surfaces & Depth — proposal. Carbon layering = primary depth system; selective floating shadows;
- * expressive effects preserved. Reuses the Colors v2 model (carbon/*). Proposal only; nothing is implemented.
+ * expressive effects preserved. Reuses the Colors model (carbon/*). Proposal only; nothing is implemented.
  */
 type Args = {float: FloatingOption};
 const Page = ({title, children}: {title: string; children: ReactNode}) => <main className="fx"><h1>{title}</h1><DepthBanner />{children}</main>;

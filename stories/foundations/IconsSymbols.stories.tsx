@@ -6,12 +6,12 @@ import {
 import {CATALOG, FAMILY, ICONS, ICON_DATA, ICON_NAMES, OPSZ_MIN, PAIRS, SIZES, TOUCH_TARGET, buttonSnippet, htmlSnippet, isBundled, opszFor, reactSnippet} from './icons/icons-model';
 
 /*
- * Foundations / Icons & Illustrations / Material Symbols Rounded — proposal. Glyphs are a self-hosted subset of Google's Material Symbols
+ * Foundations / Icons (Material Symbols Rounded) — proposal. Glyphs are a self-hosted subset of Google's Material Symbols
  * Rounded (icons.json + assets/*.woff2, generated and verified by generate-icons.mjs). Default is outline (FILL 0); filled (FILL 1) is for
  * active or selected states. Production icons are not changed. Nothing is implemented or migrated.
  */
 const specimenA11y = {test: 'todo', config: {rules: [{id: 'color-contrast', enabled: false}]}} as const;
-const meta = {title: 'Foundations/Icons & Illustrations/Material Symbols Rounded', parameters: {layout: 'fullscreen', a11y: specimenA11y}} satisfies Meta;
+const meta = {title: 'Foundations/Icons', parameters: {layout: 'fullscreen', a11y: specimenA11y}} satisfies Meta;
 export default meta;
 type Story = StoryObj;
 
@@ -23,7 +23,7 @@ const fontReady = async () => { await document.fonts.load(`24px "${FAMILY}"`, 'h
 
 export const Overview: Story = {
   render: () => (
-    <Page title="Foundations / Icons & Illustrations · Material Symbols Rounded">
+    <Page title="Foundations / Icons · Material Symbols Rounded">
       <Banner />
       <h2>Direction</h2>
       <ul>

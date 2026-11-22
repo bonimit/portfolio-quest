@@ -390,7 +390,7 @@ export function BrandSupport() {
             {(['support-error', 'support-warning', 'support-success', 'support-info'] as const).map(t => (
               <div className="pqc-support" key={t} style={vars({'--pqc-edge': `var(--pqc-${t})`})}>
                 <span>{t.replace('support-', '')} · icon/border {hexOf(semanticValue(m, 'A', t))}</span>
-                <span className="pqc-fill" style={vars({'--fill': `var(--pqc-${t})`, '--on-fill': `var(--pqc-text-on-color)`, background: `var(--pqc-${t})`, color: t === 'support-warning' ? 'var(--pqc-text-primary)' : 'var(--pqc-text-on-color)'})}>Fill</span>
+                <span className="pqc-fill" style={vars({'--pqc-fill': `var(--pqc-${t})`, '--pqc-on-fill': `var(--pqc-text-on-color)`, background: `var(--pqc-${t})`, color: t === 'support-warning' ? 'var(--pqc-text-primary)' : 'var(--pqc-text-on-color)'})}>Fill</span>
                 {t === 'support-error' && <span style={{color: 'var(--pqc-text-error)'}}>text-error {hexOf(semanticValue(m, 'A', 'text-error'))}</span>}
               </div>
             ))}

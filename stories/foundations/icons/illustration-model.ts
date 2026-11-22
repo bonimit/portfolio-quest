@@ -187,7 +187,16 @@ export const specJson = () => ({naming: NAMING, sizes: ILL_SIZES.map(s => ({key:
 export const PRODUCTION_ROUTES = [
   {id: 'illustrator', label: 'Commissioned 3D illustrator', fit: 'Best control of silhouette, material and set consistency.', risk: 'Cost and lead time; needs this brief and the review checklist.'},
   {id: 'dcc', label: 'In-house 3D tool (Blender or similar)', fit: 'Camera, light and shadow values in this spec map directly to scene settings, so the set stays identical.', risk: 'Needs 3D modelling skill; six subjects is a small set.'},
-  {id: 'generative', label: 'AI image generation, then curated', fit: 'Fast exploration of motifs.', risk: 'Hard to hold one camera, light and palette across a set; needs licence and originality review; the prompt would leave this machine, so it needs owner approval first.'},
+  {id: 'generative', label: 'AI-generated artwork, then human-curated (owner-selected future approach)', fit: 'Fast exploration of motifs; the per-asset briefs are already written for it.', risk: 'Hard to hold one camera, light and palette across a set; needs licence and originality review; the prompt would leave this machine, so it is gated.', selected: true},
+] as const;
+/** Gates that must all pass before the first prompt is sent. Nothing has been generated and no prompt has been sent. */
+export const AI_GATES = [
+  'The tool\'s licence terms allow commercial portfolio use of its output (read the terms; record the version).',
+  'Originality review against the Airbnb inspiration and any third-party work: no copied shapes, characters or compositions.',
+  'Prompts carry no project, client, personal or private information; only the brief text from this page.',
+  'Set-consistency review: one camera, light, shadow and palette across all assets; reject outliers instead of editing them.',
+  'Human curation and cleanup of every asset, then the owner signs off before an asset replaces any placeholder.',
+  'Owner approval of the tool and the first prompt, given explicitly before anything is sent.',
 ] as const;
 
 export type Brief = {subject: string; label: string; destination: string; hue: Hue; motif: string; text: string};

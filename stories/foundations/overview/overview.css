@@ -1,0 +1,53 @@
+/*
+ * Foundations overview, accessibility and design-review pages — SPECIMEN styles (documentation only; never imported by production).
+ * Colors come from Carbon --pqc-* variables injected by ModeFrame or CSS system colors; radii from --pqr-*, spacing from --pqx-*.
+ * No hex literals. Only 1px hairlines and rem sizes; art boxes whose size IS the documented value are sized by custom properties set in React.
+ */
+.pqv-page { background: Canvas; color: CanvasText; font: .875rem/1.5 system-ui, sans-serif; padding: 1rem; display: grid; gap: 1rem; min-width: 0; }
+.pqv-page *, .pqv-page *::before, .pqv-page *::after { box-sizing: border-box; }
+.pqv-page h1, .pqv-page h2, .pqv-page h3, .pqv-page p { margin: 0; overflow-wrap: anywhere; }
+.pqv-page h2 { font-size: 1.25rem; line-height: 1.25; }
+.pqv-page h3 { font-size: 1rem; line-height: 1.25; }
+.pqv-page code { font: .8em ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+.pqv-muted { color: GrayText; }
+.pqv-box { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; min-width: 0; }
+.pqv-row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+.pqv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1rem; }
+.pqv-scroll { overflow-x: auto; max-width: 100%; }
+.pqv-page table { border-collapse: collapse; width: 100%; font-size: .8rem; }
+.pqv-page th, .pqv-page td { border: 1px solid GrayText; padding: .35rem .5rem; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+.pqv-page th { background: color-mix(in srgb, CanvasText 8%, Canvas); }
+.pqv-card { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; display: grid; gap: .5rem; align-content: start; min-width: 0; }
+/* Basis tags: border style and text, never color alone */
+.pqv-tag { display: inline-block; font-size: .7rem; font-weight: 700; padding: 0 .4rem; margin-right: .3rem; border: 2px solid currentColor; border-radius: .25rem; vertical-align: middle; }
+.pqv-tag[data-kind="official"] { border-style: solid; border-width: 3px; }
+.pqv-tag[data-kind="material"] { border-style: solid; }
+.pqv-tag[data-kind="measured"] { border-style: dotted; border-width: 3px; }
+.pqv-tag[data-kind="local"] { border-style: dashed; }
+.pqv-tag[data-kind="decided"] { border-style: double; border-width: 4px; }
+.pqv-tag[data-kind="exception"] { border-style: groove; border-width: 4px; }
+.pqv-tag[data-kind="open"] { background: Mark; color: MarkText; }
+.pqv-tag[data-kind="not-run"] { background: Mark; color: MarkText; border-style: dashed; }
+.pqv-btn { font: inherit; min-height: 2.75rem; padding: 0 1rem; border: 1px solid CanvasText; border-radius: 999px; background: Canvas; color: CanvasText; cursor: pointer; }
+.pqv-btn[aria-pressed="true"] { background: Highlight; color: HighlightText; }
+.pqv-btn:focus-visible { outline: 3px solid Highlight; outline-offset: 3px; }
+.pqv-cmp { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: 1rem; }
+.pqv-opt { border: 1px solid GrayText; border-radius: .5rem; padding: .75rem; display: grid; gap: .5rem; align-content: start; min-width: 0; }
+.pqv-opt h4 { margin: 0; font-size: .85rem; }
+.pqv-swatch { width: 100%; min-height: 3.5rem; border: 1px solid GrayText; display: grid; place-items: center; padding: .5rem; font-weight: 700; }
+.pqv-box-size { width: var(--pqv-s); height: var(--pqv-s); border: 2px solid currentColor; display: grid; place-items: center; font-size: .7rem; flex: none; }
+
+/* composed specimen: every foundation at once. Values come from --pq* variables set in React from each foundation's own model. */
+.pqv-spec { display: grid; gap: var(--pqx-card-gap); padding: var(--pqx-card-padding); background: var(--pqc-layer); color: var(--pqc-text-primary); border: 1px solid var(--pqc-border-subtle); min-width: 0; }
+.pqv-page .pqv-spec-title { font-size: var(--pqt-title-size); line-height: var(--pqt-title-line); font-weight: 600; margin: 0; }
+.pqv-spec-body { font-size: var(--pqt-body-size); line-height: var(--pqt-body-line); margin: 0; color: var(--pqc-text-secondary); }
+.pqv-spec-row { display: flex; flex-wrap: wrap; gap: var(--pqx-spacing-component-gap); align-items: center; }
+.pqv-spec-btn { min-height: var(--pqx-button-height); padding: 0 var(--pqx-button-padding-x); border: 0; border-radius: var(--pqr-button); background: var(--pqc-interactive-primary); color: var(--pqc-on-interactive-primary); font: inherit; font-size: var(--pqt-label-size); line-height: var(--pqt-label-line); font-weight: 500; cursor: pointer; display: inline-flex; gap: var(--pqx-input-gap-icon); align-items: center; transition: filter var(--pqm-ms) var(--pqm-ease); }
+.pqv-spec-btn:hover { filter: brightness(1.12); }
+.pqv-spec-btn:focus-visible, .pqv-spec-chip:focus-visible, .pqv-spec-field:focus-visible { outline: 2px solid var(--pqc-focus); outline-offset: 2px; }
+.pqv-spec-chip { min-height: var(--pqx-chip-height); padding: 0 var(--pqx-chip-padding-x); border: 1px solid var(--pqc-border-strong); border-radius: var(--pqr-chip); background: transparent; color: var(--pqc-text-primary); font: inherit; font-size: var(--pqt-label-size); cursor: pointer; }
+.pqv-spec-field { min-height: var(--pqx-button-height); padding: 0 var(--pqx-input-padding-x); border: 1px solid var(--pqc-border-strong); border-radius: var(--pqr-input-outlined); background: var(--pqc-field); color: var(--pqc-text-primary); font: inherit; font-size: var(--pqt-body-size); min-width: 0; }
+.pqv-spec-menu { padding: var(--pqx-menu-padding-y) 0; background: var(--pqc-layer); border: 1px solid var(--pqc-border-subtle); border-radius: var(--pqr-menu); box-shadow: var(--pqs-shadow-floating); display: grid; width: max-content; max-width: 100%; }
+.pqv-spec-menu > span { padding: 0 var(--pqx-input-padding-x); min-height: var(--pqx-chip-height); display: flex; align-items: center; font-size: var(--pqt-body-size); }
+.pqv-spec-card { padding: var(--pqx-card-padding); background: var(--pqc-layer); border: 1px solid var(--pqc-border-subtle); display: grid; gap: var(--pqx-card-gap); }
+.pqv-ring { outline: 3px solid var(--pqv-ring); outline-offset: 3px; }

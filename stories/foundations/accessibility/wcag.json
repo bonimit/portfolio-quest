@@ -1,0 +1,127 @@
+{
+ "generatedOn": "2026-11-22",
+ "source": "https://www.w3.org/TR/WCAG22/",
+ "note": "WCAG 2.2 text as rendered by w3.org on the generated date. Levels are asserted by the generator through the criterion list below. No conformance is claimed anywhere in Storybook.",
+ "criteria": [
+  {
+   "id": "non-text-content",
+   "number": "1.1.1",
+   "level": "A",
+   "title": "1.1.1 Non-text Content",
+   "text": "All non-text content that is presented to the user has a text alternative that serves the equivalent purpose, except for the situations listed below. Controls, Input If non-text content is a control or accepts user input, then it has a name that describes its purpose. (Refer to Success Criterion 4.1.2 for additional requirements for controls and content that accepts user input.) Time-Based Media If non-text content is time-based media, then text alternatives at least provide descriptive identification of the non-text content. (Refer to Guideline 1.2 for additional requirements for media.) Test If non-text content is a test or exercise that would be invalid if presented in text, then text alt",
+   "url": "https://www.w3.org/TR/WCAG22/#non-text-content"
+  },
+  {
+   "id": "use-of-color",
+   "number": "1.4.1",
+   "level": "A",
+   "title": "1.4.1 Use of Color",
+   "text": "Color is not used as the only visual means of conveying information, indicating an action, prompting a response, or distinguishing a visual element.",
+   "url": "https://www.w3.org/TR/WCAG22/#use-of-color"
+  },
+  {
+   "id": "contrast-minimum",
+   "number": "1.4.3",
+   "level": "AA",
+   "title": "1.4.3 Contrast (Minimum)",
+   "text": "The visual presentation of text and images of text has a contrast ratio of at least 4.5:1, except for the following: Large Text Large-scale text and images of large-scale text have a contrast ratio of at least 3:1; Incidental Text or images of text that are part of an inactive user interface component, that are pure decoration, that are not visible to anyone, or that are part of a picture that contains significant other visual content, have no contrast requirement. Logotypes Text that is part of a logo or brand name has no contrast requirement.",
+   "url": "https://www.w3.org/TR/WCAG22/#contrast-minimum"
+  },
+  {
+   "id": "resize-text",
+   "number": "1.4.4",
+   "level": "AA",
+   "title": "1.4.4 Resize Text",
+   "text": "Except for captions and images of text, text can be resized without assistive technology up to 200 percent without loss of content or functionality.",
+   "url": "https://www.w3.org/TR/WCAG22/#resize-text"
+  },
+  {
+   "id": "reflow",
+   "number": "1.4.10",
+   "level": "AA",
+   "title": "1.4.10 Reflow",
+   "text": "Content can be presented without loss of information or functionality, and without requiring scrolling in two dimensions for: Vertical scrolling content at a width equivalent to 320 CSS pixels; Horizontal scrolling content at a height equivalent to 256 CSS pixels. Except for parts of the content which require two-dimensional layout for usage or meaning.",
+   "url": "https://www.w3.org/TR/WCAG22/#reflow"
+  },
+  {
+   "id": "non-text-contrast",
+   "number": "1.4.11",
+   "level": "AA",
+   "title": "1.4.11 Non-text Contrast",
+   "text": "The visual presentation of the following have a contrast ratio of at least 3:1 against adjacent color(s): User Interface Components Visual information required to identify user interface components and states, except for inactive components or where the appearance of the component is determined by the user agent and not modified by the author; Graphical Objects Parts of graphics required to understand the content, except when a particular presentation of graphics is essential to the information being conveyed.",
+   "url": "https://www.w3.org/TR/WCAG22/#non-text-contrast"
+  },
+  {
+   "id": "text-spacing",
+   "number": "1.4.12",
+   "level": "AA",
+   "title": "1.4.12 Text Spacing",
+   "text": "In content implemented using markup languages that support the following text style properties, no loss of content or functionality occurs by setting all of the following and by changing no other style property: Line height (line spacing) to at least 1.5 times the font size; Spacing following paragraphs to at least 2 times the font size; Letter spacing (tracking) to at least 0.12 times the font size; Word spacing to at least 0.16 times the font size. Exception: Human languages and scripts that do not make use of one or more of these text style properties in written text can conform using only the properties that exist for that combination of language and script.",
+   "url": "https://www.w3.org/TR/WCAG22/#text-spacing"
+  },
+  {
+   "id": "keyboard",
+   "number": "2.1.1",
+   "level": "A",
+   "title": "2.1.1 Keyboard",
+   "text": "All functionality of the content is operable through a keyboard interface without requiring specific timings for individual keystrokes, except where the underlying function requires input that depends on the path of the user's movement and not just the endpoints.",
+   "url": "https://www.w3.org/TR/WCAG22/#keyboard"
+  },
+  {
+   "id": "pause-stop-hide",
+   "number": "2.2.2",
+   "level": "A",
+   "title": "2.2.2 Pause, Stop, Hide",
+   "text": "For moving, blinking, scrolling, or auto-updating information, all of the following are true: Moving, blinking, scrolling For any moving, blinking or scrolling information that (1) starts automatically, (2) lasts more than five seconds, and (3) is presented in parallel with other content, there is a mechanism for the user to pause, stop, or hide it unless the movement, blinking, or scrolling is part of an activity where it is essential; and Auto-updating For any auto-updating information that (1) starts automatically and (2) is presented in parallel with other content, there is a mechanism for the user to pause, stop, or hide it or to control the frequency of the update unless the auto-updat",
+   "url": "https://www.w3.org/TR/WCAG22/#pause-stop-hide"
+  },
+  {
+   "id": "animation-from-interactions",
+   "number": "2.3.3",
+   "level": "AAA",
+   "title": "2.3.3 Animation from Interactions",
+   "text": "Motion animation triggered by interaction can be disabled, unless the animation is essential to the functionality or the information being conveyed.",
+   "url": "https://www.w3.org/TR/WCAG22/#animation-from-interactions"
+  },
+  {
+   "id": "focus-visible",
+   "number": "2.4.7",
+   "level": "AA",
+   "title": "2.4.7 Focus Visible",
+   "text": "Any keyboard operable user interface has a mode of operation where the keyboard focus indicator is visible.",
+   "url": "https://www.w3.org/TR/WCAG22/#focus-visible"
+  },
+  {
+   "id": "focus-not-obscured-minimum",
+   "number": "2.4.11",
+   "level": "AA",
+   "title": "2.4.11 Focus Not Obscured (Minimum)",
+   "text": "When a user interface component receives keyboard focus, the component is not entirely hidden due to author-created content.",
+   "url": "https://www.w3.org/TR/WCAG22/#focus-not-obscured-minimum"
+  },
+  {
+   "id": "target-size-enhanced",
+   "number": "2.5.5",
+   "level": "AAA",
+   "title": "2.5.5 Target Size (Enhanced)",
+   "text": "The size of the target for pointer inputs is at least 44 by 44 CSS pixels except when: Equivalent The target is available through an equivalent link or control on the same page that is at least 44 by 44 CSS pixels; Inline The target is in a sentence or block of text; User Agent Control The size of the target is determined by the user agent and is not modified by the author; Essential A particular presentation of the target is essential to the information being conveyed.",
+   "url": "https://www.w3.org/TR/WCAG22/#target-size-enhanced"
+  },
+  {
+   "id": "target-size-minimum",
+   "number": "2.5.8",
+   "level": "AA",
+   "title": "2.5.8 Target Size (Minimum)",
+   "text": "The size of the target for pointer inputs is at least 24 by 24 CSS pixels, except when: Spacing Undersized targets (those less than 24 by 24 CSS pixels) are positioned so that if a 24 CSS pixel diameter circle is centered on the bounding box of each, the circles do not intersect another target or the circle for another undersized target; Equivalent The function can be achieved through a different control on the same page that meets this criterion; Inline The target is in a sentence or its size is otherwise constrained by the line-height of non-target text; User Agent Control The size of the target is determined by the user agent and is not modified by the author; Essential A particular prese",
+   "url": "https://www.w3.org/TR/WCAG22/#target-size-minimum"
+  },
+  {
+   "id": "name-role-value",
+   "number": "4.1.2",
+   "level": "A",
+   "title": "4.1.2 Name, Role, Value",
+   "text": "For all user interface components (including but not limited to: form elements, links and components generated by scripts), the name and role can be programmatically determined; states, properties, and values that can be set by the user can be programmatically set; and notification of changes to these items is available to user agents, including assistive technologies.",
+   "url": "https://www.w3.org/TR/WCAG22/#name-role-value"
+  }
+ ]
+}

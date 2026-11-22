@@ -1,0 +1,1205 @@
+{
+ "generatedOn": "2026-11-22",
+ "scope": [
+  "stories/foundations",
+  "stories/design-review",
+  "stories/components",
+  "stories/patterns",
+  "stories/templates"
+ ],
+ "excluded": [
+  "stories/review/**",
+  "*.stories.tsx",
+  "generate-*.mjs",
+  "JSON data"
+ ],
+ "filesScanned": 41,
+ "prefixes": {
+  "pqc": 47,
+  "pqr": 26,
+  "pqs": 11,
+  "pqi": 20,
+  "pqn": 12,
+  "pqm": 14,
+  "pqx": 27,
+  "pqv": 4,
+  "pqt": 24
+ },
+ "references": [
+  {
+   "name": "--pqc-accent",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-accent-active",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-accent-hover",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-background",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-background-active",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-background-hover",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-border-disabled",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-border-strong",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-border-subtle",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-border-subtle-00",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-chip-selected",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-edge",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-field",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-field-01",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-field-hover",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-fill",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-focus",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-icon-disabled",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqc-icon-primary",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-icon-secondary",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-interactive-primary",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-interactive-primary-active",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-interactive-primary-hover",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer-01",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/illustrations/illustrations.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer-02",
+   "files": [
+    "stories/design-review/DesignReview.tsx",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer-accent",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer-hover",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer-selected",
+   "files": [
+    "stories/foundations/depth/depth.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-layer-selected-01",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-link",
+   "files": [
+    "stories/foundations/carbon/CarbonColors.tsx"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-on-accent",
+   "files": [
+    "stories/foundations/carbon/CarbonColors.tsx",
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-on-chip-selected",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-on-fill",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-on-interactive-primary",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-overlay",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-support-error",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-disabled",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-error",
+   "files": [
+    "stories/foundations/carbon/CarbonColors.tsx",
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-helper",
+   "files": [
+    "stories/foundations/carbon/carbon.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-on-color",
+   "files": [
+    "stories/foundations/carbon/CarbonColors.tsx",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-placeholder",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-primary",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/carbon/CarbonColors.tsx",
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/illustrations/illustrations.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqc-text-secondary",
+   "files": [
+    "stories/foundations/carbon/carbon.css",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/illustrations/illustrations.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-color",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqi-ease",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqi-fill",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-frame",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-hue-orange",
+   "files": [
+    "stories/foundations/illustrations/Illustrations.tsx"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-ms",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqi-opsz",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-size",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-slot",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqi-target",
+   "files": [
+    "stories/foundations/icons/icons.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-bar",
+   "files": [
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-ease",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-frame",
+   "files": [
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-ms",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-state-ease",
+   "files": [
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-state-ms",
+   "files": [
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqm-track",
+   "files": [
+    "stories/foundations/motion/Motion.tsx"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqn-frame",
+   "files": [
+    "stories/foundations/illustrations/illustrations.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqn-pad",
+   "files": [
+    "stories/foundations/illustrations/illustrations.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqn-rh",
+   "files": [
+    "stories/foundations/illustrations/illustrations.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqn-rw",
+   "files": [
+    "stories/foundations/illustrations/illustrations.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqn-s",
+   "files": [
+    "stories/foundations/illustrations/illustrations.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqn-w",
+   "files": [
+    "stories/foundations/illustrations/illustrations.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-badge",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-button",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-checkbox",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-chip",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-dialog",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-fab",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-frame",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-h",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqr-icon-button",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-input-filled",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-input-outlined",
+   "files": [
+    "stories/foundations/accessibility/Accessibility.tsx",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-menu",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-r",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-search-bar",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-segmented",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-sheet",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-snackbar",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-switch",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-tooltip",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqr-w",
+   "files": [
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqs-floating-border",
+   "files": [
+    "stories/design-review/DesignReview.tsx",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqs-floating-border-w",
+   "files": [
+    "stories/foundations/motion/motion.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqs-modal-border",
+   "files": [
+    "stories/foundations/depth/depth.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqs-shadow-floating",
+   "files": [
+    "stories/design-review/DesignReview.tsx",
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqs-shadow-modal",
+   "files": [
+    "stories/foundations/depth/depth.css",
+    "stories/foundations/icons/icons.css",
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/shape/shape.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqs-shadow-none",
+   "files": [
+    "stories/foundations/depth/depth.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-bg",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqt-body-large-size",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-body-line",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-body-size",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-f",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-fg",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": true
+  },
+  {
+   "name": "--pqt-frame",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-label-line",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-label-size",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-leading",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-size",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-title-large-size",
+   "files": [
+    "stories/foundations/typography/typography.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-title-line",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqt-title-size",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqv-ring",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqv-s",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-button-height",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-button-padding-x",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-button-padding-x-icon",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-card-gap",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-card-padding",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-chip-height",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-chip-padding-x",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-dialog-actions-top",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-dialog-gap",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-dialog-padding",
+   "files": [
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-input-gap-icon",
+   "files": [
+    "stories/foundations/overview/overview.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-input-padding-x",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-input-padding-y",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-menu-padding-y",
+   "files": [
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-nav-item-padding-x",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-component-gap",
+   "files": [
+    "stories/foundations/motion/motion.css",
+    "stories/foundations/overview/overview.css",
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-field-group",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-field-label",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-grid-gap",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-gutter",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-nav-gap",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-nav-item-y",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-page",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-section",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-stack",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  },
+  {
+   "name": "--pqx-spacing-touch-target",
+   "files": [
+    "stories/foundations/spacing/spacing.css"
+   ],
+   "fallback": false
+  }
+ ],
+ "cssDefined": [
+  "--pqr-h",
+  "--pqr-w"
+ ],
+ "tsLiteral": [
+  "--pqc-edge",
+  "--pqc-fill",
+  "--pqc-on-fill",
+  "--pqi-color",
+  "--pqi-ease",
+  "--pqi-fill",
+  "--pqi-frame",
+  "--pqi-ink",
+  "--pqi-ms",
+  "--pqi-opsz",
+  "--pqi-size",
+  "--pqi-slot",
+  "--pqi-target",
+  "--pqm-bar",
+  "--pqm-ease",
+  "--pqm-frame",
+  "--pqm-ms",
+  "--pqm-state-ease",
+  "--pqm-state-ms",
+  "--pqm-track",
+  "--pqn-frame",
+  "--pqn-pad",
+  "--pqn-rh",
+  "--pqn-rw",
+  "--pqn-s",
+  "--pqn-w",
+  "--pqr-frame",
+  "--pqr-h",
+  "--pqr-r",
+  "--pqr-w",
+  "--pqs-floating-border",
+  "--pqs-modal-border",
+  "--pqs-shadow-floating",
+  "--pqs-shadow-modal",
+  "--pqs-shadow-none",
+  "--pqt-body-line",
+  "--pqt-body-size",
+  "--pqt-f",
+  "--pqt-frame",
+  "--pqt-label-line",
+  "--pqt-label-size",
+  "--pqt-leading",
+  "--pqt-size",
+  "--pqt-title-line",
+  "--pqt-title-size",
+  "--pqv-ring",
+  "--pqv-s",
+  "--pqx-dialog-actions-top"
+ ],
+ "templates": [
+  "--pqc-${d.name}",
+  "--pqc-${k}",
+  "--pqi-hue-${h}",
+  "--pqr-${d.id}",
+  "--pqt-${group}-${step}-size",
+  "--pqt-${r.role}-lh",
+  "--pqt-${r.role}-size",
+  "--pqx-${c.name}",
+  "--pqx-${p.name}",
+  "--pqx-${s.name}"
+ ],
+ "dynamic": [
+  {
+   "file": "stories/foundations/carbon/CarbonColors.tsx",
+   "line": 238,
+   "text": "--pqc-…"
+  },
+  {
+   "file": "stories/foundations/carbon/CarbonColors.tsx",
+   "line": 381,
+   "text": "--pqc-…"
+  },
+  {
+   "file": "stories/foundations/carbon/CarbonColors.tsx",
+   "line": 391,
+   "text": "--pqc-…"
+  },
+  {
+   "file": "stories/foundations/carbon/CarbonColors.tsx",
+   "line": 393,
+   "text": "--pqc-…"
+  },
+  {
+   "file": "stories/foundations/carbon/CarbonColors.tsx",
+   "line": 393,
+   "text": "--pqc-…"
+  },
+  {
+   "file": "stories/foundations/depth/depth-model.ts",
+   "line": 50,
+   "text": "--pqc-border-…"
+  },
+  {
+   "file": "stories/foundations/depth/depth-model.ts",
+   "line": 50,
+   "text": "--pqc-border-…"
+  },
+  {
+   "file": "stories/foundations/icons/Illustrations.tsx",
+   "line": 28,
+   "text": "--pqi-hue-…"
+  },
+  {
+   "file": "stories/foundations/icons/icons-model.ts",
+   "line": 65,
+   "text": "--pqc-…"
+  },
+  {
+   "file": "stories/foundations/spacing/Spacing.tsx",
+   "line": 64,
+   "text": "--pqx-…"
+  }
+ ],
+ "hex": []
+}
